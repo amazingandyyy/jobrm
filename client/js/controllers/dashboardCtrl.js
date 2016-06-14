@@ -7,4 +7,5 @@ angular
 
 function dashboardCtrl() {
     console.log("dashboardCtrl loaded");
+    state.go('')
 }
