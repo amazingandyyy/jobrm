@@ -1,5 +1,8 @@
-$brand-primary: #52A2FF !important;
+@import "myvariables";
+@import "override";
 
-.navbar-logo{
-    color: $brand-primary;
-}
+@import "global";
+
+@import "./bootstrap-scss/bootstrap.scss";
+
+@import "./partial/navbar";
