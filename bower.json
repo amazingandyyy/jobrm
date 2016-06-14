@@ -1,0 +1,23 @@
+{
+  "name": "MEAN-Boilerplate",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "David Urbina <durbina1991@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.5",
+    "angular-ui-router": "^0.2.18",
+    "bootstrap-material-design": "^0.5.9"
+  }
+}
