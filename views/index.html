@@ -8,19 +8,22 @@
     <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/bower_components/bootstrap-material-design/dist/css/ripples.min.css">
-    <link rel="stylesheet" href="/bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.min.css">
 
     <!--Personal CSS-->
     <link rel="stylesheet" href="/css/style.css">
 
-    <!--Personal Angular-->
-    <script src="/js/concat.js"></script>
 
 
 
 </head>
-<body ng-app="nameOfApp" ng-controller="mainController">
+<body ng-app="jobrmApp" ng-controller="mainCtrl">
+    <div ui-view="main"></div>
 
+
+
+
+
+    <!--Personal Angular-->
+    <script src="/js/concat.js"></script>
 </body>
 </html>
