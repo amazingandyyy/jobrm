@@ -5,7 +5,6 @@ angular
     .controller("dashboardCtrl", dashboardCtrl)
 
 
-function dashboardCtrl() {
+function dashboardCtrl($scope) {
     console.log("dashboardCtrl loaded");
-    state.go('')
 }

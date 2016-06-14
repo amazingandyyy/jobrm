@@ -1,24 +1,64 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
-
-    <script src="/bower_components/angular/angular.min.js"></script>
-    <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-
+    <title>jobRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel='shortcut icon' type='image/x-icon' href='assets/favicon.ico' />
+    <link href='https://fonts.googleapis.com/css?family=PT+Serif|Lato:100,400,300,700,900' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!--  link to boostrap 4 css -->
+
+    <link href="/bower_components/animate.css/animate.min.css" rel='stylesheet' type='text/css' />
+    <link href="/bower_components/font-awesome/css/font-awesome.min.css" rel='stylesheet' type='text/css' />
+
+
 
     <!--Personal CSS-->
     <link rel="stylesheet" href="/css/style.css">
+    <!--  link to style.css -->
 
 
-    <script src="http://www.w3schools.com/lib/w3data.js"></script>
+    <!-- <script src="http://www.w3schools.com/lib/w3data.js"></script> -->
 
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <!--  Import Angular js -->
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <!--  Import Angular ui router js -->
 
 </head>
+
 <body ng-app="jobrmApp" ng-controller="mainCtrl">
-    <div ui-view="main"></div>
+    <nav class="navbar navbar-light bg-faded">
+        <div class="container">
+            <a class="navbar-brand navbar-logo" href="#"><img src="assets/logo-blue.png"></a>
+        </div>
+    </nav>
+    <!-- <div ui-view="main"> -->
+    <div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h3>applications list</h3>
+                    <hr/>
+                    <div ui-view="applications"></div>
+                </div>
+                <div class="col-sm-5">
+                    <h3>tasks</h3>
+                    <hr/>
+                    <div ui-view="tasks"></div>
+                </div>
+                <div class="col-sm-4">
+                    <h3>details</h3>
+                    <hr/>
+                    <div ui-view="details"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
 
 
 
@@ -27,4 +67,5 @@
     <!--Personal Angular-->
     <script src="/js/bundle.min.js"></script>
 </body>
+
 </html>

@@ -2,7 +2,7 @@
 
 angular
     .module("jobrmApp")
-    .controller("dashboard_applications", dashboard_applications)
+    .controller("dashboardApplicationsCtrl", dashboard_applications)
 
 
 function dashboard_applications() {
