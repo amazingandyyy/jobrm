@@ -1,7 +1,7 @@
 
 //A model of a model file
 
-/*
+
 "use strict";
 
 var mongoose = require("mongoose");
@@ -20,7 +20,7 @@ var userSchema = new mongoose.Schema({
     name : { type : String },
     photo : { type : String },
     friends : [{ type : mongoose.Schema.Types.ObjectId, ref : "User" }],
-    friendRequests : [{ type : mongoose.Schema.Types.ObjectId, ref : "User" }]
+    applications : [{ type : mongoose.Schema.Types.ObjectId, ref : "Application" }]
 });
 
 userSchema.statics.register = function (userObject, callback) {
@@ -80,7 +80,10 @@ userSchema.statics.authenticate = function (loginData, callback) {
     });
 };
 
+userSchema.statics.addApplication = (user, application, cb) => {
+    console.log('working');
+}
 
 var User = mongoose.model("User", userSchema);
 
-module.exports = User;*/
+module.exports = User;
