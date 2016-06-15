@@ -7,6 +7,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state(dashboard)
         .state(task)
+        .state(addApplication)
 
     $urlRouterProvider.otherwise("/dashboard");
 });
@@ -41,6 +42,21 @@ let task = {
         },
         'details': {
             templateUrl: '/html/dashboard_details.html',
+            controller: 'dashboardApplicationCtrl'
+        }
+
+    }
+}
+let addApplication = {
+    name: 'addApplication',
+    url: '/create',
+    views: {
+        'applications': {
+            templateUrl: '/html/dashboard_applications.html',
+            controller: 'dashboardApplicationsCtrl'
+        },
+        'task': {
+            templateUrl: '/html/dashboard_add.html',
             controller: 'dashboardApplicationCtrl'
         }
 

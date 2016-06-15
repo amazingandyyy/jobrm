@@ -19,10 +19,8 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-
     Application.createApp(req.body, (err1, application) => {
         res.status(err1? 400: 200).send(err1 || application);
-
         //  else {
         //      User.addApplication(req.user, application, (err2, addedApplication) => {
         //      if(err2) res.status(400).send(err2);
