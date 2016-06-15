@@ -45,53 +45,32 @@ var applicationSchema = new mongoose.Schema({
     feedbackDate: {
         type: Date,
         required: false
+
     },
+    jobLocation: { type: String, required: false },
+    applicationSite: { type: String, required: false },
+    applicationLink: { type: String, required: false },
+    feedbackDate: { type: Date, required: false },
     referencePerson: {
-        name: {
-            type: String
-        },
-        email: {
-            type: String
-        },
-        number: {
-            type: Number
-        }
+        name: { type: String },
+        email: { type: String },
+        number: { type: Number }
     },
     companyContact: {
-        name: {
-            type: String
-        },
-        email: {
-            type: String
-        },
-        number: {
-            type: Number
-        }
+        name: { type: String },
+        email: { type: String },
+        number: { type: Number}
     },
-    applicationNote: {
-        type: String
-    },
+    applicationNote: { type: String },
     interviewerContact: {
-        name: {
-            type: String
-        },
-        email: {
-            type: String
-        },
-        number: {
-            type: Number
-        }
+        name: { type: String },
+        email: { type: String },
+        number: { type: Number }
     },
-    feedbackNote: {
-        type: String
-    },
-    whatToImprove: {
-        type: String
-    },
-    applicant: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }]
+    feedbackNote: { type: String },
+    whatToImprove: { type: String },
+    completed: { type: Boolean, default: false },
+    applicant: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 });
 
 applicationSchema.statics.getAll = cb => {
@@ -99,7 +78,7 @@ applicationSchema.statics.getAll = cb => {
         if (err) cb(err);
 
         cb(null, applications);
-    });
+    }).populate('applicant');
 };
 
 applicationSchema.statics.getOne = (applicationId, cb) => {
@@ -107,7 +86,7 @@ applicationSchema.statics.getOne = (applicationId, cb) => {
         if (err) cb(err);
 
         cb(null, application);
-    });
+    }).populate('applicant');
 };
 
 applicationSchema.statics.createApp = (applicationObj, cb) => {

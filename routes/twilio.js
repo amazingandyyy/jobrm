@@ -22,7 +22,6 @@ router.get("/", (req, res) => {
        body: 'SMS test by Dave Lee to use Twilio API',
    }, function (err, message) {
 
-
       console.log("client.messagesclient.messagesclient.messagesclient.messagesclient.messages");
 
       if(err) {

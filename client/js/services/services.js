@@ -6,7 +6,7 @@ angular
         this.getAllApplications = () => {
             return $http({
                 method: 'GET',
-                url: `/api/applications/all`
+                url: `/api/applications/`
             });
         }
         this.getOneApplication = (applicationId) => {

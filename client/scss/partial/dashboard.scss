@@ -16,7 +16,8 @@
         background: white;
         height: 93vh;
         max-width: 300px;
-        box-shadow: 1px 0 0 0 #ddd;
+        // box-shadow: 1px 0 0 0 #ddd;
+        border-bottom: 1px solid #ddd;
         overflow-x: hide;
         overflow-y: scroll;
         text-align: left;
@@ -26,6 +27,8 @@
             list-style: none;
             padding-left: 20px;
             margin-bottom: 0 !important;
+            border-right: 1px solid #ddd;
+            height: 95vh;
         }
         li.searchbar {
             padding: 5px 10px;
@@ -35,18 +38,17 @@
             padding-bottom: 1px;
             padding-left: 10px;
             text-align: center;
-            transition: .1s all ease-in-out;
+            transition: 0.1s all ease-in-out;
             border-color: white;
         }
         li.searchbar:hover {
-            transition: .1s all ease-in-out;
+            transition: 0.1s all ease-in-out;
             background: white;
             cursor: default;
             text-align: left;
-            border-color: white;
         }
-        li.searchbar input:focus{
-            transition: .1s all ease-in-out;
+        li.searchbar input:focus {
+            transition: 0.1s all ease-in-out;
             // border-color: $brand-primary;
             border-color: white;
             text-align: left;
@@ -55,7 +57,7 @@
             display: block;
             text-align: left;
             padding: 6px 10px 9px 20px;
-            box-shadow: 0 1px 0 0 #ddd;
+            border-bottom: 1px solid #ddd;
             margin-bottom: -1px;
             user-select: none;
             -webkit-user-select: none;
@@ -88,8 +90,7 @@
         li.active {
             background: rgba($brand-primary, 1);
             color: white !important;
-            box-shadow: 0 1px 0 0 $brand-primary;
-
+            // box-shadow: 0 1px 0 0 $brand-primary;
             span.time {
                 color: rgba(255,255,255,1);
             }
@@ -106,7 +107,7 @@
         display: inline-block;
         float: left;
         background: white;
-        height: 93vh;
+        height: 80vh;
         top: 56px;
         text-align: left;
         padding: 20px;

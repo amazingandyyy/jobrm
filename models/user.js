@@ -29,18 +29,59 @@ var userSchema = new mongoose.Schema({
     name: {
         type: String
     },
-    photo: {
-        type: String
-    },
-    friends: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-    }],
     applications: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Application"
     }]
 });
+
+userSchema.statics.auth = roleRequired => {
+    return (req, res, next) => {
+        var token = req.cookies.accessToken;
+
+        jwt.verify(token, JWT_SECRET, (err, payload) => {
+            if (err) return res.status(401).send({
+                error: 'Authentication required.'
+            });
+
+            User.findById(payload._id, (err, user) => {
+                if (err || !user) return res.status(401).send({
+                    error: 'User not found.'
+                });
+                req.user = user;
+
+                if (roleRequired === 'admin' && !req.user.admin) {
+                    // they don't have admin privilages
+                    return res.status(403).send({
+                        error: 'Not authorized.'
+                    });
+                }
+
+                next(); // they have the required privilages
+            }).select('-password');
+        });
+    };
+};
+
+userSchema.statics.isLoggedIn = (req, res, next) => {
+    var token = req.cookies.accessToken;
+
+    jwt.verify(token, JWT_SECRET, (err, payload) => {
+        if (err) return res.status(401).send({
+            error: 'Authentication required'
+        });
+
+        User.findById(payload._id, (err, user) => {
+            if (err || !user) return res.status(401).send({
+                error: 'User not found'
+            });
+            req.user = user;
+
+            next();
+        }).select('-password');
+    });
+
+};
 
 userSchema.statics.register = function(userObject, callback) {
     User.findOne({
@@ -57,15 +98,18 @@ userSchema.statics.register = function(userObject, callback) {
                 email: userObject.email,
                 password: hash
             });
+
             user.save(callback);
         });
     });
 };
 
 userSchema.methods.generateToken = function() {
+    console.log('working!!!!!!');
     var token = jwt.sign({
         _id: this._id
     }, JWT_SECRET);
+
     return token;
 };
 
@@ -98,6 +142,7 @@ userSchema.statics.isLoggedIn = function(request, response, next) {
 };
 
 userSchema.statics.authenticate = function(loginData, callback) {
+    console.log('routing');
     User.findOne({
         email: loginData.email
     }, function(error, userData) {
@@ -109,8 +154,9 @@ userSchema.statics.authenticate = function(loginData, callback) {
             if (error || !isGood) return callback(error || {
                 error: "Login Failed. Email or Password Incorrect"
             });
-
+            console.log('what the fuck:');
             var token = userData.generateToken();
+            console.log('token:', token)
 
             callback(null, token);
         });
@@ -119,7 +165,31 @@ userSchema.statics.authenticate = function(loginData, callback) {
 
 userSchema.statics.addApplication = (user, application, cb) => {
     console.log('working');
-}
+    User.findById(user._id, (err, dbUser) => {
+        if(dbUser.applications.indexOf(application._id) < 0){
+            dbUser.applications.push(application._id);
+        }
+
+        dbUser.save((err, savedUser) => {
+            if(err) cb(err);
+
+            cb(null, savedUser);
+        });
+    });
+};
+
+userSchema.statics.edit = (id, passedObj, cb) => {
+    User.findByIdAndUpdate(id, {
+        $set: passedObj
+    }, (err, updatedUser) => {
+        if (err) cb(err);
+
+        updatedUser.save((err, savedUser) => {
+            if (err) cb(err);
+            cb(null, savedUser);
+        });
+    });
+};
 
 var User = mongoose.model("User", userSchema);
 
