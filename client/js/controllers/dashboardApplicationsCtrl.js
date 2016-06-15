@@ -2,16 +2,15 @@
 
 angular
     .module("jobrmApp")
-    .controller("dashboardApplicationsCtrl", dashboard_applications)
+    .controller("dashboardApplicationsCtrl", dashboardApplicationsCtrl)
 
 
-function dashboard_applications($scope, Application) {
-    console.log("dashboard_applications loaded");
-
-    // Application.getAllApplications().then(res => {
-    //     console.log('res: ', res.data);
-    //     $scope.applications = res.data
-    // }, err => {
-    //     console.log('err when getting all applications: ', err);
-    // })
+function dashboardApplicationsCtrl($scope, Application) {
+    console.log("dashboardApplicationsCtrl loaded");
+    Application.getAllApplications().then(res => {
+           console.log('res: ', res.data);
+           $scope.applications = res.data
+       }, err => {
+           console.log('err when getting all applications: ', err);
+       })
 }
