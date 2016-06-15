@@ -19,17 +19,7 @@ var applicationSchema = new mongoose.Schema({
     applicationDate: {
         type: String
     },
-    hiringAgency: {
-        name: {
-            type: String
-        },
-        phone: {
-            type: Number
-        },
-        email: {
-            type: String
-        }
-    },
+    hiringAgency: [],
     jobLocation: {
         type: String,
         required: false
@@ -47,30 +37,42 @@ var applicationSchema = new mongoose.Schema({
         required: false
 
     },
-    jobLocation: { type: String, required: false },
-    applicationSite: { type: String, required: false },
-    applicationLink: { type: String, required: false },
-    feedbackDate: { type: Date, required: false },
-    referencePerson: {
-        name: { type: String },
-        email: { type: String },
-        number: { type: Number }
+    jobLocation: {
+        type: String,
+        required: false
     },
-    companyContact: {
-        name: { type: String },
-        email: { type: String },
-        number: { type: Number}
+    applicationSite: {
+        type: String,
+        required: false
     },
-    applicationNote: { type: String },
-    interviewerContact: {
-        name: { type: String },
-        email: { type: String },
-        number: { type: Number }
+    applicationLink: {
+        type: String,
+        required: false
     },
-    feedbackNote: { type: String },
-    whatToImprove: { type: String },
-    completed: { type: Boolean, default: false },
-    applicant: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+    feedbackDate: {
+        type: Date,
+        required: false
+    },
+    referencePerson: [],
+    companyContact: [],
+    applicationNote: {
+        type: String
+    },
+    interviewerContact: [],
+    feedbackNote: {
+        type: String
+    },
+    whatToImprove: {
+        type: String
+    },
+    completed: {
+        type: Boolean,
+        default: false
+    },
+    applicant: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 });
 
 applicationSchema.statics.getAll = cb => {
@@ -114,10 +116,10 @@ applicationSchema.statics.updateApp = (userId, applicationObj, cb) => {
     });
 };
 
-applicationSchema.deleteApp = (userId, applicationId, cb) => {
+applicationSchema.statics.deleteApp = (userId, applicationId, cb) => {
     Application.findByIdAndRemove(applicationId, (err1, deletedApplication) => {
         User.findById(userId, (err2, dbUser) => {
-            if (err1 || err2) cb(err1 || err2);
+            if (err1 || err2) return cb(err1 || err2);
 
             dbUser.applications = dbUser.applications.filter(function(app) {
                 return app.toString() !== applicationId;
