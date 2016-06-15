@@ -1,7 +1,26 @@
+@import "./myvariables";
 body {
-    // padding-top: 55px;
+    padding-top: 100px;
 }
 
-
-@media (max-width: 546px) {
+.container-fluid {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
 }
+// /* Track */
+// // ::-webkit-scrollbar-track {
+// //     background: none;
+// // }
+// /* Handle */
+// ::-webkit-scrollbar-thumb {
+//     -webkit-border-radius: 30px;
+//     border-radius: 30px;
+//     background: $brand-primary;
+// }
+// ::-webkit-scrollbar-thumb:window-inactive {
+//     opacity: 0;
+// }
+.fa {
+    margin: 0px !important;
+}
+@media (max-width: 546px) {}
