@@ -123,5 +123,4 @@ userSchema.statics.addApplication = (user, application, cb) => {
 
 var User = mongoose.model("User", userSchema);
 
-module.exports = User; >>>
->>> > tsinat: models / user.js
+module.exports = User;

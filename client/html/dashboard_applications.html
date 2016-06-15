@@ -1,7 +1,6 @@
-<!-- <ul ng-repeat="application in applications"> -->
-<ul>
+<ul ng-repeat="application in applications">
     <li ui-sref="task({applicationId: application._id})">
-        <div class="title">thie is title <span class="time">time</span></div>
-        <div class="description">this is a little longer text, it may be going to be mutiple lines</div>
+        <div class="title">{{application.company}} <span class="time">{{application.createAt}}</span></div>
+        <div class="description">{{application.jobTitle}}</div>
     </li>
 </ul>

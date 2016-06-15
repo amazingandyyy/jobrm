@@ -6,15 +6,18 @@ var User = require('../models/user');
 var applicationSchema = new mongoose.Schema({
     company: {
         type: String,
-        required: true
+        required: false
     },
     jobTitle: {
         type: String,
-        required: true
+        required: false
     },
-    applicationDate: {
+    createAt: {
         type: Date,
         default: Date.now
+    },
+    applicationDate: {
+        type: String
     },
     hiringAgency: {
         name: {
@@ -29,19 +32,19 @@ var applicationSchema = new mongoose.Schema({
     },
     jobLocation: {
         type: String,
-        required: true
+        required: false
     },
     applicationSite: {
         type: String,
-        required: true
+        required: false
     },
     applicationLink: {
         type: String,
-        required: true
+        required: false
     },
     feedbackDate: {
         type: Date,
-        required: true
+        required: false
     },
     referencePerson: {
         name: {

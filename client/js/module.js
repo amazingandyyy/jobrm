@@ -21,10 +21,10 @@ let dashboard = {
             templateUrl: '/html/dashboard_applications.html',
             controller: 'dashboardApplicationsCtrl'
         },
-        'task': {
-            templateUrl: '/html/dashboard_applications_summary.html',
-            controller: 'dashboardApplicationsCtrl'
-        }
+        // 'task': {
+        //     templateUrl: '/html/dashboard_applications_summary.html',
+        //     controller: 'dashboardApplicationsCtrl'
+        // }
     }
 }
 let task = {
