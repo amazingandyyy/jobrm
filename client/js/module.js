@@ -17,10 +17,10 @@ let dashboard = {
     name: 'dashboard',
     url: '/',
     views: {
-        main: {
-            templateUrl: '/html/dashboard.html',
-            controller: 'dashboardCtrl'
-        },
+        // main: {
+        //     templateUrl: '/html/dashboard.html',
+        //     controller: 'dashboardCtrl'
+        // },
         'applications': {
             templateUrl: '/html/dashboard_applications.html',
             controller: 'dashboardApplicationsCtrl'
