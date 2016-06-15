@@ -1,6 +1,9 @@
-<ul ng-repeat="application in applications">
-    <li ui-sref="task({applicationId: application._id})">
-        <div class="title">{{application.company}} <span class="time">{{application.createAt}}</span></div>
-        <div class="description">{{application.jobTitle}}</div>
+<ul>
+    <li class="sticky">
+        <input type="text" class="form-control form-control-sm ">
+    </li>
+    <li ng-repeat="application in applications" ui-sref-active="active" ui-sref="task({applicationId: application._id})">
+        <div class="app-h1">{{application.company}} <span class="time">{{createTime(application.createAt)}}</span></div>
+        <div class="app-h2">{{application.jobTitle}}</div>
     </li>
 </ul>

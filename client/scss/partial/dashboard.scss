@@ -30,39 +30,52 @@
         li {
             display: block;
             text-align: left;
-            padding: 10px 10px 12px 15px;
+            padding: 6px 10px 9px 20px;
             box-shadow: 0 1px 0 0 #ddd;
             margin-bottom: -1px;
             user-select: none;
             -webkit-user-select: none;
             cursor: pointer;
-            .title {
-                font-weight: 700;
+            .app-h1 {
+                font-weight: 600;
+                font-size: 0.9em;
                 span.time {
                     font-weight: 400;
                     padding-top: 4px;
                     color: rgba(0,0,0,0.4);
-                    font-size: 0.8em;
+                    font-size: 0.7em;
                     display: inline-block;
                     float: right;
                 }
             }
-            .description {
-                font-size: 0.9em;
+            .app-h2 {
+                font-size: 0.8em;
                 line-height: 1.1em;
                 font-weight: 400;
-                color: rgba(0,0,0,0.6);
+                color: rgba(0,0,0,0.4);
             }
         }
         li:hover {
-            background: rgba($brand-primary, 0.09);
-            .title {
-                // color: $brand-primary;
-            }
+            background: rgba(0,0,0, 0.05);
         }
-        li.active,
         li:active {
-            // box-shadow: 5px 0px 0px 0px $brand-primary;
+            background: rgba($brand-primary, 0.08);
+        }
+        li.active {
+            background: rgba($brand-primary, 1);
+            color: white !important;
+            box-shadow: 0 1px 0 0 $brand-primary;
+
+            span.time {
+                color: rgba(255,255,255,1);
+            }
+            .app-h1 {
+                color: white;
+            }
+            .app-h2 {
+                font-weight: 400;
+                color: rgba(255,255,255,0.6);
+            }
         }
     }
     .tasks_section {
@@ -70,7 +83,7 @@
         float: left;
         background: white;
         height: 93vh;
-        top: 55px;
+        top: 56px;
         text-align: left;
         padding: 20px;
     }
@@ -85,7 +98,7 @@
         }
     }
     .section {
-        left: 0px;
+        left: 0;
         width: 100%;
         .application_section {
             display: none;
