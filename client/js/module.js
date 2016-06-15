@@ -5,33 +5,45 @@ var app = angular.module("jobrmApp", ["ui.router"]);
 app.config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
-    // .state(home)
         .state(dashboard)
+        .state(task)
 
-    $urlRouterProvider.otherwise("/");
+    $urlRouterProvider.otherwise("/dashboard");
 });
 
 
 
 let dashboard = {
     name: 'dashboard',
-    url: '/',
+    url: '/dashboard',
     views: {
-        // main: {
-        //     templateUrl: '/html/dashboard.html',
-        //     controller: 'dashboardCtrl'
-        // },
         'applications': {
             templateUrl: '/html/dashboard_applications.html',
             controller: 'dashboardApplicationsCtrl'
         },
-        'tasks': {
-            templateUrl: '/html/dashboard_tasks.html',
-            controller: 'dashboardTasksCtrl'
+        'task': {
+            templateUrl: '/html/dashboard_applications_summary.html',
+            controller: 'dashboardApplicationsCtrl'
+        },
+
+
+    }
+}
+let task = {
+    name: 'task',
+    url: '/task/:applicationId',
+    views: {
+        'applications': {
+            templateUrl: '/html/dashboard_applications.html',
+            controller: 'dashboardApplicationsCtrl'
+        },
+        'task': {
+            templateUrl: '/html/dashboard_task.html',
+            controller: 'dashboardApplicationCtrl'
         },
         'details': {
             templateUrl: '/html/dashboard_details.html',
-            controller: 'dashboardDetailsCtrl'
+            controller: 'dashboardApplicationCtrl'
         }
 
     }
