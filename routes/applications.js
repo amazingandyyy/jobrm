@@ -38,8 +38,8 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
-    Application.deleteApp(req.params.id, (err, deletedApplication) => {
+router.delete('/:userId/delete/:appId', (req, res) => {
+    Application.deleteApp(req.params.userId, req.params.appId, (err, deletedApplication) => {
         res.status(err ? 400: 200).send(err || deletedApplication);
     });
 });

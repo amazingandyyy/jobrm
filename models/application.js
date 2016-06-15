@@ -17,17 +17,7 @@ var applicationSchema = new mongoose.Schema({
     applicationDate: {
         type: String
     },
-    hiringAgency: {
-        name: {
-            type: String
-        },
-        phone: {
-            type: Number
-        },
-        email: {
-            type: String
-        }
-    },
+    hiringAgency: [],
     jobLocation: {
         type: String
     },
@@ -42,53 +32,27 @@ var applicationSchema = new mongoose.Schema({
 
     },
     jobLocation: {
-        type: String
+        type: String,
+        required: false
     },
     applicationSite: {
-        type: String
+        type: String,
+        required: false
     },
     applicationLink: {
-        type: String
+        type: String,
+        required: false
     },
     feedbackDate: {
-        type: Date
+        type: Date,
+        required: false
     },
-    referencePerson: {
-        name: {
-            type: String
-        },
-        email: {
-            type: String
-        },
-        number: {
-            type: Number
-        }
-    },
-    companyContact: {
-        name: {
-            type: String
-        },
-        email: {
-            type: String
-        },
-        number: {
-            type: Number
-        }
-    },
+    referencePerson: [],
+    companyContact: [],
     applicationNote: {
         type: String
     },
-    interviewerContact: {
-        name: {
-            type: String
-        },
-        email: {
-            type: String
-        },
-        number: {
-            type: Number
-        }
-    },
+    interviewerContact: [],
     feedbackNote: {
         type: String
     },
@@ -147,10 +111,10 @@ applicationSchema.statics.updateApp = (userId, applicationObj, cb) => {
     });
 };
 
-applicationSchema.deleteApp = (userId, applicationId, cb) => {
+applicationSchema.statics.deleteApp = (userId, applicationId, cb) => {
     Application.findByIdAndRemove(applicationId, (err1, deletedApplication) => {
         User.findById(userId, (err2, dbUser) => {
-            if (err1 || err2) cb(err1 || err2);
+            if (err1 || err2) return cb(err1 || err2);
 
             dbUser.applications = dbUser.applications.filter(function(app) {
                 return app.toString() !== applicationId;
