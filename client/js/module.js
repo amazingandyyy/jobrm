@@ -24,9 +24,7 @@ let dashboard = {
         'task': {
             templateUrl: '/html/dashboard_applications_summary.html',
             controller: 'dashboardApplicationsCtrl'
-        },
-
-
+        }
     }
 }
 let task = {
