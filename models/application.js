@@ -5,12 +5,10 @@ var User = require('../models/user');
 
 var applicationSchema = new mongoose.Schema({
     company: {
-        type: String,
-        required: false
+        type: String
     },
     jobTitle: {
-        type: String,
-        required: false
+        type: String
     },
     createAt: {
         type: Date,
@@ -31,46 +29,80 @@ var applicationSchema = new mongoose.Schema({
         }
     },
     jobLocation: {
-        type: String,
-        required: false
+        type: String
     },
     applicationSite: {
-        type: String,
-        required: false
+        type: String
     },
     applicationLink: {
-        type: String,
-        required: false
+        type: String
     },
     feedbackDate: {
-        type: Date,
-        required: false
+        type: Date
 
     },
-    jobLocation: { type: String, required: false },
-    applicationSite: { type: String, required: false },
-    applicationLink: { type: String, required: false },
-    feedbackDate: { type: Date, required: false },
+    jobLocation: {
+        type: String
+    },
+    applicationSite: {
+        type: String
+    },
+    applicationLink: {
+        type: String
+    },
+    feedbackDate: {
+        type: Date
+    },
     referencePerson: {
-        name: { type: String },
-        email: { type: String },
-        number: { type: Number }
+        name: {
+            type: String
+        },
+        email: {
+            type: String
+        },
+        number: {
+            type: Number
+        }
     },
     companyContact: {
-        name: { type: String },
-        email: { type: String },
-        number: { type: Number}
+        name: {
+            type: String
+        },
+        email: {
+            type: String
+        },
+        number: {
+            type: Number
+        }
     },
-    applicationNote: { type: String },
+    applicationNote: {
+        type: String
+    },
     interviewerContact: {
-        name: { type: String },
-        email: { type: String },
-        number: { type: Number }
+        name: {
+            type: String
+        },
+        email: {
+            type: String
+        },
+        number: {
+            type: Number
+        }
     },
-    feedbackNote: { type: String },
-    whatToImprove: { type: String },
-    completed: { type: Boolean, default: false },
-    applicant: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+    feedbackNote: {
+        type: String
+    },
+    whatToImprove: {
+        type: String
+    },
+    completed: {
+        type: Boolean,
+        default: false
+    },
+    applicant: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 });
 
 applicationSchema.statics.getAll = cb => {
@@ -92,6 +124,7 @@ applicationSchema.statics.getOne = (applicationId, cb) => {
 applicationSchema.statics.createApp = (applicationObj, cb) => {
     var application = new Application(applicationObj);
     application.save((err, savedApplication) => {
+        console.log('savedApplication: ', savedApplication);
         if (err) cb(err);
 
         cb(null, savedApplication);
