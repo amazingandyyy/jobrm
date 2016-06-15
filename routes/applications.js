@@ -6,7 +6,7 @@ var router = express.Router();
 var Application = require('../models/application');
 var User = require('../models/user');
 
-router.get('/all', (req, res) => {
+router.get('/', (req, res) => {
     Application.getAll((err, allApplications) => {
         res.status(err ? 400: 200).send(err || allApplications);
     });
@@ -19,6 +19,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+
     Application.createApp(req.body, (err1, application) => {
         res.status(err1? 400: 200).send(err1 || application);
 

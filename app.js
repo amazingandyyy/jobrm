@@ -2,6 +2,7 @@
 
 const PORT = process.env.PORT || 3000;
 
+require('dotenv').config();
 var express = require("express");
 var morgan = require("morgan");
 var bodyParser = require("body-parser");
