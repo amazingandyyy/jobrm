@@ -1,0 +1,40 @@
+@import "../myvariables";
+.navbar-logo svg{
+    margin-bottom: -7px;
+    width: 80px;
+    height: auto;
+}
+
+.navbar-logo {
+    fill: rgba(255, 82, 82, 1);
+}
+.navbar-logo:hover {
+    fill: rgba(255, 82, 82, 0.9);
+}
+.navbar {
+    box-shadow: 0px 1px 0px 0px #ddd;
+    padding-left: 2.5em;
+    z-index: 99;
+    background: white;
+}
+.left-section-toggle {
+    float: left;
+    position: absolute;
+    top: 13px;
+    left: 10px;
+    color: #ddd;
+    cursor: pointer;
+    padding: 3px 8px;
+    border-radius: 50px;
+    background: rgba($brand-primary, 0);
+    transition: 0.2s all ease-in-out;
+}
+.left-section-toggle:hover {
+    color: $brand-primary;
+    transition: 1s background ease-in-out;
+}
+.left-section-toggle:active {
+    background: rgba($brand-primary, 0.3);
+    transition: .1s background ease-in-out;
+
+}

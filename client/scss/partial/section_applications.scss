@@ -1,0 +1,21 @@
+@import "../myvariables";
+.section_applications_col {
+    display: none;
+}
+.section_applications_col.active{
+    display: inline-block;
+}
+.section_applications {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: white;
+    height: 100vh;
+    padding: 10px;
+    max-width: 300px;
+    min-width: 200px;
+    width: 80%;
+    box-shadow: 1px 0px 0px 0px #ddd;
+    overflow: hide;
+    padding-top: 0px;
+}

@@ -9,7 +9,8 @@
     <link href='https://fonts.googleapis.com/css?family=PT+Serif|Lato:100,400,300,700,900' rel='stylesheet' type='text/css' />
     <!-- <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"> -->
     <!--  link to boostrap 4 css -->
-
+    <link href='/assets/et-line-font/style.css' rel='stylesheet' type='text/css' />
+    <!-- source: http://rhythm.nikadevs.com/content/icons-et-line -->
     <link href="/bower_components/animate.css/animate.min.css" rel='stylesheet' type='text/css' />
     <link href="/bower_components/font-awesome/css/font-awesome.min.css" rel='stylesheet' type='text/css' />
 
@@ -30,8 +31,11 @@
 </head>
 
 <body ng-app="jobrmApp" ng-controller="mainCtrl">
-    <nav class="navbar navbar-light bg-faded">
-        <div class="container-fuild">
+    <nav class="navbar navbar-light">
+        <span class="left-section-toggle" ng-init="show = false" ng-click="show = !show">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+        </span>
+        <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <div class="navbar-logo">
                     <svg viewBox="9 46 112 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -44,28 +48,27 @@
         </div>
     </nav>
     <!-- <div ui-view="main"> -->
-    <div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-3">
-                    <h3>applications list</h3>
-                    <hr/>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 section_applications_col" ng-class="show? 'active' : '' ">
+                <div class="section_applications">
                     <div ui-view="applications"></div>
                 </div>
-                <div class="col-sm-5">
-                    <h3>tasks</h3>
-                    <hr/>
-                    <div ui-view="tasks"></div>
-                </div>
-                <div class="col-sm-4">
-                    <h3>details</h3>
-                    <hr/>
-                    <div ui-view="details"></div>
-                </div>
+            </div>
+            <div class="col-sm-6">
+                <h3>tasks</h3>
+                <hr/>
+                <div ui-view="tasks"></div>
+            </div>
+            <div class="col-sm-2">
+                <h3>details</h3>
+                <hr/>
+                <div ui-view="details"></div>
             </div>
         </div>
-
     </div>
+
     </div>
 
 

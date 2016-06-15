@@ -33,7 +33,7 @@ $gray-lighter:              #eceeef !default;
 $gray-lightest:             #f7f7f9 !default;
 
 // $brand-primary:             #0275d8 !default;
-$brand-primary:             #52A2FF !default;
+$brand-primary:             #FF5252 !default;
 $brand-success:             #5cb85c !default;
 $brand-info:                #5bc0de !default;
 $brand-warning:             #f0ad4e !default;
@@ -58,7 +58,7 @@ $enable-grid-classes:       true !default;
 // Control the default styling of most Bootstrap elements by modifying these
 // variables. Mostly focused on spacing.
 
-$spacer:                     1rem !default;
+$spacer:                     1.2rem !default;
 $spacer-x:                   $spacer !default;
 $spacer-y:                   $spacer !default;
 $spacers: (
