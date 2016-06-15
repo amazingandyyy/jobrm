@@ -9,6 +9,6 @@ function init() {
 
 function sticky() {
     $(".sticky").sticky({
-        topSpacing: 100
+        topSpacing: 60
     })
 }

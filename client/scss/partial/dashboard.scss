@@ -6,7 +6,7 @@
 .section {
     width: 100%;
     position: absolute;
-    top: 55px;
+    top: 58px;
     left: -20px;
     transition: 0.3s all ease-in-out;
     z-index: 98;
@@ -26,6 +26,30 @@
             list-style: none;
             padding-left: 20px;
             margin-bottom: 0 !important;
+        }
+        li.searchbar {
+            padding: 5px 10px;
+        }
+        li.searchbar input {
+            padding-top: 1px;
+            padding-bottom: 1px;
+            padding-left: 10px;
+            text-align: center;
+            transition: .1s all ease-in-out;
+            border-color: white;
+        }
+        li.searchbar:hover {
+            transition: .1s all ease-in-out;
+            background: white;
+            cursor: default;
+            text-align: left;
+            border-color: white;
+        }
+        li.searchbar input:focus{
+            transition: .1s all ease-in-out;
+            // border-color: $brand-primary;
+            border-color: white;
+            text-align: left;
         }
         li {
             display: block;
