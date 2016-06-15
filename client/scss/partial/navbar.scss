@@ -55,6 +55,22 @@
     transition: 0.1s all ease-in-out;
     font-size: 1.3em;
 }
+.navbar-button-o {
+    margin-top: 2px;
+    margin-left: 5px;
+    margin-right: 5px;
+    float: left;
+    color: #ddd;
+    cursor: pointer;
+    padding: 0px 10px;
+    border-radius: 5px;
+    border: 1px solid white;
+    transition: 0.1s all ease-in-out;
+    font-size: 1.3em;
+}
+.navbar-button-o:hover{
+    color: $brand-primary;
+}
 .navbar-button:hover {
     background: $brand-primary;
     color: white;
