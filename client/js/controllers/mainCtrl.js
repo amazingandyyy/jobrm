@@ -16,7 +16,8 @@ angular
         }
     })
 
-function mainCtrl($scope, $window) {
+function mainCtrl($scope, $window, $timeout, $http, Application) {
+    $scope.loginLoading = false;
     $scope.hide = true;
     console.log("mainCtrl loaded");
     $scope.toggle = () => {
@@ -27,5 +28,50 @@ function mainCtrl($scope, $window) {
         if ($window.innerWidth < 642) {
             $scope.hide = !$scope.hide;
         }
+    }
+    $scope.syncWithGamil = () => {
+        console.log('syncWithGamil triggered, message from mainCtrl');
+        $scope.loginLoading = true;
+        User.syncWithGamil().then(res => {
+            console.log('res from syncWithGamil: ', res.data)
+            // res.data shoul be the  threadId/id list
+            var emailIndexList = res.data;
+            emailIndexList.forEach(email=>{
+                console.log('email: ', email.id);
+                var id = email.id;
+                $http(
+                    method: 'GET',
+                    data: {
+                        // ...
+                    }
+                ).then(res=>{
+                    $scope.trackingCandidateList.unshift(res.data);
+                }, err=>{
+                    console.log('err when get single email: ', err);
+                })
+            })
+        }, err => {
+            console.log('err when getting all applications: ', err);
+        })
+        $timeout(function(){
+            // only for development
+            // pretend to getting threadId/id list
+            // next step will be, do for loop
+            $scope.loginLoading = false;
+        }, 2000)
+    }
+
+    $scope.logout = ()=> {
+        console.log('logout triggered, message from mainCtrl');
+
+    }
+var applications = [];
+    $scope.addingToTrackingList = (application) => {
+        applications.push(application);
+        Application.addMultipleApplications(applications).then(res => {
+            console.log('res from addMultipleApplications: (thx god)', res.data)
+        }, err => {
+            console.log('err when getting all applications: ', err);
+        })
     }
 }
