@@ -1,64 +1,38 @@
 "use strict";
 
-var app = angular.module("jobrmApp", ["ui.router"]);
+angular
+    .module("jobrmApp", ["ui.router"])
+    .config(function($stateProvider, $urlRouterProvider) {
+        $stateProvider
+            .state(dashboard)
+            .state(application)
+            .state(addApplication)
 
-app.config(function($stateProvider, $urlRouterProvider) {
-
-    $stateProvider
-        .state(dashboard)
-        .state(task)
-        .state(addApplication)
-
-    $urlRouterProvider.otherwise("/dashboard");
-});
-
+        $urlRouterProvider.otherwise("/dashboard");
+    })
 
 
 let dashboard = {
     name: 'dashboard',
-    url: '/dashboard',
-    views: {
-        'applications': {
-            templateUrl: '/html/dashboard_applications.html',
-            controller: 'dashboardCtrl'
-        },
-        'task': {
-            templateUrl: '/html/dashboard_applications_summary.html',
-            controller: 'dashboardCtrl'
-        }
-    }
+    url: '/'
 }
-let task = {
-    name: 'task',
-    url: '/task/:applicationId',
+let application = {
+    name: 'application',
+    url: '/app/:applicationId',
     views: {
-        'applications': {
-            templateUrl: '/html/dashboard_applications.html',
-            controller: 'dashboardCtrl'
-        },
         'task': {
             templateUrl: '/html/dashboard_task.html',
-            controller: 'dashboardCtrl'
-        },
-        'details': {
-            templateUrl: '/html/dashboard_details.html',
-            controller: 'dashboardCtrl'
+            controller: 'dashboardTasksCtrl'
         }
-
     }
 }
 let addApplication = {
     name: 'addApplication',
     url: '/create',
     views: {
-        'applications': {
-            templateUrl: '/html/dashboard_applications.html',
-            controller: 'dashboardCtrl'
-        },
         'task': {
             templateUrl: '/html/dashboard_add.html',
-            controller: 'dashboardCtrl'
+            controller: 'dashboardAddingCtrl'
         }
-
     }
 }
