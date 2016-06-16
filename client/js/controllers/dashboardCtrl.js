@@ -5,6 +5,7 @@ angular
     .controller("dashboardCtrl", dashboardCtrl)
 
 
-function dashboardCtrl($scope) {
+function dashboardCtrl($stateParams, $scope, Application, $timeout, $state) {
     console.log("dashboardCtrl loaded");
+
 }

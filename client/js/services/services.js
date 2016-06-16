@@ -15,13 +15,12 @@ angular
                 url: `/api/applications/${applicationId}`
             });
         }
-        // this.createOneApplication = (applicationData) => {
-        //     return $http({
-        //         method: 'POST',
-        //         url: `/api/applications/`,
-        //         data: {
-        //             applicationData: applicationData
-        //         }
-        //     });
-        // }
+        this.createOneApplication = (applicationData) => {
+            console.log('applicationData: ', applicationData);
+            return $http({
+                method: 'POST',
+                url: `/api/applications/`,
+                data: applicationData
+            });
+        }
     })
