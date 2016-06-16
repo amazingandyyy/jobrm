@@ -24,3 +24,11 @@ angular
             });
         }
     })
+    .service("GmailServices", function ($http) {
+        this.retrieveInboxList = function (profileInfo) {
+            let toSend = {};
+            toSend.profile = profileInfo;
+            toSend.accessToken = profileInfo.identities[0].access_token;
+            return $http.put("/api/gmailAPI/getMessagesList/", toSend);
+        };
+    });

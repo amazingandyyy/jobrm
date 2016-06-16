@@ -1,8 +1,35 @@
 "use strict";
 
 angular
-    .module("jobrmApp", ["ui.router"])
-    .config(function($stateProvider, $urlRouterProvider) {
+    .module("jobrmApp", ["ui.router", "auth0", "angular-storage", "angular-jwt"])
+    .config(function($stateProvider, $urlRouterProvider, authProvider, $httpProvider, $locationProvider, jwtInterceptorProvider) {
+        ///Auth0 Shit
+        authProvider.init({
+            domain: 'durbina.auth0.com',
+            clientID: 'USRhQhbNBhwGgJguSUHubkKjcAXY0zcX',
+            loginState: 'login'
+        });
+        //Angular HTTP Interceptor function
+        jwtInterceptorProvider.tokenGetter = function(store) {
+            return store.get('token');
+        };
+        //Called when login is successful
+        authProvider.on('loginSuccess', function($location, profilePromise, idToken, store) {
+            console.log("Login Success");
+            profilePromise.then(function(profile) {
+                store.set('profile', profile);
+                store.set('token', idToken);
+            });
+            $location.path('/');
+        });
+        //Called when login fails
+        authProvider.on('loginFailure', function() {
+            console.log("Error logging in");
+            $location.path('/login');
+        });
+        //Push interceptor function to $httpProvider's interceptors
+        $httpProvider.interceptors.push('jwtInterceptor');
+
         $stateProvider
             .state(dashboard)
             .state(application)
@@ -15,7 +42,7 @@ angular
 let dashboard = {
     name: 'dashboard',
     url: '/'
-}
+};
 let application = {
     name: 'application',
     url: '/app/:applicationId',
@@ -25,7 +52,7 @@ let application = {
             controller: 'dashboardTasksCtrl'
         }
     }
-}
+};
 let addApplication = {
     name: 'addApplication',
     url: '/create',
@@ -35,4 +62,4 @@ let addApplication = {
             controller: 'dashboardAddingCtrl'
         }
     }
-}
+};
