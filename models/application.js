@@ -17,7 +17,6 @@ var applicationSchema = new mongoose.Schema({
     applicationDate: {
         type: String
     },
-    hiringAgency: [],
     jobLocation: {
         type: String
     },
@@ -46,13 +45,10 @@ var applicationSchema = new mongoose.Schema({
         type: Date,
         required: false
     },
-    referencePerson: [],
-    companyContact: [],
-    applicationNote: {
+    feedbackNote: {
         type: String
     },
-    interviewerContact: [],
-    feedbackNote: {
+    applicationNote: {
         type: String
     },
     whatToImprove: {
@@ -62,6 +58,10 @@ var applicationSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    hiringAgency: [],
+    referencePerson: [],
+    companyContact: [],
+    interviewerContact: [],
     applicant: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -84,11 +84,29 @@ applicationSchema.statics.getOne = (applicationId, cb) => {
     }).populate('applicant');
 };
 
+// applicationSchema.statics.createApps = (applicationArr, cb) => {
+//     applicationArr.forEach(applicationObj=>{
+//
+//     })
+// }
 applicationSchema.statics.createApp = (applicationObj, cb) => {
     console.log('applicationObj: ', applicationObj);
     Application.create(applicationObj, (err, application) => {
         console.log('applicationsssss: ', application);
         if (err) cb(err);
+        Application.findById(application._id, (err2, dbApplication) => {
+            if(err2 || !dbApplication) return cb(err2);
+            dbApplication.hiringAgency.push(applicationObj.hiringAgency);
+            dbApplication.referencePerson.push(applicationObj.referencePerson);
+            dbApplication.companyContact.push(applicationObj.companyContact);
+            dbApplication.interviewerContact.push(applicationObj.interviewerContact);
+
+            dbApplication.save((err, application) => {
+                if(err) return cb(err);
+                cb(null, application);
+            });
+
+        });
         cb(null, application);
     });
     // var application = new Application(applicationObj);

@@ -26,8 +26,10 @@ var userSchema = new mongoose.Schema({
     applications: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Application"
-    }]
+    }],
+    emailIndexList: {}
 });
+
 
 userSchema.statics.auth = roleRequired => {
     return (req, res, next) => {
