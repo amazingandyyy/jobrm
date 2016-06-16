@@ -11,6 +11,11 @@ router.get('/', (req, res) => {
         res.status(err ? 400: 200).send(err || allApplications);
     });
 });
+router.delete('/all', (req, res) => {
+    Application.remove({}, (err, allApplications) => {
+        res.status(err ? 400: 200).send(err || allApplications);
+    });
+});
 
 router.get('/:id', (req, res) => {
     Application.findById(req.params.id, (err, application) => {
@@ -20,7 +25,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
     console.log('new application: ', req.body);
-    Application.createApp(req.body, (err, application) => {
+    Application.create(req.body, (err, application) => {
         console.log('application: ', application);
         res.status(err? 400: 200).send(err || application);
         //  else {

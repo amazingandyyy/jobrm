@@ -29,7 +29,6 @@ var applicationSchema = new mongoose.Schema({
     },
     feedbackDate: {
         type: Date
-
     },
     jobLocation: {
         type: String,
@@ -86,13 +85,20 @@ applicationSchema.statics.getOne = (applicationId, cb) => {
 };
 
 applicationSchema.statics.createApp = (applicationObj, cb) => {
-    var application = new Application(applicationObj);
-    application.save((err, savedApplication) => {
-        console.log('savedApplication: ', savedApplication);
+    console.log('applicationObj: ', applicationObj);
+    Application.create(applicationObj, (err, application) => {
+        console.log('applicationsssss: ', application);
         if (err) cb(err);
-
-        cb(null, savedApplication);
+        cb(null, application);
     });
+    // var application = new Application(applicationObj);
+    // console.log('applicationsssss: ', application);
+    // application.save((err, savedApplication) => {
+    //     console.log('savedApplication: ', savedApplication);
+    //     if (err) cb(err);
+    //
+    //     cb(null, savedApplication);
+    // });
 };
 
 applicationSchema.statics.updateApp = (userId, applicationObj, cb) => {

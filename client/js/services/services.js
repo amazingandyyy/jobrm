@@ -20,9 +20,7 @@ angular
             return $http({
                 method: 'POST',
                 url: `/api/applications/`,
-                data: {
-                    applicationData: applicationData
-                }
+                data: applicationData
             });
         }
     })

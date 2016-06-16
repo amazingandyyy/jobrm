@@ -20,11 +20,11 @@ let dashboard = {
     views: {
         'applications': {
             templateUrl: '/html/dashboard_applications.html',
-            controller: 'dashboardApplicationsCtrl'
+            controller: 'dashboardCtrl'
         },
         'task': {
             templateUrl: '/html/dashboard_applications_summary.html',
-            controller: 'dashboardApplicationsCtrl'
+            controller: 'dashboardCtrl'
         }
     }
 }
@@ -34,15 +34,15 @@ let task = {
     views: {
         'applications': {
             templateUrl: '/html/dashboard_applications.html',
-            controller: 'dashboardApplicationsCtrl'
+            controller: 'dashboardCtrl'
         },
         'task': {
             templateUrl: '/html/dashboard_task.html',
-            controller: 'dashboardApplicationCtrl'
+            controller: 'dashboardCtrl'
         },
         'details': {
             templateUrl: '/html/dashboard_details.html',
-            controller: 'dashboardApplicationCtrl'
+            controller: 'dashboardCtrl'
         }
 
     }
@@ -53,11 +53,11 @@ let addApplication = {
     views: {
         'applications': {
             templateUrl: '/html/dashboard_applications.html',
-            controller: 'dashboardApplicationsCtrl'
+            controller: 'dashboardCtrl'
         },
         'task': {
             templateUrl: '/html/dashboard_add.html',
-            controller: 'dashboardApplicationCtrl'
+            controller: 'dashboardCtrl'
         }
 
     }
