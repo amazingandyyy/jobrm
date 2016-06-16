@@ -14,7 +14,13 @@ angular
 
 let dashboard = {
     name: 'dashboard',
-    url: '/'
+    url: '/dashboard',
+    views: {
+        'task': {
+            templateUrl: '/html/dashboard_summary.html',
+            controller: 'dashboardListCtrl'
+        }
+    }
 }
 let application = {
     name: 'application',
