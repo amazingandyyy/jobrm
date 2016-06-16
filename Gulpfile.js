@@ -16,6 +16,7 @@ var nodemon = require('gulp-nodemon');
 var cleanCSS = require('gulp-clean-css');
 var browserSync = require('browser-sync');
 
+
 // browserSync({
 //     server: true,
 //     port: 8000
@@ -65,7 +66,10 @@ gulp.task('js', ['clean:js'], function() {
             presets: ['es2015']
         }))
         .pipe(concat('bundle.min.js'))
-        .pipe(uglify())
+        //for this project, I had to add the following options because there was
+        //an issue with minifying the code and Angular not injecting dependencies
+        // David U.
+        .pipe(uglify({ mangle: false, compress:true, output: { beautify: false }} ))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('public/js')); // output files
 });
