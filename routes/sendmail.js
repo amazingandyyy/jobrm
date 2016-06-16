@@ -1,17 +1,21 @@
 var router = require('express').Router();
 var nodemailer = require('nodemailer');
 
-var secret = process.env.GMAIL_PASSWORD;
-var email = process.env.EMAIL_ACCOUNT;
 
 router.post('/', (req, res) => {
     var userEmail = req.body.email;
     var subject = req.body.subject
     var message = req.body.message
-    var transporter = nodemailer.createTransport(`smtps://${email}:${secret}@smtp.gmail.com`);
+    var transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+            user: process.env.EMAIL_ACCOUNT,
+            pass: process.env.GMAIL_PASSWORD
+        }
+        });
 
     var mailOptions = {
-        from: `"JRM" ${email}`, // sender address
+        from: `"JRM" ${process.env.GMAIL_PASSWORD}`, // sender address
         to: userEmail, // list of receivers
         subject: subject, // Subject line
         text: message, // plaintext body
