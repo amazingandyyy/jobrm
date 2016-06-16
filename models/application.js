@@ -5,12 +5,10 @@ var User = require('../models/user');
 
 var applicationSchema = new mongoose.Schema({
     company: {
-        type: String,
-        required: false
+        type: String
     },
     jobTitle: {
-        type: String,
-        required: false
+        type: String
     },
     createAt: {
         type: Date,
@@ -21,21 +19,16 @@ var applicationSchema = new mongoose.Schema({
     },
     hiringAgency: [],
     jobLocation: {
-        type: String,
-        required: false
+        type: String
     },
     applicationSite: {
-        type: String,
-        required: false
+        type: String
     },
     applicationLink: {
-        type: String,
-        required: false
+        type: String
     },
     feedbackDate: {
-        type: Date,
-        required: false
-
+        type: Date
     },
     jobLocation: {
         type: String,
@@ -92,12 +85,20 @@ applicationSchema.statics.getOne = (applicationId, cb) => {
 };
 
 applicationSchema.statics.createApp = (applicationObj, cb) => {
-    var application = new Application(applicationObj);
-    application.save((err, savedApplication) => {
+    console.log('applicationObj: ', applicationObj);
+    Application.create(applicationObj, (err, application) => {
+        console.log('applicationsssss: ', application);
         if (err) cb(err);
-
-        cb(null, savedApplication);
+        cb(null, application);
     });
+    // var application = new Application(applicationObj);
+    // console.log('applicationsssss: ', application);
+    // application.save((err, savedApplication) => {
+    //     console.log('savedApplication: ', savedApplication);
+    //     if (err) cb(err);
+    //
+    //     cb(null, savedApplication);
+    // });
 };
 
 applicationSchema.statics.updateApp = (userId, applicationObj, cb) => {

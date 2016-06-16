@@ -107,10 +107,12 @@
         display: inline-block;
         float: left;
         background: white;
-        height: 80vh;
+        height: 93vh;
         top: 56px;
         text-align: left;
         padding: 20px;
+        overflow-y: scroll;
+        width: 60%;
     }
 }
 @media (max-width: 600px) {

@@ -12,6 +12,11 @@ router.get('/', (req, res) => {
         res.status(err ? 400: 200).send(err || allApplications);
     });
 });
+router.delete('/all', (req, res) => {
+    Application.remove({}, (err, allApplications) => {
+        res.status(err ? 400: 200).send(err || allApplications);
+    });
+});
 
 router.get('/:id', (req, res) => {
     Application.findById(req.params.id, (err, application) => {
@@ -20,16 +25,16 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-
-    Application.createApp(req.body, (err1, application) => {
-        res.status(err1? 400: 200).send(err1 || application);
-
+    console.log('new application: ', req.body);
+    Application.create(req.body, (err, application) => {
+        console.log('application: ', application);
+        res.status(err? 400: 200).send(err || application);
         //  else {
         //      User.addApplication(req.user, application, (err2, addedApplication) => {
         //      if(err2) res.status(400).send(err2);
         //      })
         // }
-        // res.send();
+        // res.send(application);
     });
 });
 
