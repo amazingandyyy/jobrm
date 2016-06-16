@@ -6,7 +6,7 @@
 .section {
     width: 100%;
     position: absolute;
-    top: 58px;
+    top: 55px;
     left: -20px;
     transition: 0.3s all ease-in-out;
     z-index: 98;
@@ -16,21 +16,22 @@
         background: white;
         height: 93vh;
         max-width: 300px;
-        // box-shadow: 1px 0 0 0 #ddd;
-        border-bottom: 1px solid #ddd;
+        min-width: 300px;
         overflow-x: hide;
         overflow-y: scroll;
         text-align: left;
         width: 30%;
-        min-width: 250px;
         ul {
             list-style: none;
             padding-left: 20px;
             margin-bottom: 0 !important;
-            border-right: 1px solid #ddd;
+            // border-right: 1px solid #ddd;
             height: 95vh;
         }
         li.searchbar {
+            background: white;
+            // width: 300px;
+            transition: 0.4s all ease-in-out;
             padding: 5px 10px;
         }
         li.searchbar input {
@@ -38,7 +39,7 @@
             padding-bottom: 1px;
             padding-left: 10px;
             text-align: center;
-            transition: 0.1s all ease-in-out;
+            transition: 0.4s all ease-in-out;
             border-color: white;
         }
         li.searchbar:hover {
@@ -48,8 +49,7 @@
             text-align: left;
         }
         li.searchbar input:focus {
-            transition: 0.1s all ease-in-out;
-            // border-color: $brand-primary;
+            transition: 0.5s all ease-in-out;
             border-color: white;
             text-align: left;
         }
@@ -102,39 +102,46 @@
                 color: rgba(255,255,255,0.6);
             }
         }
+        li.bottom {
+            height: 20px;
+        }
     }
     .tasks_section {
         display: inline-block;
         float: left;
         background: white;
         height: 93vh;
-        top: 56px;
+        top: 54px;
         text-align: left;
         padding: 20px;
         overflow-y: scroll;
-        width: 60%;
+        // width: 50%;
+        // border-right: 1px solid #ddd;
+        border-left: 1px solid #ddd;
     }
 }
-@media (max-width: 600px) {
+@media (max-width: 642px) {
     .section.hide {
         left: -20px;
         .application_section {
             display: inline-block;
-            width: 414px;
-            // min-width:
+            width: 100%;
         }
     }
     .section {
-        left: 0;
-        width: 100%;
+        top: 45px;
+        left: 0px;
+        width: 1300px;
         .application_section {
             display: none;
+            max-width: 104.5vw;
+            font-size: 1.5em;
+            li {
+                padding: 10px 10px 14px 20px;
+            }
         }
     }
-    // .application_section {
-    //     z-index: 99;
-    // }
-    // .tasks_section {
-    //     z-index: 97;
-    // }
+    .tasks_section {
+        width: 80%
+    }
 }

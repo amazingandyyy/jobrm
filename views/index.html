@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>jobRM</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=yes, initial-scale=1, maximum-scale=1">
     <link href='https://fonts.googleapis.com/css?family=PT+Serif|Lato:100,400,300,700,900' rel='stylesheet' type='text/css' />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"> -->
     <!--  link to boostrap 4 css -->
     <link href='/assets/et-line-font/style.css' rel='stylesheet' type='text/css' />
@@ -32,15 +33,16 @@
 </head>
 
 <body ng-app="jobrmApp" ng-controller="mainCtrl">
-    <div ng-if="currentUser.applications">
+    <div ng-if="!currentUser.applications">
         <nav class="navbar navbar-light navbar-fixed-top">
             <!-- <span class="left-section-toggle" ng-init="hide = true" ng-click="hide = !hide">
                 <i class="fa fa-bars" aria-hidden="true"></i>
             </span> -->
-            <span class="navbar-button-o" ng-init="hide = true" ng-click="hide = !hide">
+            <span class="navbar-button-o" ng-click="toggle()">
                 <i class="fa fa-bars" aria-hidden="true"></i>
             </span>
             <span class="navbar-button" ui-sref="addApplication">
+                <!-- <i class="material-icons">add</i> -->
                 <i class="fa fa-plus" aria-hidden="true"></i>
             </span>
             <div class="container-fluid">
@@ -59,11 +61,13 @@
                 <div ng-controller="dashboardListCtrl">
                     <ul>
                         <li class="searchbar">
-                            <input type="text" class="form-control form-control-sm" placeholder="Search applications" ng-model="searchFilter">
+                            <input type="text" class="form-control form-control-sm" placeholder="&#xf002;" style="font-family:Lato, Arial, FontAwesome" ng-model="searchFilter">
                         </li>
-                        <li ng-click="toggle()" ng-repeat="application in applications | filter:searchFilter" ui-sref-active="active" ui-sref="application({applicationId: application._id})">
+                        <li class="application" ng-click="toggle_mobile()" ng-repeat="application in applications | filter:searchFilter" ui-sref-active="active" ui-sref="application({applicationId: application._id})">
                             <div class="app-h1">{{application.company}} <span class="time">{{createTime(application.createAt)}}</span></div>
                             <div class="app-h2">{{application.jobTitle}}</div>
+                        </li>
+                        <li class="bottom">
                         </li>
                     </ul>
                 </div>
@@ -73,12 +77,12 @@
             </div>
         </div>
     </div>
-    <div ng-if="currentUser && !currentUser.applications">
+    <!-- <div ng-if="currentUser && !currentUser.applications">
         <h3>list</h3>
     </div>
     <div ng-if="!currentUser">
         <button ng-click="gmailLogin" type="button" class="btn btn-primary">Gmail Login</button>
-    </div>
+    </div> -->
 
     <script src="/js/bundle.min.js"></script>
 </body>

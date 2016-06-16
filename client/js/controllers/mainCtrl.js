@@ -17,9 +17,14 @@ angular
     })
 
 function mainCtrl($scope, $window) {
+    $scope.hide = true;
     console.log("mainCtrl loaded");
     $scope.toggle = () => {
-        if($window.innerWidth < 600){
+        $scope.hide = !$scope.hide;
+    }
+    $scope.toggle_mobile = () => {
+        console.log('$window.innerWidth: ', $window.innerWidth);
+        if ($window.innerWidth < 642) {
             $scope.hide = !$scope.hide;
         }
     }

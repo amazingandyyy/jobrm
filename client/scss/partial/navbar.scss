@@ -1,19 +1,23 @@
 @import "../myvariables";
-
-.navbar-brand{
+.navbar-brand {
     float: right;
 }
-
 .navbar-logo svg {
     margin-bottom: -7px;
-    width: 80px;
+    width: 60px;
     height: auto;
 }
 .navbar-logo {
-    fill: rgba(255, 82, 82, 1);
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    fill: #eee;
+    transition: 1s all ease-in-out;
+
 }
 .navbar-logo:hover {
-    fill: rgba(255, 82, 82, 0.9);
+    transition: 1s all ease-in-out;
+    fill: rgba(255, 82, 82, 1);
 }
 .navbar {
     box-shadow: 0 1px 0 0 #ddd;
@@ -30,7 +34,7 @@
     cursor: pointer;
     padding: 3px 8px;
     border-radius: 50px;
-    background: rgba($brand-primary, 0);
+    background: white;
     transition: 0.2s all ease-in-out;
     font-size: 1.3em;
 }
@@ -49,8 +53,8 @@
     float: left;
     color: #ddd;
     cursor: pointer;
-    padding: 0px 10px;
-    border-radius: 5px;
+    padding: 0 10px;
+    border-radius: 3px;
     border: 1px solid;
     transition: 0.1s all ease-in-out;
     font-size: 1.3em;
@@ -62,28 +66,33 @@
     float: left;
     color: #ddd;
     cursor: pointer;
-    padding: 0px 10px;
+    padding: 0 10px;
     border-radius: 5px;
     border: 1px solid white;
-    transition: 0.1s all ease-in-out;
+    // transition: 0.1s all ease-in-out;
     font-size: 1.3em;
 }
-.navbar-button-o:hover{
+.navbar-button-o:hover {
     color: $brand-primary;
 }
-.navbar-button:hover {
+.navbar-button {
+    // .navbar-button:hover {
     background: $brand-primary;
     color: white;
     border: 1px solid $brand-primary;
-    transition: 0.1s background ease-in-out;
-    box-shadow: 0px 1px 2px -1px rgba(0,0,0,0.4);
+    transition: 0.2s background ease-in-out;
+    box-shadow: 0 1px 2px -1px rgba(0,0,0,0.4);
 }
-// .navbar-button:active {
-//     background: rgba($brand-primary, 0.3);
-//     transition: 0.1s background ease-in-out;
-// }
+.navbar-button:active {
+    background: darken($brand-primary, 10%);
+}
 @media (max-width: 546px) {
-    // .navbar {
-    //     z-index: 1;
-    // }
+    .navbar {
+        font-size: 0.8;
+        padding: 5px 0 5px 5px;
+        .navbar-logo svg {
+            width: 80px;
+            opacity: 0.7;
+        }
+    }
 }
