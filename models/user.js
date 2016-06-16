@@ -20,12 +20,6 @@ var userSchema = new mongoose.Schema({
     google: {
         type: String
     },
-    biography: {
-        type: String
-    },
-    linksToProfiles: [{
-        type: String
-    }],
     name: {
         type: String
     },
