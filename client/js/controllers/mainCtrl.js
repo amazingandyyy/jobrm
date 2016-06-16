@@ -16,23 +16,31 @@ angular
         }
     })
 
-function mainCtrl($scope, $window, auth, store, $location, GmailServices) {
+
+function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices) {
+    $scope.hide = true;
     console.log("mainCtrl loaded");
     $scope.toggle = () => {
-        if($window.innerWidth < 600){
+        $scope.hide = !$scope.hide;
+    };
+    $scope.toggle_mobile = () => {
+        console.log('$window.innerWidth: ', $window.innerWidth);
+        if ($window.innerWidth < 642) {
             $scope.hide = !$scope.hide;
         }
     };
     //auth profile
     $scope.auth = auth;
-    //current user = auth.profile;
     $scope.currentUser = store.get("profile");
+
     //user sign-in
     $scope.signIn = function () {
         auth.signin({}, function (profile, token) {
             store.set("profile", profile);
             store.set("id_token", token);
             $location.path("/");
+            //current user = auth.profile;
+            $scope.currentUser = store.get("profile");
         }, function (error) {
             console.log("Error: ", error);
         })
@@ -42,7 +50,7 @@ function mainCtrl($scope, $window, auth, store, $location, GmailServices) {
         auth.signout();
         store.remove("profile");
         store.remove("token");
-        $location.path("/");
+        $scope.currentUser = null;
     };
 
     if (store.get("profile")) {
