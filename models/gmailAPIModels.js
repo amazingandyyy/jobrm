@@ -11,8 +11,8 @@ const gmailAPIOperations = {
                 Authorization: `Bearer ${userData.accessToken}`
             }
         };
-        requestNPM(options, function (error, body) {
-            callback(error, body);
+        requestNPM(options, function (error, responseObject, body) {
+            callback(error, responseObject, body);
         });
     }
     

@@ -13,7 +13,7 @@ angular
         jwtInterceptorProvider.tokenGetter = function(store) {
             return store.get('token');
         };
-        //Called when login is successful
+/*        //Called when login is successful
         authProvider.on('loginSuccess', function($location, profilePromise, idToken, store) {
             console.log("Login Success");
             profilePromise.then(function(profile) {
@@ -21,7 +21,7 @@ angular
                 store.set('token', idToken);
             });
             $location.path('/');
-        });
+        });*/
         //Called when login fails
         authProvider.on('loginFailure', function() {
             console.log("Error logging in");
@@ -37,6 +37,23 @@ angular
 
         $urlRouterProvider.otherwise("/dashboard");
     })
+    .run(function($rootScope, auth, store, jwtHelper, $location) {
+        $rootScope.$on('$locationChangeStart', function() {
+
+            var token = store.get('token');
+            if (token) {
+                if (!jwtHelper.isTokenExpired(token)) {
+                    if (!auth.isAuthenticated) {
+                        //Re-authenticate user if token is valid
+                        auth.authenticate(store.get('profile'), token);
+                    }
+                } else {
+                    // Either show the login page or use the refresh token to get a new idToken
+                    $location.path('/');
+                }
+            }
+        });
+    });
 
 
 let dashboard = {
