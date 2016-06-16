@@ -1,0 +1,43 @@
+@import "../myvariables";
+.loginSection {
+    text-align: center;
+    padding-top: 150px;
+    display: block;
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    z-index: 999;
+    background: rgba($brand-primary, 1);
+    // background: white;
+    top: 0;
+    left: 0;
+    svg {
+        width: 100px;
+        fill: white;
+    }
+    .btn-login {
+        background: #ff1f1f;
+        border-color: #ff1515;
+        transition: .3s background ease-in-out;
+    }
+    .btn-login:hover {
+        background: white;
+        color: $brand-primary;
+        transition: .2s background ease-in-out;
+    }
+    .btn-logout {
+        position: fixed;
+        bottom: 30px;
+        left: 42.7%;
+        background: white;
+        color: $brand-primary;
+        transition: .2s background ease-in-out;
+    }
+    .btn-logout:hover{
+        background: #ff1f1f;
+        border-color: #ff1515;
+        color: rgba(white, 1);
+        transition: .3s background ease-in-out;
+    }
+}
+@media (max-width: 642px) {}
