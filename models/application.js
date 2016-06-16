@@ -5,12 +5,10 @@ var User = require('../models/user');
 
 var applicationSchema = new mongoose.Schema({
     company: {
-        type: String,
-        required: false
+        type: String
     },
     jobTitle: {
-        type: String,
-        required: false
+        type: String
     },
     createAt: {
         type: Date,
@@ -19,16 +17,18 @@ var applicationSchema = new mongoose.Schema({
     applicationDate: {
         type: String
     },
-    hiringAgency: {
-        name: {
-            type: String
-        },
-        phone: {
-            type: Number
-        },
-        email: {
-            type: String
-        }
+    hiringAgency: [],
+    jobLocation: {
+        type: String
+    },
+    applicationSite: {
+        type: String
+    },
+    applicationLink: {
+        type: String
+    },
+    feedbackDate: {
+        type: Date
     },
     jobLocation: {
         type: String,
@@ -45,32 +45,27 @@ var applicationSchema = new mongoose.Schema({
     feedbackDate: {
         type: Date,
         required: false
-
     },
-    jobLocation: { type: String, required: false },
-    applicationSite: { type: String, required: false },
-    applicationLink: { type: String, required: false },
-    feedbackDate: { type: Date, required: false },
-    referencePerson: {
-        name: { type: String },
-        email: { type: String },
-        number: { type: Number }
+    referencePerson: [],
+    companyContact: [],
+    applicationNote: {
+        type: String
     },
-    companyContact: {
-        name: { type: String },
-        email: { type: String },
-        number: { type: Number}
+    interviewerContact: [],
+    feedbackNote: {
+        type: String
     },
-    applicationNote: { type: String },
-    interviewerContact: {
-        name: { type: String },
-        email: { type: String },
-        number: { type: Number }
+    whatToImprove: {
+        type: String
     },
-    feedbackNote: { type: String },
-    whatToImprove: { type: String },
-    completed: { type: Boolean, default: false },
-    applicant: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+    completed: {
+        type: Boolean,
+        default: false
+    },
+    applicant: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 });
 
 applicationSchema.statics.getAll = cb => {
@@ -90,12 +85,20 @@ applicationSchema.statics.getOne = (applicationId, cb) => {
 };
 
 applicationSchema.statics.createApp = (applicationObj, cb) => {
-    var application = new Application(applicationObj);
-    application.save((err, savedApplication) => {
+    console.log('applicationObj: ', applicationObj);
+    Application.create(applicationObj, (err, application) => {
+        console.log('applicationsssss: ', application);
         if (err) cb(err);
-
-        cb(null, savedApplication);
+        cb(null, application);
     });
+    // var application = new Application(applicationObj);
+    // console.log('applicationsssss: ', application);
+    // application.save((err, savedApplication) => {
+    //     console.log('savedApplication: ', savedApplication);
+    //     if (err) cb(err);
+    //
+    //     cb(null, savedApplication);
+    // });
 };
 
 applicationSchema.statics.updateApp = (userId, applicationObj, cb) => {
@@ -114,10 +117,10 @@ applicationSchema.statics.updateApp = (userId, applicationObj, cb) => {
     });
 };
 
-applicationSchema.deleteApp = (userId, applicationId, cb) => {
+applicationSchema.statics.deleteApp = (userId, applicationId, cb) => {
     Application.findByIdAndRemove(applicationId, (err1, deletedApplication) => {
         User.findById(userId, (err2, dbUser) => {
-            if (err1 || err2) cb(err1 || err2);
+            if (err1 || err2) return cb(err1 || err2);
 
             dbUser.applications = dbUser.applications.filter(function(app) {
                 return app.toString() !== applicationId;
