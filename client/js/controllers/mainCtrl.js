@@ -34,19 +34,19 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
     $scope.currentUser = store.get("profile");
 
     //user sign-in
-    $scope.signIn = function () {
-        auth.signin({}, function (profile, token) {
+    $scope.signIn = function() {
+        auth.signin({}, function(profile, token) {
             store.set("profile", profile);
             store.set("id_token", token);
             $location.path("/");
             //current user = auth.profile;
             $scope.currentUser = store.get("profile");
-        }, function (error) {
+        }, function(error) {
             console.log("Error: ", error);
         })
     };
     //user logout
-    $scope.logout = function () {
+    $scope.logout = function() {
         auth.signout();
         store.remove("profile");
         store.remove("token");
@@ -60,9 +60,10 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
         // Was Used to test Gmail Calls/Routes
         GmailServices.retrieveInboxList(profileInfo)
             .then(function (response) {
+
                 console.log("Response: ", response.data)
             })
-            .catch(function (error) {
+            .catch(function(error) {
                 console.log("Error: ", error);
             });
     }

@@ -13,6 +13,7 @@ router.put("/getMessagesList", function (request, response) {
     //modify to get a list of emails with a specific label
      gmailAPI.getMessagesList(request.body, function (error, responseObject, data) {
          if (error) response.status(400).send(error);
+         console.log('data')
          response.send(data);
      });
 });
@@ -25,3 +26,4 @@ router.put("/introduction/getMessageList", function (request, response) {
 });
 
 module.exports = router;
+
