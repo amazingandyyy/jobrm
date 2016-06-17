@@ -2,11 +2,18 @@
 body {
     padding-top: 100px;
     overflow: hidden;
+    position:relative;
 }
 
 .container-fluid {
     padding-left: 0px !important;
     padding-right: 0px !important;
+}
+.btn {
+    outline: none !important;
+}
+.btn:active {
+    opacity: 0.9 !important;
 }
 // /* Track */
 // // ::-webkit-scrollbar-track {

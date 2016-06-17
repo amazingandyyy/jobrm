@@ -36,6 +36,7 @@ var userSchema = new mongoose.Schema({
     emailIndexList: {}
 });
 
+
 userSchema.statics.auth = roleRequired => {
     return (req, res, next) => {
         var token = req.cookies.accessToken;
