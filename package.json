@@ -1,5 +1,5 @@
 {
-  "name": "MEAN-Boilerplate",
+  "name": "job-application-manager",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -12,7 +12,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "async": "^2.0.0-rc.6",
     "aws-sdk": "^2.3.19",
     "batchelor": "^2.0.1",
     "bcryptjs": "^2.3.0",
@@ -32,6 +31,7 @@
     "mongoose": "^4.4.3",
     "morgan": "^1.6.1",
     "multer": "^1.1.0",
+    "nodemailer": "^2.4.2",
     "querystring": "^0.2.0",
     "request": "^2.72.0",
     "satellizer": "^0.14.1",
