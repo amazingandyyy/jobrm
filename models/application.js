@@ -17,7 +17,6 @@ var applicationSchema = new mongoose.Schema({
     applicationDate: {
         type: String
     },
-    hiringAgency: [],
     jobLocation: {
         type: String
     },
@@ -46,13 +45,10 @@ var applicationSchema = new mongoose.Schema({
         type: Date,
         required: false
     },
-    referencePerson: [],
-    companyContact: [],
-    applicationNote: {
+    feedbackNote: {
         type: String
     },
-    interviewerContact: [],
-    feedbackNote: {
+    applicationNote: {
         type: String
     },
     whatToImprove: {
@@ -61,6 +57,26 @@ var applicationSchema = new mongoose.Schema({
     completed: {
         type: Boolean,
         default: false
+    },
+    hiringAgency: {
+        name: String,
+        phone: String,
+        email: String
+    },
+    referencePerson: {
+        name: String,
+        phone: String,
+        email: String
+    },
+    companyContact: {
+        name: String,
+        phone: String,
+        email: String
+    },
+    interviewerContact: {
+        name: String,
+        phone: String,
+        email: String
     },
     applicant: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -84,11 +100,21 @@ applicationSchema.statics.getOne = (applicationId, cb) => {
     }).populate('applicant');
 };
 
+applicationSchema.statics.createApps = (applicationArr, cb) => {
+    applicationArr.forEach(applicationObj=>{
+        Application.create(applicationObj, (err, application) => {
+            console.log('applicationsssss: ', application);
+            if (err)  return cb(err);
+            cb(null, application);
+        });
+    });
+};
+
 applicationSchema.statics.createApp = (applicationObj, cb) => {
     console.log('applicationObj: ', applicationObj);
     Application.create(applicationObj, (err, application) => {
         console.log('applicationsssss: ', application);
-        if (err) cb(err);
+        if (err)  return cb(err);
         cb(null, application);
     });
     // var application = new Application(applicationObj);
