@@ -31,6 +31,7 @@
     "mongoose": "^4.4.3",
     "morgan": "^1.6.1",
     "multer": "^1.1.0",
+    "nodemailer": "^2.4.2",
     "querystring": "^0.2.0",
     "request": "^2.72.0",
     "satellizer": "^0.14.1",
