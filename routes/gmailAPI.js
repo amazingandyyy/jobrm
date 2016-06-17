@@ -12,6 +12,7 @@ router.get("/test", function (request, response) {
 router.put("/getMessagesList", function (request, response) {
      gmailAPI.getMessagesList(request.body, function (error, responseObject, data) {
          if (error) response.status(400).send(error);
+         console.log('data')
          response.send(data);
      });
 });

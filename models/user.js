@@ -11,16 +11,13 @@ var userSchema = new mongoose.Schema({
         type: String,
         unique: true
     },
+    name: {
+        type: String
+    },
     password: {
         type: String
     },
-    github: {
-        type: String
-    },
     google: {
-        type: String
-    },
-    name: {
         type: String
     },
     applications: [{
