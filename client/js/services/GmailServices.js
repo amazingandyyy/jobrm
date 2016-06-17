@@ -11,7 +11,7 @@ function GmailServices($http) {
         toSend.accessToken = profileInfo.identities[0].access_token;
         return $http({
             method: "PUT",
-            url: "/api/gmailAPI/getMessagesList",
+            url: "/api/gmailAPI/introduction/getMessageList",
             data: toSend
         });
     };
