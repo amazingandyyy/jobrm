@@ -113,20 +113,24 @@
         height: 93vh;
         top: 54px;
         text-align: left;
-        padding: 50px 10px 50px 50px;
+        padding: 30px 10px 50px 30px;
         overflow-y: scroll;
         border-left: 1px solid #ddd;
         background: white;
         width: 50%;
+
+        h1 {
+            font-weight: 900;
+            font-size: 2.2em;
+        }
         .mileStoneDiv {
             background: white;
-            padding: 0 10px 0 0px;
+            padding: 0 10px 0 0;
             display: block;
             margin: 0;
             position: relative;
             border-left: 2px solid #eeeeee;
-            margin-left: 10px;
-
+            margin-left: 20px;
             .milestone {
                 position: relative;
                 margin-left: 30px;
@@ -134,7 +138,7 @@
                 background: white;
             }
         }
-        .mileStoneDiv::before{
+        .mileStoneDiv::before {
             position: absolute;
             left: -7px;
             top: 50px;
@@ -161,14 +165,22 @@
         width: 1300px;
         .application_section {
             display: none;
-            max-width: 104.5vw;
+            max-width: 105vw;
             font-size: 1.5em;
             li {
                 padding: 10px 10px 14px 20px;
             }
         }
+        .map_section {
+            width: 105vw;
+            padding: 15px;
+            .mileStoneDiv {
+                .milestone {
+                    margin-left: 10px;
+                    padding-right: 10px;
+                }
+            }
+        }
     }
-    .map_section {
-        width: 80%;
-    }
+
 }

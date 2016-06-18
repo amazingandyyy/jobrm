@@ -43,5 +43,8 @@
         color: rgba(white, 1);
         transition: .3s background ease-in-out;
     }
+    #a0-lock.a0-theme-default .a0-panel .a0-header {
+        margin-top: 100px;
+    }
 }
 @media (max-width: 642px) {}
