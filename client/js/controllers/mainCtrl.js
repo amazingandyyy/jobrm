@@ -17,7 +17,7 @@ angular
     })
 
 
-function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices) {
+function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices, GoogleCalendarServices) {
     $scope.hide = true;
     console.log("mainCtrl loaded");
     $scope.toggle = () => {
@@ -49,7 +49,7 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
     $scope.logout = function() {
         auth.signout();
         store.remove("profile");
-        store.remove("token");
+        store.remove("id_token");
         $scope.currentUser = null;
     };
 
@@ -65,8 +65,8 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
             })
             .catch(function(error) {
                 console.log("Error: ", error);
-            });*//*
-        GmailServices.createNewLabel(profileInfo)
+            });*/
+        /*GmailServices.createNewLabel(profileInfo)
             .then(function (response) {
                 console.log("Response", response.data);
             })
@@ -80,6 +80,20 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
             .catch(function (error) {
                 console.log("Error: ", error);
             })*/
+        /*GoogleCalendarServices.createNewCalendar(profileInfo)
+            .then(function (response) {
+                console.log("Response: ", response);
+            })
+            .catch(function (error) {
+                console.log("Error: ", error);
+            })*/
+        /*GoogleCalendarServices.calendarNewEvent(profileInfo)
+            .then(function (response) {
+                console.log("Response: ", response);
+            })
+            .catch(function (error) {
+                console.log("Error: ", error);
+            });*/
     }
 
 }

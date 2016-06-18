@@ -12,6 +12,7 @@ router.put("/getEmailsList", function (request, response) {
     });
 });
 //returns the new label id and the summary of the label in an object
+//Make sure to save the label id
 router.post("/createNewLabel", function (request, response) {
     gmailAPI.createNewLabel(request.body, function (error, newLabelData) {
         if (error) response.status(400).send(error);
