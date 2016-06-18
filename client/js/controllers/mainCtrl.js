@@ -59,7 +59,8 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
         //uncomment to have an automatic call to retrieve a list of the User's messages
         // Was Used to test Gmail Calls/Routes
         GmailServices.retrieveInboxList(profileInfo)
-            .then(function(response) {
+            .then(function (response) {
+
                 console.log("Response: ", response.data)
             })
             .catch(function(error) {
