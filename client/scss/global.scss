@@ -1,8 +1,13 @@
 @import "./myvariables";
 body {
-    padding-top: 100px;
     overflow: hidden;
     position:relative;
+    height: 100%;
+    padding-top: 100px;
+}
+
+html {
+    height: 100%;
 }
 
 .container-fluid {
@@ -16,19 +21,24 @@ body {
     opacity: 0.9 !important;
 }
 // /* Track */
-// // ::-webkit-scrollbar-track {
-// //     background: none;
-// // }
-// /* Handle */
+// ::-webkit-scrollbar-track {
+//     background: none;
+//     width: 0px;
+// }
+// // /* Handle */
 // ::-webkit-scrollbar-thumb {
 //     -webkit-border-radius: 30px;
 //     border-radius: 30px;
-//     background: $brand-primary;
+//     background: white;
+//     opacity: 0;
 // }
 // ::-webkit-scrollbar-thumb:window-inactive {
 //     opacity: 0;
 // }
 .fa {
     margin: 0px !important;
+}
+.mobileShow {
+    display: none;
 }
 @media (max-width: 546px) {}
