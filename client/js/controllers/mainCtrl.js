@@ -17,7 +17,7 @@ angular
     })
 
 
-function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices, UserService) {
+function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices, GoogleCalendarServices, UserService) {
     $scope.hide = true;
     console.log("mainCtrl loaded");
     $scope.toggle = () => {
@@ -53,6 +53,7 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
         store.remove("id_token");
         store.remove('loggedUser');
         $scope.currentUser = null;
+        $window.location.reload();
     };
     //save user to local Schema.
     function saveUserToModel(profile) {
@@ -77,12 +78,49 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
         // Was Used to test Gmail Calls/Routes
         GmailServices.retrieveInboxList(profileInfo)
             .then(function(response) {
-
-                console.log("Response: ", response.data)
+                console.log('response: ', response);
             })
-            .catch(function(error) {
-                console.log("Error: ", error);
-            });
     }
-
 }
+
+
+// console.log('$scope.currentUser: ', $scope.currentUser);
+//uncomment to have an automatic call to retrieve a list of the User's messages
+// Was Used to test Gmail Calls/Routes
+/*GmailServices.retrieveInboxList(profileInfo)
+    .then(function (response) {
+
+
+        console.log("Response: ", response.data)
+    })
+    .catch(function(error) {
+        console.log("Error: ", error);
+    });*/
+/*GmailServices.createNewLabel(profileInfo)
+    .then(function (response) {
+        console.log("Response", response.data);
+    })
+    .catch(function (error) {
+        console.log("Error: ", error);
+    });*/
+/* GmailServices.addLabelToEmail(profileInfo)
+     .then(function (response) {
+         console.log("Response: ", response.data);
+     })
+     .catch(function (error) {
+         console.log("Error: ", error);
+     })*/
+/*GoogleCalendarServices.createNewCalendar(profileInfo)
+    .then(function (response) {
+        console.log("Response: ", response);
+    })
+    .catch(function (error) {
+        console.log("Error: ", error);
+    })*/
+/*GoogleCalendarServices.calendarNewEvent(profileInfo)
+    .then(function (response) {
+        console.log("Response: ", response);
+    })
+    .catch(function (error) {
+        console.log("Error: ", error);
+    });*/
