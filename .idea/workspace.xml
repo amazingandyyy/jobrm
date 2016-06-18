@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c13a24c4-c64f-4222-8601-e13ff1c8698a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/js/controllers/mainCtrl.js" afterPath="$PROJECT_DIR$/client/js/controllers/mainCtrl.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/js/services/GmailServices.js" afterPath="$PROJECT_DIR$/client/js/services/GmailServices.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/api.js" afterPath="$PROJECT_DIR$/routes/api.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/gmailAPI.js" afterPath="$PROJECT_DIR$/routes/gmailAPI.js" />
@@ -29,11 +28,11 @@
     <splitter split-orientation="vertical" split-proportion="0.54196644">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="mainCtrl.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="mainCtrl.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/js/controllers/mainCtrl.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="313">
-                  <caret line="94" column="38" selection-start-line="94" selection-start-column="38" selection-end-line="94" selection-end-column="38" />
+                <state relative-caret-position="277">
+                  <caret line="94" column="14" selection-start-line="94" selection-start-column="14" selection-end-line="94" selection-end-column="14" />
                   <folding />
                 </state>
               </provider>
@@ -59,7 +58,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="GoogleCalendarServices.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="GoogleCalendarServices.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client/js/services/GoogleCalendarServices.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="385">
@@ -103,17 +102,17 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="googleCalendarAPI.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="googleCalendarAPI.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/routes/googleCalendarAPI.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="306">
-                  <caret line="17" column="36" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
+                <state relative-caret-position="0">
+                  <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="googleCalendarModels.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="googleCalendarModels.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/models/googleCalendarModels.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="316">
@@ -180,7 +179,7 @@
     </gulpfiles>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2485" />
+    <option name="x" value="2718" />
     <option name="y" value="73" />
     <option name="width" value="1355" />
     <option name="height" value="987" />
@@ -421,19 +420,19 @@
       <workItem from="1466116577065" duration="6507000" />
       <workItem from="1466185705087" duration="13654000" />
       <workItem from="1466218379715" duration="15000" />
-      <workItem from="1466272105513" duration="6357000" />
+      <workItem from="1466272105513" duration="6549000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37865000" />
+    <option name="totallyTimeSpent" value="38057000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2485" y="73" width="1355" height="987" extended-state="0" />
-    <editor active="true" />
+    <frame x="2718" y="73" width="1355" height="987" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1896679" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1896679" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.058690745" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -496,9 +495,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="18" selection-end-column="1" />
-          <folding>
-            <marker date="1466100027422" expanded="true" signature="420:441" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -593,9 +590,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="18" selection-end-column="1" />
-          <folding>
-            <marker date="1466100027422" expanded="true" signature="420:441" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -682,9 +677,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="18" selection-end-column="1" />
-          <folding>
-            <marker date="1466100027422" expanded="true" signature="420:441" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -752,9 +745,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="18" selection-end-column="1" />
-          <folding>
-            <marker date="1466100027422" expanded="true" signature="420:441" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -822,30 +813,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/googleCalendarAPI.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="36" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/googleCalendarModels.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="52" column="14" selection-start-line="52" selection-start-column="14" selection-end-line="52" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/js/services/GoogleCalendarServices.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="38" column="1" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/js/services/GmailServices.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -864,8 +831,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/js/controllers/mainCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="94" column="38" selection-start-line="94" selection-start-column="38" selection-end-line="94" selection-end-column="38" />
+        <state relative-caret-position="277">
+          <caret line="94" column="14" selection-start-line="94" selection-start-column="14" selection-end-line="94" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/js/services/GoogleCalendarServices.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="38" column="1" selection-start-line="38" selection-start-column="1" selection-end-line="38" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/googleCalendarModels.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="316">
+          <caret line="52" column="14" selection-start-line="52" selection-start-column="14" selection-end-line="52" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/googleCalendarAPI.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
