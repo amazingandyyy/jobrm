@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 var User = require('../models/user');
+var moment = require('moment');
 
 var applicationSchema = new mongoose.Schema({
     company: {
@@ -83,6 +84,23 @@ var applicationSchema = new mongoose.Schema({
         ref: 'User'
     }]
 });
+
+applicationSchema.statics.getLastSevenDaysAll = cb => {
+
+    var today = moment().startOf('day');
+    var feedbackDate = moment(today).add(7, 'days');
+
+    Application.find({
+        'completed': 'false',
+        feedbackDate: {
+        '$eq': today.toDate()
+        }},
+        (err, applications) => {
+            if (err) cb(err);
+
+            cb(null, applications);
+    }).populate('applicant');
+};
 
 applicationSchema.statics.getAll = cb => {
     Application.find({}, (err, applications) => {
