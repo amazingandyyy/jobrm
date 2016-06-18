@@ -1,10 +1,10 @@
 
 'use strict';
 
-var mongoose = require('mongoose');
-var User = require('../models/user');
+const mongoose = require('mongoose');
+const User = require('../models/user');
 
-var applicationSchema = new mongoose.Schema({
+let applicationSchema = new mongoose.Schema({
     company: {
         type: String
     },
@@ -90,7 +90,6 @@ applicationSchema.statics.getAll = (id, cb) => {
     Application.find({applicant: id})
         .exec((err, applications) => {
         if (err) cb(err);
-
         cb(null, applications);
     });
 };
@@ -120,7 +119,7 @@ applicationSchema.statics.createApp = (applicationObj, cb) => {
         if (err)  return cb(err);
         cb(null, application);
     });
-    // var application = new Application(applicationObj);
+    // let application = new Application(applicationObj);
     // console.log('applicationsssss: ', application);
     // application.save((err, savedApplication) => {
     //     console.log('savedApplication: ', savedApplication);
@@ -140,7 +139,6 @@ applicationSchema.statics.updateApp = (userId, applicationObj, cb) => {
 
         updatedApplication.save((err, savedApplication) => {
             if (err) cb(err);
-
             cb(null, savedApplication);
         });
     });
@@ -157,7 +155,6 @@ applicationSchema.statics.deleteApp = (userId, applicationId, cb) => {
 
             dbUser.save((err, savedUser) => {
                 if (err) cb(err);
-
                 cb(null, savedUser);
             });
         });
@@ -165,6 +162,6 @@ applicationSchema.statics.deleteApp = (userId, applicationId, cb) => {
 };
 
 
-var Application = mongoose.model('Application', applicationSchema);
+let Application = mongoose.model('Application', applicationSchema);
 
 module.exports = Application;

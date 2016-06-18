@@ -1,11 +1,9 @@
 "use strict";
 
-var express = require("express");
-var router = express.Router();
-
-
-var Application = require('../models/application');
-var User = require('../models/user');
+const express = require("express");
+const router = express.Router();
+const Application = require('../models/application');
+const User = require('../models/user');
 
 router.get('/all/:id', (req, res) => {
     console.log('id:', req.params.id);
@@ -25,17 +23,18 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
+router.post('/:userId', (req, res) => {
     console.log('new application: ', req.body);
     Application.create(req.body, (err, application) => {
         console.log('application: ', application);
-        res.status(err? 400: 200).send(err || application);
-        //  else {
-        //      User.addApplication(req.user, application, (err2, addedApplication) => {
-        //      if(err2) res.status(400).send(err2);
-        //      })
-        // }
-        // res.send(application);
+        if(err){
+            res.status(400).send(err);
+        } else {
+             User.addApplication(req.params.userId, application._id, (err2, addedApplication) => {
+                 if(err2) res.status(400).send(err2);
+                 res.send(application);
+             });
+        }
     });
 });
 

@@ -3,7 +3,7 @@
 angular
     .module("jobrmApp")
     .service("Application", function($http, store){
-        var user = store.get('logedUser');
+        var user = store.get('loggedUser');
         this.getAllApplications = () => {
             var id  = user._id;
             return $http({
@@ -23,7 +23,7 @@ angular
             console.log('applicationData: ', applicationData);
             return $http({
                 method: 'POST',
-                url: `/api/applications/`,
+                url: `/api/applications/${id}`,
                 data: applicationData
             });
         }

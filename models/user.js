@@ -1,14 +1,14 @@
 "use strict";
 //amazing andy2!!
-var mongoose = require("mongoose");
-var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
-var nodemailer = require('nodemailer');
+const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const nodemailer = require('nodemailer');
 
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-var userSchema = new mongoose.Schema({
+let userSchema = new mongoose.Schema({
     email: {
         type: String
     },
@@ -37,20 +37,20 @@ userSchema.statics.saveGmailUser = (user, cb) => {
             return cb(null, dbUser);
         }
 
-        var newUser = new User({
+        let newUser = new User({
             email: user.email,
             name:  user.name,
             given_name: user.given_name,
             family_name: user.family_name
         });
 
-        var sendmail = {
+        let sendmail = {
             email: user.email,
             subject: 'JRM signup',
             message: 'Thank you for signing up for JRM. you can now start using our App.'
 
         };
-        var mail = newUser.sendEmail(sendmail);
+        let mail = newUser.sendEmail(sendmail);
 
         newUser.save((err, savedUser) => {
             if(err) return cb(err);
@@ -59,11 +59,11 @@ userSchema.statics.saveGmailUser = (user, cb) => {
     });
 };
 
-userSchema.statics.addApplication = (user, application, cb) => {
+userSchema.statics.addApplication = (userId, applicationId, cb) => {
     console.log('working');
-    User.findById(user._id, (err, dbUser) => {
-        if(dbUser.applications.indexOf(application._id) < 0){
-            dbUser.applications.push(application._id);
+    User.findById(userId, (err, dbUser) => {
+        if(dbUser.applications.indexOf(applicationId) < 0){
+            dbUser.applications.push(applicationId);
         }
 
         dbUser.save((err, savedUser) => {
@@ -89,10 +89,10 @@ userSchema.statics.edit = (id, passedObj, cb) => {
 
 
 userSchema.methods.sendEmail = function(obj) {
-    var userEmail = obj.email;
-    var subject = obj.subject
-    var message = obj.message
-    var transporter = nodemailer.createTransport({
+    let userEmail = obj.email;
+    let subject = obj.subject
+    let message = obj.message
+    let transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
             user: process.env.EMAIL_ACCOUNT,
@@ -100,7 +100,7 @@ userSchema.methods.sendEmail = function(obj) {
         }
         });
 
-    var mailOptions = {
+    let mailOptions = {
         from: `"JRM" ${process.env.GMAIL_PASSWORD}`, // sender address
         to: userEmail, // list of receivers
         subject: subject, // Subject line
@@ -115,6 +115,6 @@ userSchema.methods.sendEmail = function(obj) {
     });
 }
 
-var User = mongoose.model("User", userSchema);
+let User = mongoose.model("User", userSchema);
 
 module.exports = User;
