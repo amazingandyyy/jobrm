@@ -2,9 +2,9 @@
 
 angular
     .module("jobrmApp")
-    .controller("dashboardListCtrl",dashboardListCtrl)
+    .controller("dashboardListCtrl", dashboardListCtrl)
 
-function dashboardListCtrl($scope, Application, $timeout, $state){
+function dashboardListCtrl($scope, Application, $timeout, $state, store, $location) {
     console.log("dashboardListCtrl loaded");
 
     Application.getAllApplications().then(res => {
