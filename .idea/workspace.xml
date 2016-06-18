@@ -32,8 +32,8 @@
           <file leaf-file-name="mainCtrl.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client/js/controllers/mainCtrl.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="331">
-                  <caret line="95" column="17" selection-start-line="95" selection-start-column="17" selection-end-line="95" selection-end-column="17" />
+                <state relative-caret-position="313">
+                  <caret line="94" column="38" selection-start-line="94" selection-start-column="38" selection-end-line="94" selection-end-column="38" />
                   <folding />
                 </state>
               </provider>
@@ -421,12 +421,12 @@
       <workItem from="1466116577065" duration="6507000" />
       <workItem from="1466185705087" duration="13654000" />
       <workItem from="1466218379715" duration="15000" />
-      <workItem from="1466272105513" duration="5759000" />
+      <workItem from="1466272105513" duration="6357000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37267000" />
+    <option name="totallyTimeSpent" value="37865000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2485" y="73" width="1355" height="987" extended-state="0" />
@@ -864,8 +864,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/js/controllers/mainCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="95" column="17" selection-start-line="95" selection-start-column="17" selection-end-line="95" selection-end-column="17" />
+        <state relative-caret-position="313">
+          <caret line="94" column="38" selection-start-line="94" selection-start-column="38" selection-end-line="94" selection-end-column="38" />
           <folding />
         </state>
       </provider>
