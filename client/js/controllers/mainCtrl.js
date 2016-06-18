@@ -17,7 +17,7 @@ angular
     })
 
 
-function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices) {
+function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices, UserService) {
     $scope.hide = true;
     console.log("mainCtrl loaded");
     $scope.toggle = () => {
@@ -40,6 +40,7 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
             store.set("id_token", token);
             $location.path("/");
             //current user = auth.profile;
+            saveUserToModel(profile);
             $scope.currentUser = store.get("profile");
         }, function(error) {
             console.log("Error: ", error);
@@ -49,9 +50,21 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
     $scope.logout = function() {
         auth.signout();
         store.remove("profile");
-        store.remove("token");
+        store.remove("id_token");
+        store.remove('logedUser');
         $scope.currentUser = null;
     };
+    //save user to local Schema.
+    function saveUserToModel(profile) {
+        UserService.savedUser(profile)
+        .then(response => {
+            console.log('response:', response);
+            store.set('logedUser', response.data);
+        })
+        .catch(error => {
+            console.log('error:', error);
+        });
+    }
 
     if (store.get("profile")) {
         let profileInfo = store.get("profile");

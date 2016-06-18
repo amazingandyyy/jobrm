@@ -7,8 +7,9 @@ var router = express.Router();
 var Application = require('../models/application');
 var User = require('../models/user');
 
-router.get('/', (req, res) => {
-    Application.getAll((err, allApplications) => {
+router.get('/all/:id', (req, res) => {
+    console.log('id:', req.params.id);
+    Application.getAll(req.params.id, (err, allApplications) => {
         res.status(err ? 400: 200).send(err || allApplications);
     });
 });

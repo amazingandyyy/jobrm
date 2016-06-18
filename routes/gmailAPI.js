@@ -13,4 +13,3 @@ router.put("/getEmailsList", function (request, response) {
 });
 
 module.exports = router;
-

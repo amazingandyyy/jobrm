@@ -1,3 +1,4 @@
+
 'use strict';
 
 var mongoose = require('mongoose');
@@ -13,6 +14,9 @@ var applicationSchema = new mongoose.Schema({
     createAt: {
         type: Date,
         default: Date.now
+    },
+    lastUpdate: {
+        type: Date
     },
     applicationDate: {
         type: String
@@ -39,10 +43,6 @@ var applicationSchema = new mongoose.Schema({
     },
     applicationLink: {
         type: String,
-        required: false
-    },
-    feedbackDate: {
-        type: Date,
         required: false
     },
     feedbackNote: {
@@ -78,18 +78,21 @@ var applicationSchema = new mongoose.Schema({
         phone: String,
         email: String
     },
-    applicant: [{
+    applicant: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    },
+    milestone: []
+
 });
 
-applicationSchema.statics.getAll = cb => {
-    Application.find({}, (err, applications) => {
+applicationSchema.statics.getAll = (id, cb) => {
+    Application.find({applicant: id})
+        .exec((err, applications) => {
         if (err) cb(err);
 
         cb(null, applications);
-    }).populate('applicant');
+    });
 };
 
 applicationSchema.statics.getOne = (applicationId, cb) => {
