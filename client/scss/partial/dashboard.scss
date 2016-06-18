@@ -106,18 +106,43 @@
             height: 20px;
         }
     }
-    .tasks_section {
+    .map_section {
         display: inline-block;
         float: left;
         background: white;
         height: 93vh;
         top: 54px;
         text-align: left;
-        padding: 20px;
+        padding: 50px 10px 50px 50px;
         overflow-y: scroll;
-        // width: 50%;
-        // border-right: 1px solid #ddd;
         border-left: 1px solid #ddd;
+        background: white;
+        .mileStoneDiv {
+            background: white;
+            padding: 0 10px 0 0px;
+            display: block;
+            margin: 0;
+            position: relative;
+            border-left: 2px solid #eeeeee;
+            margin-left: 10px;
+
+            .milestone {
+                position: relative;
+                margin-left: 30px;
+                padding: 10px;
+                background: white;
+            }
+        }
+        .mileStoneDiv::before{
+            position: absolute;
+            left: -8px;
+            height: 30%;
+            content: '';
+            width: 12px;
+            height: 12px;
+            border-radius: 20px;
+            background: $brand-primary;
+        }
     }
 }
 @media (max-width: 642px) {
@@ -130,7 +155,7 @@
     }
     .section {
         top: 45px;
-        left: 0px;
+        left: 0;
         width: 1300px;
         .application_section {
             display: none;
@@ -141,7 +166,7 @@
             }
         }
     }
-    .tasks_section {
-        width: 80%
+    .map_section {
+        width: 80%;
     }
 }

@@ -24,13 +24,15 @@ const gmailAPIOperations = {
                     'Content-Type': 'multipart/mixed'
                 }
             });
-            parsedMessages.forEach(function (value, key) {
-                let messageId = value.id;
-                batch.add({
-                    "method": "GET",
-                    "path": `/gmail/v1/users/${userData.profile.email}/messages/${messageId}/?key=AIzaSyAW4CgLvkN49dw_BrzhIOq4xnM3ueKOMfY`
-                })
-            });
+            if(parsedMessages){
+                parsedMessages.forEach(function (value, key) {
+                    let messageId = value.id;
+                    batch.add({
+                        "method": "GET",
+                        "path": `/gmail/v1/users/${userData.profile.email}/messages/${messageId}/?key=AIzaSyAW4CgLvkN49dw_BrzhIOq4xnM3ueKOMfY`
+                    })
+                });
+            }
             batch.run(function (error, response) {
                 callback(error, response.parts);
             });
@@ -38,7 +40,7 @@ const gmailAPIOperations = {
     }
 
 
-    
+
 };
 
 module.exports = gmailAPIOperations;

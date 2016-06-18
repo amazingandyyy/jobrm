@@ -2,11 +2,11 @@
 
 angular
     .module("jobrmApp")
-    .controller("dashboardTasksCtrl", dashboardTasksCtrl)
+    .controller("dashboardMapCtrl", dashboardMapCtrl)
 
 
-function dashboardTasksCtrl($stateParams, $scope, Application, $timeout, $state) {
-    console.log("dashboardTasksCtrl loaded");
+function dashboardMapCtrl($stateParams, $scope, Application, $timeout, $state) {
+    console.log("dashboardMapCtrl loaded");
     if ($stateParams.applicationId) {
         console.log('applicationId: ', $stateParams.applicationId);
         Application.getOneApplication($stateParams.applicationId).then(res => {

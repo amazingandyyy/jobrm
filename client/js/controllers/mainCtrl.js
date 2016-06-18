@@ -51,11 +51,13 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
         store.remove("profile");
         store.remove("token");
         $scope.currentUser = null;
+        $window.location.reload();
     };
 
     if (store.get("profile")) {
         let profileInfo = store.get("profile");
         console.log(profileInfo);
+        // console.log('$scope.currentUser: ', $scope.currentUser);
         //uncomment to have an automatic call to retrieve a list of the User's messages
         // Was Used to test Gmail Calls/Routes
         GmailServices.retrieveInboxList(profileInfo)

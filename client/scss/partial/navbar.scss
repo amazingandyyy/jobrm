@@ -11,9 +11,9 @@
     position: fixed;
     bottom: 10px;
     right: 10px;
-    fill: #eee;
+    // fill: #eee;
+    fill: $brand-primary;
     transition: 1s all ease-in-out;
-
 }
 .navbar-logo:hover {
     transition: 1s all ease-in-out;
@@ -76,7 +76,6 @@
     color: $brand-primary;
 }
 .navbar-button {
-    // .navbar-button:hover {
     background: $brand-primary;
     color: white;
     border: 1px solid $brand-primary;
@@ -86,6 +85,105 @@
 .navbar-button:active {
     background: darken($brand-primary, 10%);
 }
+.logoutBtn {
+    float: right;
+}
+.profileBtn {
+    height: 33px;
+    font-size: 0.8em;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    margin-top: 2px;
+    position: absolute;
+    right: 15px;
+    width: 33px;
+    background-size: 34px;
+    background-position: right top;
+    background-repeat: no-repeat;
+    box-shadow: 0 1px 2px -1px rgba(0,0,0,.4);
+}
+.prifileDropdown {
+    padding: 0px;
+    border: 1px solid #ddd;
+    position: absolute;
+    right: -1px;
+    top: 54px;
+    width: 250px;
+    background: white;
+    // box-shadow: 0 1px 2px -1px rgba(0,0,0,.5);
+    ul {
+        margin: 0px;
+        list-style: none;
+        padding: 0px;
+        -webkit-user-select: none;
+        li {
+            box-shadow: 0px 1px 0px 0px #ddd;
+            padding: 10px 15px;
+            text-align: left;
+            cursor: pointer;
+            i {
+                opacity: 0.1;
+                font-size: 0em;
+                transition: .2 all ease-in-out;
+            }
+        }
+        li:hover{
+            background: #eee;
+            i {
+                opacity: 1;
+                font-size: 1.2em;
+                transition: .2 all ease-in-out;
+            }
+        }
+        li.info {
+            background: white;
+            // background: $brand-primary;
+            font-size: 0.9em;
+            color: rgba(0,0,0,0.5);
+            // color: rgba(255,255,255,0.7);
+            cursor: crosshair;
+            b {
+                font-size: 1.1em;
+                // color: rgba(255,255,255,1);
+                color: rgba(0,0,0,1);
+            }
+        }
+    }
+
+}
+// .profile:hover{
+//     background-color: white;
+// }
+// .disabled.graydout {
+//     cursor: default;
+//     text-align: center;
+// }
+// .avatar {
+//     /* make it responsive */
+//     width: 50px;
+//     height: 50px;
+//     display: block;
+//     /* div height to be the same as width*/
+//     /* make it a cirkle */
+//     border-radius: 50%;
+//     box-shadow: 0 0 0 1px rgba(0,0,0,.14);
+//     // border: 1px solid rgba(0,0,0,.15);
+//     /* Centering on image`s center*/
+//     background-position-y: center;
+//     background-position-x: center;
+//     background-repeat: no-repeat;
+//     /* it makes the clue thing, takes smaller dimention to fill div */
+//     background-size: cover;
+//     /* it is optional, for making this div centered in parent*/
+//     margin: 10px auto;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+// }
+// .dropdown-item {
+//     outline: none;
+// }
 @media (max-width: 642px) {
     .navbar {
         font-size: 0.8;
