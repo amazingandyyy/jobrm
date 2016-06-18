@@ -1,8 +1,8 @@
 <h1>{{application.company}}</h1>
 <hr>
 <div class="mileStoneDiv">
-    <div class="milestone addStone" ng-init="openAddStoneForm = false" ng-click="openAddStoneForm=!openAddStoneForm">
-        <p class="title">Create a new MileStone <i class="fa fa-caret-down" ng-show="!openAddStoneForm"></i><i class="fa fa-caret-up" ng-show="openAddStoneForm"></i></p>
+    <div class="milestone addStone" ng-init="openAddStoneForm = false">
+        <p class="title" ng-click="openAddStoneForm=!openAddStoneForm">Create a new MileStone <i class="fa fa-caret-down" ng-show="!openAddStoneForm"></i><i class="fa fa-caret-up" ng-show="openAddStoneForm"></i></p>
         <div ng-show="openAddStoneForm">
             <hr/>
             <fieldset class="form-group">
@@ -16,8 +16,9 @@
             </fieldset>
             <fieldset class="form-group">
                 <label for="applicationDate">Due time* <small class="text-muted">when do you want we remind you? <b>default</b> is 7-day.</small></label>
-                <input type="date" class="form-control form-control-sm" style="line-height: 1.5rem" id="applicationDate" placeholder="" ng-model="newApplication.applicationDate" value="{{ applicationDateDefault | date: 'yyyy-MM-dd' }}" required/>
+                <input type="datetime-local" class="form-control form-control-sm" style="line-height: 1.5rem" id="applicationDate" placeholder="" ng-model="newApplication.applicationDate" value="{{ applicationDateDefault | date: 'yyyy-MM-dd' }}" required/>
             </fieldset>
+            <button class="btn btn-primary">Create</button>
         </div>
     </div>
 </div>

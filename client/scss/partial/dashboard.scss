@@ -130,7 +130,7 @@
             margin: 0;
             position: relative;
             border-left: 3px solid #ddd;
-            margin-left: 20px;
+            margin-left: 10px;
             .milestone {
                 border: 5px solid white;
                 border-left: 2px solid white;
@@ -220,6 +220,18 @@
             height: 2px;
             background: #ddd;
         }
+    }
+    .details_section {
+        float: right;
+        background: white;
+        height: 93vh;
+        max-width: 300px;
+        min-width: 300px;
+        overflow-x: hide;
+        overflow-y: scroll;
+        text-align: left;
+        width: 25%;
+        border-left: 1px solid #ddd;
     }
 }
 @media (max-width: 642px) {
