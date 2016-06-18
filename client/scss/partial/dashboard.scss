@@ -117,6 +117,7 @@
         overflow-y: scroll;
         border-left: 1px solid #ddd;
         background: white;
+        width: 50%;
         .mileStoneDiv {
             background: white;
             padding: 0 10px 0 0px;
@@ -135,7 +136,8 @@
         }
         .mileStoneDiv::before{
             position: absolute;
-            left: -8px;
+            left: -7px;
+            top: 50px;
             height: 30%;
             content: '';
             width: 12px;
