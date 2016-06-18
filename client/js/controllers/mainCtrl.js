@@ -58,14 +58,28 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
         console.log(profileInfo);
         //uncomment to have an automatic call to retrieve a list of the User's messages
         // Was Used to test Gmail Calls/Routes
-        GmailServices.retrieveInboxList(profileInfo)
+        /*GmailServices.retrieveInboxList(profileInfo)
             .then(function (response) {
 
                 console.log("Response: ", response.data)
             })
             .catch(function(error) {
                 console.log("Error: ", error);
-            });
+            });*//*
+        GmailServices.createNewLabel(profileInfo)
+            .then(function (response) {
+                console.log("Response", response.data);
+            })
+            .catch(function (error) {
+                console.log("Error: ", error);
+            });*/
+       /* GmailServices.addLabelToEmail(profileInfo)
+            .then(function (response) {
+                console.log("Response: ", response.data);
+            })
+            .catch(function (error) {
+                console.log("Error: ", error);
+            })*/
     }
 
 }

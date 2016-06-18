@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c13a24c4-c64f-4222-8601-e13ff1c8698a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/js/controllers/mainCtrl.js" afterPath="$PROJECT_DIR$/client/js/controllers/mainCtrl.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/js/services/GmailServices.js" afterPath="$PROJECT_DIR$/client/js/services/GmailServices.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/gmailAPIModels.js" afterPath="$PROJECT_DIR$/models/gmailAPIModels.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/gmailAPI.js" afterPath="$PROJECT_DIR$/routes/gmailAPI.js" />
     </list>
     <ignored path="jobrm.iws" />
@@ -27,7 +26,7 @@
     <favorites_list name="jobrm" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="vertical" split-proportion="0.42731276">
+    <splitter split-orientation="vertical" split-proportion="0.433291">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
@@ -43,11 +42,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="mainCtrl.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="mainCtrl.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client/js/controllers/mainCtrl.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="271">
-                  <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+                <state relative-caret-position="144">
+                  <caret line="74" column="17" selection-start-line="74" selection-start-column="17" selection-end-line="74" selection-end-column="17" />
                   <folding />
                 </state>
               </provider>
@@ -66,18 +65,18 @@
           <file leaf-file-name="services.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/js/services/services.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="126">
-                  <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
+                <state relative-caret-position="125">
+                  <caret line="8" column="41" selection-start-line="8" selection-start-column="41" selection-end-line="8" selection-end-column="41" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="GmailServices.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="GmailServices.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/js/services/GmailServices.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="271">
-                  <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+                <state relative-caret-position="112">
+                  <caret line="35" column="29" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
                   <folding />
                 </state>
               </provider>
@@ -86,7 +85,7 @@
           <file leaf-file-name="Gulpfile.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Gulpfile.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1260">
+                <state relative-caret-position="349">
                   <caret line="70" column="19" selection-start-line="70" selection-start-column="19" selection-end-line="70" selection-end-column="19" />
                   <folding />
                 </state>
@@ -142,28 +141,18 @@
           <file leaf-file-name="gmailAPI.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/routes/gmailAPI.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="198">
-                  <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+                <state relative-caret-position="287">
+                  <caret line="24" column="33" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="gmailAPIModels.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="gmailAPIModels.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/models/gmailAPIModels.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="252">
-                  <caret line="14" column="33" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/.gitignore">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="54">
-                  <caret line="3" column="5" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
+                <state relative-caret-position="90">
+                  <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -191,12 +180,12 @@
         <option value="$PROJECT_DIR$/Gulpfile.js" />
         <option value="$PROJECT_DIR$/client/js/module.js" />
         <option value="$PROJECT_DIR$/views/index.html" />
-        <option value="$PROJECT_DIR$/client/js/controllers/mainCtrl.js" />
-        <option value="$PROJECT_DIR$/routes/gmailAPI.js" />
-        <option value="$PROJECT_DIR$/models/gmailAPIModels.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/routes/gmailAPI.js" />
+        <option value="$PROJECT_DIR$/models/gmailAPIModels.js" />
         <option value="$PROJECT_DIR$/client/js/services/GmailServices.js" />
+        <option value="$PROJECT_DIR$/client/js/controllers/mainCtrl.js" />
       </list>
     </option>
   </component>
@@ -213,8 +202,8 @@
     </gulpfiles>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2634" />
-    <option name="y" value="144" />
+    <option name="x" value="2607" />
+    <option name="y" value="131" />
     <option name="width" value="1206" />
     <option name="height" value="910" />
   </component>
@@ -470,21 +459,21 @@
       <workItem from="1466100286163" duration="9837000" />
       <workItem from="1466115064419" duration="1495000" />
       <workItem from="1466116577065" duration="6507000" />
-      <workItem from="1466185705087" duration="3788000" />
+      <workItem from="1466185705087" duration="12774000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21627000" />
+    <option name="totallyTimeSpent" value="30613000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2634" y="144" width="1206" height="910" extended-state="0" />
+    <frame x="2607" y="131" width="1206" height="910" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2238806" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16169155" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.05615293" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.059737157" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -827,14 +816,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Gulpfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1260">
-          <caret line="70" column="19" selection-start-line="70" selection-start-column="19" selection-end-line="70" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/js/module.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
@@ -854,14 +835,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/js/services/services.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/twilio.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
@@ -878,18 +851,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/gmailAPI.js">
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/gmailAPIModels.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" column="33" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
+        <state relative-caret-position="18">
+          <caret line="1" column="34" selection-start-line="1" selection-start-column="34" selection-end-line="1" selection-end-column="34" />
           <folding />
         </state>
       </provider>
@@ -902,26 +867,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
+    <entry file="file://$PROJECT_DIR$/Gulpfile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" column="34" selection-start-line="1" selection-start-column="34" selection-end-line="1" selection-end-column="34" />
+        <state relative-caret-position="349">
+          <caret line="70" column="19" selection-start-line="70" selection-start-column="19" selection-end-line="70" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/js/controllers/mainCtrl.js">
+    <entry file="file://$PROJECT_DIR$/routes/gmailAPI.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+        <state relative-caret-position="287">
+          <caret line="24" column="33" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/gmailAPIModels.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/js/services/GmailServices.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+        <state relative-caret-position="112">
+          <caret line="35" column="29" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/js/services/services.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="8" column="41" selection-start-line="8" selection-start-column="41" selection-end-line="8" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/js/controllers/mainCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="74" column="17" selection-start-line="74" selection-start-column="17" selection-end-line="74" selection-end-column="17" />
           <folding />
         </state>
       </provider>
