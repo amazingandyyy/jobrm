@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var User = require('../models/user');
 var moment = require('moment');
 
-var applicationSchema = new mongoose.Schema({
+let applicationSchema = new mongoose.Schema({
     company: {
         type: String
     },
@@ -14,6 +14,9 @@ var applicationSchema = new mongoose.Schema({
     createAt: {
         type: Date,
         default: Date.now
+    },
+    lastUpdate: {
+        type: Date
     },
     applicationDate: {
         type: String
@@ -40,10 +43,6 @@ var applicationSchema = new mongoose.Schema({
     },
     applicationLink: {
         type: String,
-        required: false
-    },
-    feedbackDate: {
-        type: Date,
         required: false
     },
     feedbackNote: {
@@ -79,10 +78,12 @@ var applicationSchema = new mongoose.Schema({
         phone: String,
         email: String
     },
-    applicant: [{
+    applicant: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    },
+    milestone: []
+
 });
 
 applicationSchema.statics.getLastSevenDaysAll = cb => {
@@ -102,12 +103,12 @@ applicationSchema.statics.getLastSevenDaysAll = cb => {
     }).populate('applicant');
 };
 
-applicationSchema.statics.getAll = cb => {
-    Application.find({}, (err, applications) => {
+applicationSchema.statics.getAll = (id, cb) => {
+    Application.find({applicant: id})
+        .exec((err, applications) => {
         if (err) cb(err);
-
         cb(null, applications);
-    }).populate('applicant');
+    });
 };
 
 applicationSchema.statics.getOne = (applicationId, cb) => {
@@ -135,7 +136,7 @@ applicationSchema.statics.createApp = (applicationObj, cb) => {
         if (err)  return cb(err);
         cb(null, application);
     });
-    // var application = new Application(applicationObj);
+    // let application = new Application(applicationObj);
     // console.log('applicationsssss: ', application);
     // application.save((err, savedApplication) => {
     //     console.log('savedApplication: ', savedApplication);
@@ -155,7 +156,6 @@ applicationSchema.statics.updateApp = (userId, applicationObj, cb) => {
 
         updatedApplication.save((err, savedApplication) => {
             if (err) cb(err);
-
             cb(null, savedApplication);
         });
     });
@@ -172,14 +172,12 @@ applicationSchema.statics.deleteApp = (userId, applicationId, cb) => {
 
             dbUser.save((err, savedUser) => {
                 if (err) cb(err);
-
                 cb(null, savedUser);
             });
         });
     });
 };
 
-
-var Application = mongoose.model('Application', applicationSchema);
+let Application = mongoose.model('Application', applicationSchema);
 
 module.exports = Application;

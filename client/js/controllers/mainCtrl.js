@@ -17,7 +17,7 @@ angular
     })
 
 
-function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices) {
+function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices, GoogleCalendarServices, UserService) {
     $scope.hide = true;
     console.log("mainCtrl loaded");
     $scope.toggle = () => {
@@ -31,7 +31,7 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
     };
     //auth profile
     $scope.auth = auth;
-    $scope.currentUser = store.get("profile");
+
 
     //user sign-in
     $scope.signIn = function() {
@@ -40,7 +40,8 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
             store.set("id_token", token);
             $location.path("/");
             //current user = auth.profile;
-            $scope.currentUser = store.get("profile");
+            saveUserToModel(profile);
+            // $scope.currentUser = store.get("profile");
         }, function(error) {
             console.log("Error: ", error);
         })
@@ -49,23 +50,77 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
     $scope.logout = function() {
         auth.signout();
         store.remove("profile");
-        store.remove("token");
+        store.remove("id_token");
+        store.remove('loggedUser');
         $scope.currentUser = null;
+        $window.location.reload();
     };
-
-    if (store.get("profile")) {
-        let profileInfo = store.get("profile");
-        console.log(profileInfo);
-        //uncomment to have an automatic call to retrieve a list of the User's messages
-        // Was Used to test Gmail Calls/Routes
-        GmailServices.retrieveInboxList(profileInfo)
-            .then(function (response) {
-
-                console.log("Response: ", response.data)
+    //save user to local Schema.
+    function saveUserToModel(profile) {
+        UserService.savedUser(profile)
+            .then(response => {
+                console.log('response:', response);
+                store.set('loggedUser', response.data);
+                $scope.currentUser = store.get("loggedUser");
+                if ($scope.currentUser) {
+                    console.log('$scope.currentUser: ', $scope.currentUser);
+                }
             })
-            .catch(function(error) {
-                console.log("Error: ", error);
+            .catch(error => {
+                console.log('error:', error);
             });
     }
 
+    if (store.get("profile")) {
+        let profileInfo = store.get("profile");
+        console.log('profileInfo: ', profileInfo);
+        //uncomment to have an automatic call to retrieve a list of the User's messages
+        // Was Used to test Gmail Calls/Routes
+        GmailServices.retrieveInboxList(profileInfo)
+            .then(function(response) {
+                console.log('response: ', response);
+            })
+    }
 }
+
+
+// console.log('$scope.currentUser: ', $scope.currentUser);
+//uncomment to have an automatic call to retrieve a list of the User's messages
+// Was Used to test Gmail Calls/Routes
+/*GmailServices.retrieveInboxList(profileInfo)
+    .then(function (response) {
+
+
+        console.log("Response: ", response.data)
+    })
+    .catch(function(error) {
+        console.log("Error: ", error);
+    });*/
+/*GmailServices.createNewLabel(profileInfo)
+    .then(function (response) {
+        console.log("Response", response.data);
+    })
+    .catch(function (error) {
+        console.log("Error: ", error);
+    });*/
+/* GmailServices.addLabelToEmail(profileInfo)
+     .then(function (response) {
+         console.log("Response: ", response.data);
+     })
+     .catch(function (error) {
+         console.log("Error: ", error);
+     })*/
+/*GoogleCalendarServices.createNewCalendar(profileInfo)
+    .then(function (response) {
+        console.log("Response: ", response);
+    })
+    .catch(function (error) {
+        console.log("Error: ", error);
+    })*/
+/*GoogleCalendarServices.calendarNewEvent(profileInfo)
+    .then(function (response) {
+        console.log("Response: ", response);
+    })
+    .catch(function (error) {
+        console.log("Error: ", error);
+    });*/

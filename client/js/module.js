@@ -60,7 +60,7 @@ let dashboard = {
     name: 'dashboard',
     url: '/dashboard',
     views: {
-        'task': {
+        'map': {
             templateUrl: '/html/dashboard_summary.html',
             controller: 'dashboardListCtrl'
         }
@@ -70,9 +70,9 @@ let application = {
     name: 'application',
     url: '/app/:applicationId',
     views: {
-        'task': {
-            templateUrl: '/html/dashboard_task.html',
-            controller: 'dashboardTasksCtrl'
+        'map': {
+            templateUrl: '/html/dashboard_map.html',
+            controller: 'dashboardMapCtrl'
         }
     }
 };
@@ -80,7 +80,7 @@ let addApplication = {
     name: 'addApplication',
     url: '/create',
     views: {
-        'task': {
+        'map': {
             templateUrl: '/html/dashboard_add.html',
             controller: 'dashboardAddingCtrl'
         }

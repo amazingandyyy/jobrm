@@ -24,21 +24,72 @@ const gmailAPIOperations = {
                     'Content-Type': 'multipart/mixed'
                 }
             });
-            parsedMessages.forEach(function (value, key) {
-                let messageId = value.id;
-                batch.add({
-                    "method": "GET",
-                    "path": `/gmail/v1/users/${userData.profile.email}/messages/${messageId}/?key=AIzaSyAW4CgLvkN49dw_BrzhIOq4xnM3ueKOMfY`
-                })
-            });
+            if(parsedMessages){
+                parsedMessages.forEach(function (value, key) {
+                    let messageId = value.id;
+                    batch.add({
+                        "method": "GET",
+                        "path": `/gmail/v1/users/${userData.profile.email}/messages/${messageId}/?key=AIzaSyAW4CgLvkN49dw_BrzhIOq4xnM3ueKOMfY`
+                    })
+                });
+            }
             batch.run(function (error, response) {
                 callback(error, response.parts);
             });
         });
+    },
+    
+    createNewLabel: function (requestData, callback) {
+        let userData = requestData.userData;
+        let accessToken = userData.identities[0].access_token;
+        let requestBody = {
+            "labelListVisibility": "labelShow",
+            "messageListVisibility": "show",
+            "name": requestData.labelName
+        };
+        let options = {
+            url: `https://www.googleapis.com/gmail/v1/users/${userData.email}/labels?key=AIzaSyAW4CgLvkN49dw_BrzhIOq4xnM3ueKOMfY`,
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            },
+            json: true,
+            body: requestBody
+        };
+        requestNPM(options, function (error, httpResponse, body) {
+            console.log("body after POST: ", body);
+            callback(error, body);
+        })
+
+    },
+
+    addLabelToEmail: function (requestData, callback) {
+        let userData = requestData.userData;
+        let labelData = requestData.labelData;
+        let accessToken = userData.identities[0].access_token;
+        let requestBody = {
+            "addLabelIds": [
+                labelData.labelID
+            ]
+        };
+        let options = {
+            url: `https://www.googleapis.com/gmail/v1/users/${userData.email}/messages/${labelData.messageID}/modify?key=AIzaSyAW4CgLvkN49dw_BrzhIOq4xnM3ueKOMfY`,
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            },
+            json: true,
+            body: requestBody
+        };
+        requestNPM(options, function (error, httpResponse, body) {
+            console.log("Error after POST: ", error);
+            console.log("body after POST: ", body);
+            callback(error, body);
+        })
     }
 
 
-    
+
 };
 
 module.exports = gmailAPIOperations;

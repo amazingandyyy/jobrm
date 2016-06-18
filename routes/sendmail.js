@@ -1,12 +1,13 @@
-var router = require('express').Router();
-var nodemailer = require('nodemailer');
+'use strict';
+const router = require('express').Router();
+const nodemailer = require('nodemailer');
 
 
 router.post('/', (req, res) => {
-    var userEmail = req.body.email;
-    var subject = req.body.subject
-    var message = req.body.message
-    var transporter = nodemailer.createTransport({
+    let userEmail = req.body.email;
+    let subject = req.body.subject
+    let message = req.body.message
+    let transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
             user: process.env.EMAIL_ACCOUNT,
@@ -14,8 +15,8 @@ router.post('/', (req, res) => {
         }
         });
 
-    var mailOptions = {
-        from: `"JRM" ${process.env.GMAIL_PASSWORD}`, // sender address
+    let mailOptions = {
+        from: `"JRM" ${process.env.EMAIL_ACCOUNT}`, // sender address
         to: userEmail, // list of receivers
         subject: subject, // Subject line
         text: message, // plaintext body

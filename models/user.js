@@ -1,166 +1,69 @@
 "use strict";
 //amazing andy2!!
-var mongoose = require("mongoose");
-var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
+const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const nodemailer = require('nodemailer');
+
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-var userSchema = new mongoose.Schema({
+let userSchema = new mongoose.Schema({
     email: {
-        type: String,
-        unique: true
+        type: String
     },
     name: {
         type: String
     },
-    password: {
+    given_name: {
         type: String
     },
-    google: {
+    family_name: {
         type: String
     },
     applications: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Application"
-    }],
-    emailIndexList: {}
+    }]
+
 });
 
 
-userSchema.statics.auth = roleRequired => {
-    return (req, res, next) => {
-        var token = req.cookies.accessToken;
+userSchema.statics.saveGmailUser = (user, cb) => {
+    User.findOne({'email': user.email }, (err, dbUser) => {
+        if(err) {
+            return cb(err);
+        } else if(dbUser){
+            return cb(null, dbUser);
+        }
 
-        jwt.verify(token, JWT_SECRET, (err, payload) => {
-            if (err) return res.status(401).send({
-                error: 'Authentication required.'
-            });
-
-            User.findById(payload._id, (err, user) => {
-                if (err || !user) return res.status(401).send({
-                    error: 'User not found.'
-                });
-                req.user = user;
-
-                if (roleRequired === 'admin' && !req.user.admin) {
-                    // they don't have admin privilages
-                    return res.status(403).send({
-                        error: 'Not authorized.'
-                    });
-                }
-
-                next(); // they have the required privilages
-            }).select('-password');
-        });
-    };
-};
-
-userSchema.statics.isLoggedIn = (req, res, next) => {
-    var token = req.cookies.accessToken;
-
-    jwt.verify(token, JWT_SECRET, (err, payload) => {
-        if (err) return res.status(401).send({
-            error: 'Authentication required'
+        let newUser = new User({
+            email: user.email,
+            name:  user.name,
+            given_name: user.given_name,
+            family_name: user.family_name
         });
 
-        User.findById(payload._id, (err, user) => {
-            if (err || !user) return res.status(401).send({
-                error: 'User not found'
-            });
-            req.user = user;
+        let sendmail = {
+            email: user.email,
+            subject: 'JRM signup',
+            message: 'Thank you for signing up for JRM. you can now start using our App.'
 
-            next();
-        }).select('-password');
-    });
+        };
+        let mail = newUser.sendEmail(sendmail);
 
-};
-
-userSchema.statics.register = function(userObject, callback) {
-    User.findOne({
-        email: userObject.email
-    }, function(error, userData) {
-        if (error || userData) return callback(error || {
-            error: "Email Not Available"
-        });
-
-        bcrypt.hash(userObject.password, 12, function(error, hash) {
-            if (error) return callback(error);
-
-            var user = new User({
-                email: userObject.email,
-                password: hash
-            });
-
-            user.save(callback);
+        newUser.save((err, savedUser) => {
+            if(err) return cb(err);
+            cb(null, savedUser);
         });
     });
 };
 
-userSchema.methods.generateToken = function() {
-    console.log('working!!!!!!');
-    var token = jwt.sign({
-        _id: this._id
-    }, JWT_SECRET);
-
-    return token;
-};
-
-userSchema.statics.isLoggedIn = function(request, response, next) {
-
-    if (!request.header("Authorization")) {
-        return response.status(401).send({
-            message: "PLease make sure request has an Authorization Header"
-        });
-    }
-
-    var token = request.header("Authorization").split(" ")[1];
-
-    jwt.verify(token, JWT_SECRET, function(error, payload) {
-        if (error) return response.status(401).send({
-            error: "Must be authenticated"
-        });
-
-        User.findById(payload._id, function(error, userData) {
-            if (error || !userData) return response.clearCookie("accessToken").status(400).send(error || {
-                error: "User not found"
-            });
-            request.user = userData;
-            next();
-        }).select({
-            password: false
-        })
-    })
-
-};
-
-userSchema.statics.authenticate = function(loginData, callback) {
-    console.log('routing');
-    User.findOne({
-        email: loginData.email
-    }, function(error, userData) {
-        if (error || !userData) return callback(error || {
-            error: "Login Failed. Email or Password is Incorrect"
-        });
-
-        bcrypt.compare(loginData.password, userData.password, function(error, isGood) {
-            if (error || !isGood) return callback(error || {
-                error: "Login Failed. Email or Password Incorrect"
-            });
-            console.log('what the fuck:');
-            var token = userData.generateToken();
-            console.log('token:', token)
-
-            callback(null, token);
-        });
-    });
-};
-
-userSchema.statics.addApplication = (user, application, cb) => {
+userSchema.statics.addApplication = (userId, applicationId, cb) => {
     console.log('working');
-    User.findById(user._id, (err, dbUser) => {
-        if(dbUser.applications.indexOf(application._id) < 0){
-            dbUser.applications.push(application._id);
+    User.findById(userId, (err, dbUser) => {
+        if(dbUser.applications.indexOf(applicationId) < 0){
+            dbUser.applications.push(applicationId);
         }
 
         dbUser.save((err, savedUser) => {
@@ -184,6 +87,34 @@ userSchema.statics.edit = (id, passedObj, cb) => {
     });
 };
 
-var User = mongoose.model("User", userSchema);
+
+userSchema.methods.sendEmail = function(obj) {
+    let userEmail = obj.email;
+    let subject = obj.subject
+    let message = obj.message
+    let transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+            user: process.env.EMAIL_ACCOUNT,
+            pass: process.env.GMAIL_PASSWORD
+        }
+        });
+
+    let mailOptions = {
+        from: `"JRM" ${process.env.GMAIL_PASSWORD}`, // sender address
+        to: userEmail, // list of receivers
+        subject: subject, // Subject line
+        text: message, // plaintext body
+        html: message// html body
+    };
+    transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Message sent: ' + info.response);
+    });
+}
+
+let User = mongoose.model("User", userSchema);
 
 module.exports = User;
