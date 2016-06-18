@@ -1,9 +1,44 @@
 <h1>{{application.company}}</h1>
-<h6>{{createTime(application.createAt)}}</h6>
+<hr>
 <div class="mileStoneDiv">
-    <span class="dot"></span></span>
+    <div class="milestone addStone" ng-init="openAddStoneForm = false" ng-click="openAddStoneForm=!openAddStoneForm">
+        <p class="title">Create a new MileStone <i class="fa fa-caret-down" ng-show="!openAddStoneForm"></i><i class="fa fa-caret-up" ng-show="openAddStoneForm"></i></p>
+        <div ng-show="openAddStoneForm">
+            <hr/>
+            <fieldset class="form-group">
+                <label for="title">Event Title</label>
+                <input type="text" class="form-control" id="title" placeholder="On-compus interview round 2..." ng-model="newStone.title"required>
+                <!-- <small class="text-muted">We'll never share your email with anyone else.</small> -->
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="description">Event Details*</label>
+                <input type="text" class="form-control" id="description" placeholder="Event Details" ng-model="newStone.description"required>
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="applicationDate">Due time* <small class="text-muted">when do you want we remind you? <b>default</b> is 7-day.</small></label>
+                <input type="date" class="form-control form-control-sm" style="line-height: 1.5rem" id="applicationDate" placeholder="" ng-model="newApplication.applicationDate" value="{{ applicationDateDefault | date: 'yyyy-MM-dd' }}" required/>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<div class="mileStoneDiv">
     <div class="milestone">
-        <p>here is title</p>
-        <p>here is description</p>
+        <p class="title">Phone interview Round 1</p>
+        <p class="description">applied for {{application.jobTitle}} of {{application.company}}</p>
+        <p class="time"><small>{{createTime(application.createAt)}}</small></p>
+    </div>
+</div>
+<div class="mileStoneDiv hero">
+    <div class="milestone success">
+        <p class="stoneIcon"><i class="fa fa-paper-plane" aria-hidden="true"></i></p>
+        <p class="stoneTitle">The first mail sent out!</p>
+        <p class="stoneTime"><small>{{createTime(application.createAt)}}</small></p>
+    </div>
+</div>
+<div class="mileStoneDiv hero start">
+    <div class="milestone gold">
+        <p class="stoneIcon"><i class="fa fa-star" aria-hidden="true"></i></p>
+        <p class="stoneTitle">Application created</p>
+        <p class="stoneTime"><small>{{createTime(application.createAt)}}</small></p>
     </div>
 </div>

@@ -68,7 +68,7 @@
                 span.time {
                     font-weight: 400;
                     padding-top: 4px;
-                    color: rgba(0,0,0,0.4);
+                    color: rgba(0,0,0,0.6);
                     font-size: 0.7em;
                     display: inline-block;
                     float: right;
@@ -125,29 +125,100 @@
         }
         .mileStoneDiv {
             background: white;
-            padding: 0 10px 0 0;
+            padding: 10px 10px 0 0;
             display: block;
             margin: 0;
             position: relative;
-            border-left: 2px solid #eeeeee;
+            border-left: 3px solid #ddd;
             margin-left: 20px;
             .milestone {
+                border: 5px solid white;
+                border-left: 2px solid white;
                 position: relative;
                 margin-left: 30px;
-                padding: 10px;
-                background: white;
+                padding: 15px 30px;
+                background: $stone-default;
+                border-radius: 6px;
+                transition: .2s all ease-in-out;
+                p{
+                    display: block;
+                    line-height: 1em;
+                    margin-bottom: 0.5rem;
+                    margin-top: 0.5rem;
+                }
+                p.title{
+                    font-size: 1.2em;
+                    font-weight: 600;
+                }
+            }
+            .milestone:hover{
+                transform: scale(1.02);
+                transition: .2s all ease-in-out;
+            }
+            .milestone.addStone {
+                cursor: pointer;
             }
         }
         .mileStoneDiv::before {
             position: absolute;
-            left: -7px;
+            left: 0px;
             top: 50px;
-            height: 30%;
             content: '';
-            width: 12px;
-            height: 12px;
-            border-radius: 20px;
-            background: $brand-primary;
+            width: 30px;
+            height: 2px;
+            background: #ddd;
+        }
+        .mileStoneDiv.start::after {
+            position: absolute;
+            left: -30px;
+            bottom: -20px;
+            content: 'START';
+            color: #ddd;
+            font-size: 0.8em;
+            transform: scale(0.8);
+            padding: 2px 10px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .mileStoneDiv.hero {
+            user-select: none;
+            cursor: default;
+            .milestone{
+                color: white;
+                line-height: 1.2em;
+                p{
+                    text-align: center;
+                }
+                p.stoneIcon {
+                    font-size: 1.4em;
+                }
+                p.stoneTitle {
+                    text-transform: uppercase;
+                    font-weight: 600;
+                }
+                p.stoneTime {
+                    line-height: 0.7rem;
+                    font-size: 1em;
+                    opacity: 0.6;
+                }
+            }
+            .milestone.success {
+                background: $stone-success;
+            }
+            .milestone.gold {
+                background: $stone-gold;
+            }
+        }
+        .mileStoneDiv.hero::before {
+            position: absolute;
+            left: 0px;
+            top: 50px;
+            content: '';
+            width: 50px;
+            height: 2px;
+            background: #ddd;
         }
     }
 }
@@ -175,9 +246,12 @@
             width: 105vw;
             padding: 15px;
             .mileStoneDiv {
+                margin: 0px 0px 0px 0px !important;
                 .milestone {
                     margin-left: 10px;
                     padding-right: 10px;
+                    border: 2px solid white;
+                    border-radius: 2px;
                 }
             }
         }
