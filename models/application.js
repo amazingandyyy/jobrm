@@ -78,10 +78,10 @@ let applicationSchema = new mongoose.Schema({
         phone: String,
         email: String
     },
-    applicant: {
+    applicant: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    },
+    }],
     milestone: []
 
 });
