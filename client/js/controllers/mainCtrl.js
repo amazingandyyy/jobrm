@@ -33,6 +33,11 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
         $scope.currentUser = store.get("currentUser")
         console.log("Profile info: ", $scope.currentUser)
     }
+    $scope.$watch(function() {
+        return store.get("currentUser");
+    }, function(newVal, oldVal) {
+        $scope.currentUser = newVal;
+    });
 
     //user sign-in
     $scope.signIn = function() {

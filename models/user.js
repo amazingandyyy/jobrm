@@ -30,10 +30,7 @@ let userSchema = new mongoose.Schema({
     applications: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Application"
-    }],
-    clientId: {
-        type: String
-    }
+    }]
 
 });
 
@@ -70,12 +67,14 @@ userSchema.statics.saveGmailUser = (user, cb) => {
             if (err) return cb(err);
             cb(null, savedUser);
         });
-    }).populate('applications');;
+    }).populate('applications');
 };
 
 userSchema.statics.addApplication = (applicantId, applicationId, cb) => {
     console.log('working');
+    console.log('applicantId: ', applicantId);
     User.findById(applicantId, (err, dbUser) => {
+        console.log('dbUser: ', dbUser);
         if (dbUser.applications.indexOf(applicationId) !== -1) {
             cb(null, dbUser)
         }

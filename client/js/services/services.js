@@ -18,6 +18,7 @@ angular
             });
         }
         this.createOneApplication = (applicationData, applicantId) => {
+            console.log('applicantIdddddd: ',applicantId);
             var newApplicationRequest = {
                 applicationData: applicationData,
                 applicantId: applicantId
