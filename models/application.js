@@ -119,16 +119,6 @@ applicationSchema.statics.getOne = (applicationId, cb) => {
     }).populate('applicant');
 };
 
-applicationSchema.statics.createApps = (applicationArr, cb) => {
-    applicationArr.forEach(applicationObj=>{
-        Application.create(applicationObj, (err, application) => {
-            console.log('applicationsssss: ', application);
-            if (err)  return cb(err);
-            cb(null, application);
-        });
-    });
-};
-
 applicationSchema.statics.createApp = (applicationObj, cb) => {
     console.log('applicationObj: ', applicationObj);
     Application.create(applicationObj, (err, application) => {
