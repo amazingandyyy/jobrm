@@ -6,11 +6,11 @@ const User = require('../models/user');
 
 router.post('/', (req, res) => {
     User.saveGmailUser(req.body, (err, savedUser) => {
-        res.status(err ? 400: 200).send(err || savedUser);
+        res.status(err ? 400 : 200).send(err || savedUser);
     });
 });
 
-router.put('/:id',  (req, res) => {
+router.put('/:id', (req, res) => {
     User.edit(req.params.id, req.body, (err, editedUser) => {
         if (err) {
             res.status(400).send(err);
@@ -22,13 +22,11 @@ router.put('/:id',  (req, res) => {
 
 router.get('/:id', (req, res) => {
     User.findById(req.params.id, (err, user) => {
-        if (err) return res.status(400).send(err)
-
-        res.send(user)
+        res.status(err ? 400 : 200).send(err || user)
     });
 });
 
-router.get('/',  (req, res) => {
+router.get('/', (req, res) => {
     User.find({}, (err, users) => {
         res.status(err ? 400 : 200).send(err || users);
     })
@@ -36,7 +34,7 @@ router.get('/',  (req, res) => {
 
 router.delete('/:id', (req, res) => {
     User.findByIdAndRemove(req.params.id, (err, user) => {
-        if(err) return res.status(400).send(err);
+        if (err) return res.status(400).send(err);
 
         res.send();
     });
