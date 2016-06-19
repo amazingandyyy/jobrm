@@ -3,7 +3,7 @@
 angular
     .module("jobrmApp")
     .service("Application", function($http, store){
-        var user = store.get('loggedUser');
+        var user = store.get('currentUser');
         this.getAllApplications = () => {
             var id  = user._id;
             return $http({

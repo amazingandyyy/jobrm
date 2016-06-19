@@ -25,7 +25,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/:userId', (req, res) => {
     console.log('new application: ', req.body);
-    Application.create(req.body, (err, application) => {
+    Application.createApp(req.body, (err, application) => {
         console.log('application: ', application);
         if(err){
             res.status(400).send(err);
