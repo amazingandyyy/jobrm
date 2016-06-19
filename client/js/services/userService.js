@@ -13,4 +13,10 @@ function UserService($http){
             data: user
         });
     };
+    this.getOne = (userId) => {
+        return $http({
+            method: "GET",
+            url: `/api/users/${userId}`
+        });
+    };
 }

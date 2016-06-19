@@ -82,7 +82,7 @@ let addApplication = {
     views: {
         'map': {
             templateUrl: '/html/dashboard_add.html',
-            controller: 'dashboardAddingCtrl'
+            controller: 'dashboardListCtrl'
         }
     }
 };

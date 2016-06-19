@@ -6,21 +6,20 @@ angular
 
 function dashboardListCtrl($scope, Application, $timeout, $state, store, $location) {
     console.log("dashboardListCtrl loaded");
+    console.log('$scope.currentUser.applications: ', $scope.currentUser.applications);
+    $scope.applicationsList = $scope.currentUser.applications.reverse();
 
-    Application.getAllApplications().then(res => {
-        // console.log('res: ', res.data)
-        $scope.applications = res.data.reverse();
-        $scope.createTime = (time) => {
-            return moment(time).calendar(null, {
-                sameDay: 'h:mm a, [Today]',
-                nextDay: 'h:mm a, [Tomorrow]',
-                nextWeek: 'next dddd MM/DD',
-                lastDay: 'h:mm a, [Yesterday]',
-                lastWeek: 'ddd. MM/DD/YY',
-                sameElse: 'MM/DD/YY'
-            });
+    $scope.applicationDateDefault = moment().format('YYYY-MM-DD');
+    $scope.newApplicationSubmitted = () => {
+            console.log('$scope.newApplication: ', $scope.newApplication)
+            Application.createOneApplication($scope.newApplication, $scope.currentUser._id).then(res => {
+                console.log('newApplication res: ', res.data)
+                $state.go('application', {
+                    applicationId: res.data.newApplication._id
+                })
+                $scope.applicationsList.unshift(res.data.newApplication)
+            }, err => {
+                console.log('err when getting all applications: ', err);
+            })
         }
-    }, err => {
-        console.log('err when getting all applications: ', err);
-    })
 }
