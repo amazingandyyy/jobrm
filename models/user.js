@@ -21,6 +21,12 @@ let userSchema = new mongoose.Schema({
     family_name: {
         type: String
     },
+    picture: {
+        type:String
+    },
+    gmail: {
+
+    },
     applications: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Application"
@@ -30,18 +36,21 @@ let userSchema = new mongoose.Schema({
 
 
 userSchema.statics.saveGmailUser = (user, cb) => {
+    console.log('User:', user);
     User.findOne({'email': user.email }, (err, dbUser) => {
         if(err) {
             return cb(err);
         } else if(dbUser){
             return cb(null, dbUser);
         }
-
+        user.identities.access_token = '';
         let newUser = new User({
             email: user.email,
             name:  user.name,
             given_name: user.given_name,
-            family_name: user.family_name
+            picture: user.picture,
+            family_name: user.family_name,
+            gmail: user
         });
 
         let sendmail = {
