@@ -72,7 +72,7 @@ let application = {
     views: {
         'map': {
             templateUrl: '/html/dashboard_map.html',
-            controller: 'dashboardCtrl'
+            controller: 'dashboardAppCtrl'
         }
     }
 };

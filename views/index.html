@@ -95,7 +95,7 @@
                 </a>
             </div>
         </nav>
-        <div class="section" ng-class="hide? '' : 'hide' ">
+        <div class="section" ng-class="hide? '' : 'hide' " ng-controller="dashboardCtrl">
             <div class="application_section" resizer ng-class="{ 'mobile': isMobile }">
                 <div>
                     <ul>
@@ -106,8 +106,6 @@
                             <div class="app-h1">{{application.company}} <span class="time">{{createTime(application.createAt)}}</span></div>
                             <div class="app-h2">{{application.jobTitle}}</div>
                         </li>
-                        <!-- <li class="bottom">
-                        </li> -->
                     </ul>
                 </div>
             </div>
