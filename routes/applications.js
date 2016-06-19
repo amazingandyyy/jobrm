@@ -5,48 +5,56 @@ const router = express.Router();
 const Application = require('../models/application');
 const User = require('../models/user');
 
-router.get('/all/:id', (req, res) => {
-    console.log('id:', req.params.id);
-    Application.getAll(req.params.id, (err, allApplications) => {
-        res.status(err ? 400: 200).send(err || allApplications);
+router.get('/all/:userId', (req, res) => {
+    console.log('iddddd:', req.params.userId);
+    Application.getAll(req.params.userId, (err, allApplications) => {
+        res.status(err ? 400 : 200).send(err || allApplications);
     });
 });
 router.delete('/all', (req, res) => {
     Application.remove({}, (err, allApplications) => {
-        res.status(err ? 400: 200).send(err || allApplications);
+        res.status(err ? 400 : 200).send(err || allApplications);
     });
 });
 
 router.get('/:id', (req, res) => {
     Application.findById(req.params.id, (err, application) => {
-        res.status(err ? 400: 200).send(err || application);
+        res.status(err ? 400 : 200).send(err || application);
     });
 });
 
-router.post('/:userId', (req, res) => {
+router.post('/create', (req, res) => {
     console.log('new application: ', req.body);
-    Application.createApp(req.body, (err, application) => {
+    var newApplication = req.body.applicationData;
+    var applicantId = req.body.applicantId;
+    // console.log('newApplication: ', newApplication);
+    // console.log('applicantId: ', applicantId);
+    Application.createApp(newApplication, (err, application) => {
         console.log('application: ', application);
-        if(err){
+        if (err) {
             res.status(400).send(err);
         } else {
-             User.addApplication(req.params.userId, application._id, (err2, addedApplication) => {
-                 if(err2) res.status(400).send(err2);
-                 res.send(application);
-             });
+            User.addApplication(applicantId, application._id, (error, updateUser) => {
+                if (error) return res.status(400).send(error);
+                var responseData = {
+                    newApplication: application,
+                    updatedApplicant: updateUser
+                }
+                res.send(responseData);
+            });
         }
     });
 });
 
 router.put('/:id', (req, res) => {
     Application.updateApp(req.params.id, req.body, (err, updatedApplication) => {
-        res.status(err ? 400: 200).send(err || updatedApplication);
+        res.status(err ? 400 : 200).send(err || updatedApplication);
     });
 });
 
 router.delete('/:userId/delete/:appId', (req, res) => {
     Application.deleteApp(req.params.userId, req.params.appId, (err, deletedApplication) => {
-        res.status(err ? 400: 200).send(err || deletedApplication);
+        res.status(err ? 400 : 200).send(err || deletedApplication);
     });
 });
 
