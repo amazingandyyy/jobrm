@@ -19,8 +19,6 @@ angular
 
 function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices, GoogleCalendarServices, UserService) {
     console.log("mainCtrl loaded");
-    //auth profile
-    $scope.auth = auth;
     $scope.hide = true;
     $scope.toggle = () => {
         $scope.hide = !$scope.hide;
@@ -33,6 +31,7 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
     };
     if (store.get("currentUser")) {
         $scope.currentUser = store.get("currentUser")
+        console.log("Profile info: ", $scope.currentUser)
     }
 
     //user sign-in
@@ -40,6 +39,7 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
         auth.signin({}, function(profile, token) {
             store.set("id_token", token);
             $location.path("/");
+            console.log("Profile: ", profile)
             saveUserToModel(profile);
             //$scope.currentUser = profile;
         }, function(error) {

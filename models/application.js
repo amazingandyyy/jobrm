@@ -78,10 +78,10 @@ let applicationSchema = new mongoose.Schema({
         phone: String,
         email: String
     },
-    applicant: {
+    applicant: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    },
+    }],
     milestone: []
 
 });
@@ -133,17 +133,15 @@ applicationSchema.statics.createApp = (applicationObj, cb) => {
     console.log('applicationObj: ', applicationObj);
     Application.create(applicationObj, (err, application) => {
         console.log('applicationsssss: ', application);
-        if (err)  return cb(err);
-        cb(null, application);
+        Application.findById(application._id, (err, dbApplication) => {
+            dbApplication.applicant.push(applicationObj.applicant);
+
+            dbApplication.save((err, savedApplication) => {
+                if (err)  return cb(err);
+                cb(null, application);
+            })
+        })
     });
-    // let application = new Application(applicationObj);
-    // console.log('applicationsssss: ', application);
-    // application.save((err, savedApplication) => {
-    //     console.log('savedApplication: ', savedApplication);
-    //     if (err) cb(err);
-    //
-    //     cb(null, savedApplication);
-    // });
 };
 
 applicationSchema.statics.updateApp = (userId, applicationObj, cb) => {
