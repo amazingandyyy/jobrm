@@ -4,17 +4,16 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("express-jwt");
 
+const Notify = require("../lib/cronjob");
+// Notify.dailyBaseCronJobVerify();
 
-
-const cronNotificationJob = require("../lib/cronjob");
+const SendGrid = require('../lib/mail');
+SendGrid.sendVerify();
 
 const jwtCheck = jwt({
     secret: new Buffer('7kZNdYeUS_MeSCrqsjSTMWY6ZCyGY3Yo49esbtjTj-5hOvLX2MUw6AVVbcb_gOnP', 'base64'),
     audience: 'USRhQhbNBhwGgJguSUHubkKjcAXY0zcX'
 });
-
-// cronNotificationJob.cronNotificationJob
-
 
 router.use("/twilio", require("./twilio"));
 router.use("/users", require("./users"));

@@ -88,8 +88,8 @@ let applicationSchema = new mongoose.Schema({
 
 applicationSchema.statics.getLastSevenDaysAll = cb => {
 
-    var today = moment().startOf('day');
-    var feedbackDate = moment(today).add(7, 'days');
+    let today = moment().startOf('day');
+    let feedbackDate = moment(today).add(7, 'days');
 
     Application.find({
         'completed': 'false',
