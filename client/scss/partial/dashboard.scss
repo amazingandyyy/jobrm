@@ -233,6 +233,33 @@
         width: 25%;
         border-left: 1px solid #ddd;
     }
+    .addingApplicationForm  {
+        h3{
+            display: block;
+            margin-top: 10px;
+            font-weight: 900;
+            color: rgba(0,0,0,0.4);
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .childField {
+            width: 100%;
+            background: rgba(0,0,0,0.04);
+            padding: 20px 25px 25px 25px;
+            border-radius: 3px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            label {
+                line-height: 0.3em;
+                color: rgba(0,0,0,0.6);
+                font-size: 0.8em;
+            }
+            .form-group {
+                margin-bottom: 0.3rem;
+            }
+        }
+    }
 }
 @media (max-width: 642px) {
     .section.hide {
