@@ -62,7 +62,7 @@ let dashboard = {
     views: {
         'map': {
             templateUrl: '/html/dashboard_summary.html',
-            controller: 'dashboardListCtrl'
+            controller: 'dashboardCtrl'
         }
     }
 };
@@ -72,7 +72,7 @@ let application = {
     views: {
         'map': {
             templateUrl: '/html/dashboard_map.html',
-            controller: 'dashboardMapCtrl'
+            controller: 'dashboardCtrl'
         }
     }
 };
@@ -82,7 +82,7 @@ let addApplication = {
     views: {
         'map': {
             templateUrl: '/html/dashboard_add.html',
-            controller: 'dashboardListCtrl'
+            controller: 'dashboardCtrl'
         }
     }
 };
