@@ -7,7 +7,7 @@ const jwt = require("express-jwt");
 const Notify = require("../lib/cronjob");
 // Notify.dailyBaseCronJobVerify();
 
-const SendGrid = require('../lib/mail');
+const SendGrid = require('../lib/sendgrid');
 SendGrid.sendVerify();
 
 const jwtCheck = jwt({
