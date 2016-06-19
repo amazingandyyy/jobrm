@@ -1,15 +1,17 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var User = require('../models/user');
-var moment = require('moment');
+const mongoose = require('mongoose');
+const User = require('../models/user');
+const moment = require('moment');
 
 let applicationSchema = new mongoose.Schema({
     company: {
-        type: String
+        type: String,
+        trim: true
     },
     jobTitle: {
-        type: String
+        type: String,
+        trim: true
     },
     createAt: {
         type: Date,
@@ -19,40 +21,50 @@ let applicationSchema = new mongoose.Schema({
         type: Date
     },
     applicationDate: {
-        type: String
+        type: String,
+        trim: true
     },
     jobLocation: {
-        type: String
+        type: String,
+        trim: true
     },
     applicationSite: {
-        type: String
+        type: String,
+        trim: true
     },
     applicationLink: {
-        type: String
+        type: String,
+        trim:true
     },
     feedbackDate: {
         type: Date
     },
     jobLocation: {
         type: String,
+        trim: true,
         required: false
     },
     applicationSite: {
         type: String,
+        trim: true,
         required: false
     },
     applicationLink: {
         type: String,
+        trim: true,
         required: false
     },
     feedbackNote: {
-        type: String
+        type: String,
+        trim: true
     },
     applicationNote: {
-        type: String
+        type: String,
+        trim: true
     },
     whatToImprove: {
-        type: String
+        type: String,
+        trim: true
     },
     completed: {
         type: Boolean,
@@ -82,14 +94,16 @@ let applicationSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }],
-    milestone: []
+    milestones: [{
+        type: mongoose.Schema.Types.ObjectId, ref: 'Milestone'
+    }]
 
 });
 
 applicationSchema.statics.getLastSevenDaysAll = cb => {
 
-    var today = moment().startOf('day');
-    var feedbackDate = moment(today).add(7, 'days');
+    let today = moment().startOf('day');
+    let feedbackDate = moment(today).add(7, 'days');
 
     Application.find({
         'completed': 'false',
@@ -119,16 +133,6 @@ applicationSchema.statics.getOne = (applicationId, cb) => {
     }).populate('applicant');
 };
 
-applicationSchema.statics.createApps = (applicationArr, cb) => {
-    applicationArr.forEach(applicationObj=>{
-        Application.create(applicationObj, (err, application) => {
-            console.log('applicationsssss: ', application);
-            if (err)  return cb(err);
-            cb(null, application);
-        });
-    });
-};
-
 applicationSchema.statics.createApp = (applicationObj, cb) => {
     console.log('applicationObj: ', applicationObj);
     Application.create(applicationObj, (err, application) => {
@@ -144,8 +148,8 @@ applicationSchema.statics.createApp = (applicationObj, cb) => {
     });
 };
 
-applicationSchema.statics.updateApp = (userId, applicationObj, cb) => {
-    Application.findByIdAndUpdate(userId, {
+applicationSchema.statics.updateApp = (applicationId, applicationObj, cb) => {
+    Application.findByIdAndUpdate(applicationId, {
         $set: applicationObj
     }, {
         new: true
