@@ -20,10 +20,12 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.get('/:id', (req, res) => {
-    User.findById(req.params.id, (err, user) => {
+router.get('/:userId', (req, res) => {
+    console.log('req.params.userId: ', req.params.userId);
+    User.findById(req.params.userId, (err, user) => {
+        console.log('user: ', user);
         res.status(err ? 400 : 200).send(err || user)
-    });
+    }).populate('applications');
 });
 
 router.get('/', (req, res) => {
@@ -35,7 +37,6 @@ router.get('/', (req, res) => {
 router.delete('/:id', (req, res) => {
     User.findByIdAndRemove(req.params.id, (err, user) => {
         if (err) return res.status(400).send(err);
-
         res.send();
     });
 });
