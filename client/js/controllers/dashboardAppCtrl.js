@@ -2,13 +2,10 @@
 
 angular
     .module("jobrmApp")
-    .controller("dashboardCtrl", dashboardCtrl)
+    .controller("dashboardAppCtrl", dashboardAppCtrl)
 
-function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, store, $location) {
-    console.log("dashboardCtrl loaded");
-    console.log('$scope.currentUser.applications: ', $scope.currentUser.applications);
-    $scope.applications = $scope.currentUser.applications.reverse();
-    console.log($scope.applications);
+function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, store, $location) {
+    console.log("dashboardAppCtrl loaded");
 
     $scope.applicationDateDefault = moment().format('YYYY-MM-DD');
     $scope.newApplicationSubmitted = () => {
@@ -37,7 +34,7 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
     $scope.createTime = (time) => {
         return moment(time).calendar(null, {
             sameDay: 'h:mm a, [Today]',
-            nextDay: 'h:mm:ss a, [Tomorrow]',
+            nextDay: 'h:mm a, [Tomorrow]',
             nextWeek: 'dddd',
             lastDay: 'h:mm:ss a, [Yesterday]',
             lastWeek: 'h:mm:ss a, ddd. MMMM Do YYYY',
