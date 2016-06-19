@@ -4,6 +4,13 @@ angular
     .module("jobrmApp")
     .service("Application", function($http, store){
         var user = store.get('currentUser');
+        var id = user._id;
+        this.getAllApplications = () => {
+            return $http({
+                method: 'GET',
+                url: `/api/applications/all/${id}`
+            });
+        }
         this.getOneApplication = (applicationId) => {
             return $http({
                 method: 'GET',
