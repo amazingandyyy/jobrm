@@ -8,6 +8,7 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
     console.log("dashboardCtrl loaded");
     console.log('$scope.currentUser.applications: ', $scope.currentUser.applications);
     $scope.applicationsList = $scope.currentUser.applications.reverse();
+    console.log($scope.applicationsList);
 
     $scope.applicationDateDefault = moment().format('YYYY-MM-DD');
     $scope.newApplicationSubmitted = () => {
@@ -42,6 +43,5 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
             lastWeek: 'h:mm:ss a, ddd. MMMM Do YYYY',
             sameElse: 'MM/DD/YY'
         });
-        // hh:mm:ss,
     }
 }

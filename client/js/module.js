@@ -82,11 +82,8 @@ let addApplication = {
     views: {
         'map': {
             templateUrl: '/html/dashboard_add.html',
-<<<<<<< HEAD
             controller: 'dashboardCtrl'
-=======
-            controller: 'dashboardAddingCtrl'
->>>>>>> parent of f386478... fix the adding things
+
         }
     }
 };
