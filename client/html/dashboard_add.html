@@ -13,25 +13,25 @@
         <div class="col-sm-6">
             <fieldset class="form-group">
                 <label>Position*</label>
-                <input type="text" class="form-control" placeholder="The position you applied for" ng-model="newApplication.jobTitle" required>
+                <input type="text" class="form-control" placeholder="The position you applied for" ng-model="newApplication.position" required>
             </fieldset>
         </div>
         <div class="col-sm-6">
             <fieldset class="form-group">
                 <label>Job location*</label>
-                <input type="text" class="form-control" placeholder="The location the position is based in" ng-model="newApplication.jobLocation" required>
+                <input type="text" class="form-control" placeholder="The location the position is based in" ng-model="newApplication.jobLocation">
             </fieldset>
         </div>
         <div class="col-sm-12">
             <fieldset class="form-group">
                 <label>Application Submission Date* <small class="text-muted">The date you applied for the position. <b>Defaults</b> to today.</small></label>
-                <input type="date" class="form-control form-control-sm" style="line-height: 1.5rem" id="applicationDate" placeholder="" ng-model="newApplication.applicationDate" value="{{ applicationDateDefault | date: 'yyyy-MM-dd' }}" required/>
+                <input type="date" class="form-control form-control-sm" style="line-height: 1.5rem" id="applicationDate" placeholder="" ng-model="newApplication.applicationDate" value="{{ applicationDateDefault | date: 'yyyy-MM-dd' }}"/>
             </fieldset>
         </div>
         <div class="col-sm-12">
             <fieldset class="form-group">
                 <label>Anticipated Response* <small class="text-muted">When do you expect to receive an initial response by? <b>Defaults</b> to 7 days from today.</small></label>
-                <input type="date" class="form-control form-control-sm" style="line-height: 1.5rem" id="applicationDate" placeholder="" ng-model="newApplication.applicationDate" value="{{ applicationDateDefault | date: 'yyyy-MM-dd' }}" required/>
+                <input type="date" class="form-control form-control-sm" style="line-height: 1.5rem" id="applicationDate" placeholder="" ng-model="newApplication.dueTime" value="{{ applicationDateDefault | date: 'yyyy-MM-dd' }}"/>
             </fieldset>
         </div>
     </div>

@@ -5,24 +5,84 @@ var User = require('../models/user');
 var moment = require('moment');
 
 let applicationSchema = new mongoose.Schema({
-    data:{
-
-    },
-    dueTime: {
+    company: {
         type: String
-    }
-    applicant: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }],
-    milestones: [],
+    },
+    jobTitle: {
+        type: String
+    },
+    createAt: {
+        type: Date,
+        default: Date.now
+    },
+    lastUpdate: {
+        type: Date
+    },
+    applicationDate: {
+        type: String
+    },
+    jobLocation: {
+        type: String
+    },
+    applicationSite: {
+        type: String
+    },
+    applicationLink: {
+        type: String
+    },
+    feedbackDate: {
+        type: Date
+    },
+    jobLocation: {
+        type: String,
+        required: false
+    },
+    applicationSite: {
+        type: String,
+        required: false
+    },
+    applicationLink: {
+        type: String,
+        required: false
+    },
+    feedbackNote: {
+        type: String
+    },
+    applicationNote: {
+        type: String
+    },
+    whatToImprove: {
+        type: String
+    },
     completed: {
         type: Boolean,
         default: false
     },
-    astUpdate: {
-        type: Date
-    }
+    hiringAgency: {
+        name: String,
+        phone: String,
+        email: String
+    },
+    referencePerson: {
+        name: String,
+        phone: String,
+        email: String
+    },
+    companyContact: {
+        name: String,
+        phone: String,
+        email: String
+    },
+    interviewerContact: {
+        name: String,
+        phone: String,
+        email: String
+    },
+    applicant: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    milestone: []
 
 });
 
