@@ -5,9 +5,9 @@ const router = express.Router();
 const Application = require('../models/application');
 const User = require('../models/user');
 
-router.get('/all/:userId', (req, res) => {
-    console.log('iddddd:', req.params.userId);
-    Application.getAll(req.params.userId, (err, allApplications) => {
+router.get('/all/:id', (req, res) => {
+    console.log('id:', req.params.id);
+    Application.getAll(req.params.id, (err, allApplications) => {
         res.status(err ? 400 : 200).send(err || allApplications);
     });
 });
@@ -34,7 +34,7 @@ router.post('/create', (req, res) => {
         if (err) {
             res.status(400).send(err);
         } else {
-            User.addApplication(applicantId, application._id, (error, updateUser) => {
+            User.addApplication(applicantId, newApplication._id, (error, updateUser) => {
                 if (error) return res.status(400).send(error);
                 var responseData = {
                     newApplication: application,

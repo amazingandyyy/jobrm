@@ -17,7 +17,7 @@
         height: 93vh;
         max-width: 300px;
         min-width: 300px;
-        overflow-x: hide;
+        overflow-x: hidden;
         overflow-y: scroll;
         text-align: left;
         width: 30%;
@@ -118,7 +118,6 @@
         border-left: 1px solid #ddd;
         background: white;
         width: 50%;
-
         h1 {
             font-weight: 900;
             font-size: 2.2em;
@@ -139,21 +138,21 @@
                 padding: 15px 30px;
                 background: $stone-default;
                 border-radius: 6px;
-                transition: .2s all ease-in-out;
-                p{
+                transition: 0.2s all ease-in-out;
+                p {
                     display: block;
                     line-height: 1em;
                     margin-bottom: 0.5rem;
                     margin-top: 0.5rem;
                 }
-                p.title{
+                p.title {
                     font-size: 1.2em;
                     font-weight: 600;
                 }
             }
-            .milestone:hover{
+            .milestone:hover {
                 transform: scale(1.02);
-                transition: .2s all ease-in-out;
+                transition: 0.2s all ease-in-out;
             }
             .milestone.addStone {
                 cursor: pointer;
@@ -161,7 +160,7 @@
         }
         .mileStoneDiv::before {
             position: absolute;
-            left: 0px;
+            left: 0;
             top: 50px;
             content: '';
             width: 30px;
@@ -181,14 +180,13 @@
             border: 2px solid #ddd;
             border-radius: 3px;
         }
-
         .mileStoneDiv.hero {
             user-select: none;
             cursor: default;
-            .milestone{
+            .milestone {
                 color: white;
                 line-height: 1.2em;
-                p{
+                p {
                     text-align: center;
                 }
                 p.stoneIcon {
@@ -213,7 +211,7 @@
         }
         .mileStoneDiv.hero::before {
             position: absolute;
-            left: 0px;
+            left: 0;
             top: 50px;
             content: '';
             width: 50px;
@@ -227,11 +225,38 @@
         height: 93vh;
         max-width: 300px;
         min-width: 300px;
-        overflow-x: hide;
+        overflow-x: hidden;
         overflow-y: scroll;
         text-align: left;
         width: 25%;
         border-left: 1px solid #ddd;
+    }
+    .addingApplicationForm {
+        h3 {
+            display: block;
+            margin-top: 10px;
+            font-weight: 900;
+            color: rgba(0,0,0,0.4);
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .childField {
+            width: 100%;
+            background: rgba(0,0,0,0.04);
+            padding: 20px 25px 25px;
+            border-radius: 3px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            label {
+                line-height: 0.3em;
+                color: rgba(0,0,0,0.6);
+                font-size: 0.8em;
+            }
+            .form-group {
+                margin-bottom: 0.3rem;
+            }
+        }
     }
 }
 @media (max-width: 642px) {
@@ -258,7 +283,7 @@
             width: 105vw;
             padding: 15px;
             .mileStoneDiv {
-                margin: 0px 0px 0px 0px !important;
+                margin: 0 !important;
                 .milestone {
                     margin-left: 10px;
                     padding-right: 10px;
@@ -268,5 +293,4 @@
             }
         }
     }
-
 }

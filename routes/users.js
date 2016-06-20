@@ -20,12 +20,10 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.get('/:userId', (req, res) => {
-    console.log('req.params.userId: ', req.params.userId);
-    User.findById(req.params.userId, (err, user) => {
-        console.log('user: ', user);
+router.get('/:id', (req, res) => {
+    User.findById(req.params.id, (err, user) => {
         res.status(err ? 400 : 200).send(err || user)
-    }).populate('applications');
+    });
 });
 
 router.get('/', (req, res) => {

@@ -65,13 +65,9 @@ userSchema.statics.saveGmailUser = (user, cb) => {
 
         newUser.save((err, savedUser) => {
             if (err) return cb(err);
-            User.findOne({_id: savedUser._id}, (err, user)=>{
-                if (err || !user) return cb(err);
-                cb(null, user);
-            }).populate('applications')
-
+            cb(null, savedUser);
         });
-    }).populate('applications')
+    }).populate('applications');
 };
 
 userSchema.statics.addApplication = (applicantId, applicationId, cb) => {
