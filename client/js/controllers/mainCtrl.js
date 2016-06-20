@@ -44,7 +44,7 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
     $scope.signIn = function() {
         auth.signin({}, function(profile, token) {
             store.set("id_token", token);
-            $location.path("/");
+            $location.path("/dashboard");
             console.log("Profile: ", profile)
             saveUserToModel(profile);
             //$scope.currentUser = profile;
@@ -63,10 +63,10 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
     //save user to local Schema.
     function saveUserToModel(profile) {
         UserService.savedUser(profile)
-            .then(response => {
-                console.log('response:', response);
-                store.set('currentUser', response.data);
-                $scope.currentUser = response.data;
+            .then(res => {
+                console.log('res:', res);
+                store.set('currentUser', res.data);
+                $scope.currentUser = res.data;
                 if ($scope.currentUser) {
                     console.log('$scope.currentUser: ', $scope.currentUser);
                 }
@@ -82,8 +82,8 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
         //uncomment to have an automatic call to retrieve a list of the User's messages
         // Was Used to test Gmail Calls/Routes
         GmailServices.retrieveInboxList(profileInfo)
-            .then(function(response) {
-                console.log('response: ', response);
+            .then(function(res) {
+                console.log('res: ', res);
             })
     }
 }
@@ -93,38 +93,38 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
 //uncomment to have an automatic call to retrieve a list of the User's messages
 // Was Used to test Gmail Calls/Routes
 /*GmailServices.retrieveInboxList(profileInfo)
-    .then(function (response) {
+    .then(function (res) {
 
 
-        console.log("Response: ", response.data)
+        console.log("res: ", res.data)
     })
     .catch(function(error) {
         console.log("Error: ", error);
     });*/
 /*GmailServices.createNewLabel(profileInfo)
-    .then(function (response) {
-        console.log("Response", response.data);
+    .then(function (res) {
+        console.log("res", res.data);
     })
     .catch(function (error) {
         console.log("Error: ", error);
     });*/
 /* GmailServices.addLabelToEmail(profileInfo)
-     .then(function (response) {
-         console.log("Response: ", response.data);
+     .then(function (res) {
+         console.log("res: ", res.data);
      })
      .catch(function (error) {
          console.log("Error: ", error);
      })*/
 /*GoogleCalendarServices.createNewCalendar(profileInfo)
-    .then(function (response) {
-        console.log("Response: ", response);
+    .then(function (res) {
+        console.log("res: ", res);
     })
     .catch(function (error) {
         console.log("Error: ", error);
     })*/
 /*GoogleCalendarServices.calendarNewEvent(profileInfo)
-    .then(function (response) {
-        console.log("Response: ", response);
+    .then(function (res) {
+        console.log("res: ", res);
     })
     .catch(function (error) {
         console.log("Error: ", error);

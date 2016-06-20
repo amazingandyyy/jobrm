@@ -34,6 +34,7 @@ angular
             .state(dashboard)
             .state(application)
             .state(addApplication)
+            .state(setting)
 
         $urlRouterProvider.otherwise("/dashboard");
     })
@@ -84,6 +85,16 @@ let addApplication = {
             templateUrl: '/html/dashboard_add.html',
             controller: 'dashboardCtrl'
 
+        }
+    }
+};
+let setting = {
+    name: 'setting',
+    url: '/setting',
+    views: {
+        'map': {
+            templateUrl: '/html/setting.html',
+            controller: 'settingCtrl'
         }
     }
 };

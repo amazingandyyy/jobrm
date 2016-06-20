@@ -10,7 +10,7 @@ let applicationSchema = new mongoose.Schema({
     },
     dueTime: {
         type: String
-    }
+    },
     applicant: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -20,7 +20,7 @@ let applicationSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    astUpdate: {
+    lastUpdate: {
         type: Date
     }
 
