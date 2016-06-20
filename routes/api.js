@@ -4,11 +4,11 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("express-jwt");
 
-const Notify = require("../lib/cronjob");
-Notify.dailyBaseCronJobVerify();
+// const CronJob = require("../lib/cronjob");
+// CronJob.dailyBaseCronJobNotification();
 
 // const SendGrid = require('../lib/sendgrid');
-// SendGrid.sendGridVerify();
+// SendGrid.sendGridNotification();
 
 const jwtCheck = jwt({
     secret: new Buffer('7kZNdYeUS_MeSCrqsjSTMWY6ZCyGY3Yo49esbtjTj-5hOvLX2MUw6AVVbcb_gOnP', 'base64'),

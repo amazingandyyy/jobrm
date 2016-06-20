@@ -27,13 +27,15 @@ let userSchema = new mongoose.Schema({
     gmail: {
 
     },
+    phone: {
+        type: String
+    },
     applications: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Application"
     }]
 
 });
-
 
 userSchema.statics.saveGmailUser = (user, cb) => {
     console.log('User:', user);

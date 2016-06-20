@@ -90,21 +90,14 @@ let applicationSchema = new mongoose.Schema({
 
 });
 
-applicationSchema.statics.noficationSentUpdate = (applicationId, applicationObj, cb) => {
-    Application.findByIdAndUpdate(applicationId,
-        { $set: applicationObj }, { new: true }, (err, updatedApplication) => {
-            if (err) cb(err);
-    });
-};
-
 applicationSchema.statics.getLastSevenDaysAll = cb => {
     let today = moment().startOf('day');
     // let feedbackDate = moment(today).add(7, 'days');
     Application.find({
         // completed: 'false',
-        noficationSent: 'true',
+        noficationSent: 'false',
         feedbackDate: {
-        $eq: today.toDate()
+            $eq: today.toDate()
         }},
         (err, applications) => {
             if (err) cb(err);
@@ -162,11 +155,12 @@ applicationSchema.statics.updateApp = (applicationId, applicationObj, cb) => {
         new: true
     }, (err, updatedApplication) => {
         if (err) cb(err);
+        cb(null, updatedApplication);
 
-        updatedApplication.save((err, savedApplication) => {
-            if (err) cb(err);
-            cb(null, savedApplication);
-        });
+        // updatedApplication.save((err, savedApplication) => {
+        //     if (err) cb(err);
+        //     cb(null, savedApplication);
+        // });
     });
 };
 
