@@ -96,7 +96,7 @@
             </div>
         </nav>
         <div class="section" ng-class="hide? '' : 'hide' " ng-controller="dashboardCtrl">
-            <div class="application_section" resizer ng-class="{ 'mobile': isMobile }">
+            <div ng-hide="hideLeftSide" class="application_section" resizer ng-class="{ 'mobile': isMobile }">
                 <div>
                     <ul>
                         <li class="searchbar">

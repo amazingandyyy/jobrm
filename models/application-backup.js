@@ -1,48 +1,95 @@
 'use strict';
 
-const mongoose = require('mongoose');
-const User = require('../models/user');
-const moment = require('moment');
+var mongoose = require('mongoose');
+var User = require('../models/user');
+var moment = require('moment');
 
 let applicationSchema = new mongoose.Schema({
+    company: {
+        type: String
+    },
+    jobTitle: {
+        type: String
+    },
     createAt: {
         type: Date,
         default: Date.now
     },
     lastUpdate: {
+        type: Date
+    },
+    applicationDate: {
         type: String
     },
-    googleCalendarData: {
-        calendarId: { type: String },
-        events: [{
-            type: String
-        }]
+    jobLocation: {
+        type: String
     },
-    generalNarrativeData:{
-
+    applicationSite: {
+        type: String
     },
-    dueTime: {
+    applicationLink: {
+        type: String
+    },
+    feedbackDate: {
+        type: Date
+    },
+    jobLocation: {
+        type: String,
+        required: false
+    },
+    applicationSite: {
+        type: String,
+        required: false
+    },
+    applicationLink: {
+        type: String,
+        required: false
+    },
+    feedbackNote: {
+        type: String
+    },
+    applicationNote: {
+        type: String
+    },
+    whatToImprove: {
         type: String
     },
     completed: {
         type: Boolean,
         default: false
     },
-    notified: {
-        type: Boolean, default: false
+    hiringAgency: {
+        name: String,
+        phone: String,
+        email: String
+    },
+    referencePerson: {
+        name: String,
+        phone: String,
+        email: String
+    },
+    companyContact: {
+        name: String,
+        phone: String,
+        email: String
+    },
+    interviewerContact: {
+        name: String,
+        phone: String,
+        email: String
     },
     applicant: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }],
-    milestones: [{
-        type: mongoose.Schema.Types.ObjectId, ref: 'Milestone'
-    }]
+    milestone: []
+
 });
 
 applicationSchema.statics.getLastSevenDaysAll = cb => {
-    let today = moment().startOf('day');
-    let feedbackDate = moment(today).add(7, 'days');
+
+    var today = moment().startOf('day');
+    var feedbackDate = moment(today).add(7, 'days');
 
     Application.find({
         'completed': 'false',
@@ -74,11 +121,7 @@ applicationSchema.statics.getOne = (applicationId, cb) => {
 
 applicationSchema.statics.createApp = (applicationObj, cb) => {
     console.log('applicationObj: ', applicationObj);
-    let newApplication = {
-        dueTime: applicationObj.dueTime,
-        generalNarrativeData: applicationObj
-    }
-    Application.create(newApplication, (err, application) => {
+    Application.create(applicationObj, (err, application) => {
         console.log('applicationsssss: ', application);
         Application.findById(application._id, (err, dbApplication) => {
             dbApplication.applicant.push(applicationObj.applicant);
@@ -91,15 +134,18 @@ applicationSchema.statics.createApp = (applicationObj, cb) => {
     });
 };
 
-applicationSchema.statics.updateApp = (applicationId, applicationObj, cb) => {
-    Application.findByIdAndUpdate(applicationId, {$set: applicationObj }, { new: true}, (err, updatedApplication) => {
+applicationSchema.statics.updateApp = (userId, applicationObj, cb) => {
+    Application.findByIdAndUpdate(userId, {
+        $set: applicationObj
+    }, {
+        new: true
+    }, (err, updatedApplication) => {
         if (err) cb(err);
-        cb(null, updatedApplication);
 
-        // updatedApplication.save((err, savedApplication) => {
-        //     if (err) cb(err);
-        //     cb(null, savedApplication);
-        // });
+        updatedApplication.save((err, savedApplication) => {
+            if (err) cb(err);
+            cb(null, savedApplication);
+        });
     });
 };
 
