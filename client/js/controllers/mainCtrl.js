@@ -44,6 +44,9 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
     $scope.signIn = function() {
         auth.signin({}, function(profile, token) {
             store.set("id_token", token);
+            //for use in Google API operations. Will have to likely store somewhere else
+            //It gets generated on each login.
+            store.set("googleAPIAccess", profile);
             $location.path("/dashboard");
             console.log("Profile: ", profile)
             saveUserToModel(profile);
@@ -58,6 +61,7 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
         store.remove("currentUserMId");
         store.remove("currentUser");
         store.remove("id_token");
+        store.remove("GoogleAccessToken");
         $scope.currentUser = null;
         $state.go('dashboard')
         $window.location.reload();

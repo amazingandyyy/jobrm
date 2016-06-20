@@ -14,13 +14,11 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
         // console.log('$scope.newApplication: ', $scope.newApplication)
         Application.createOneApplication($scope.newApplication, $scope.currentUser._id).then(res => {
             console.log('newApplication res: ', res.data);
-
-            console.log("profile: ", store.get("currentUser"))
-
-
+            
+            console.log("store.get: ", store.get("googleAPIAccess"));
             //need the session tokens
-             /*if(!res.data.newApplication.googleCalendarData.calendarId && store.get("currentUser")) {
-                 GoogleCalendarServices.createNewCalendar()
+        /*     if(!res.data.newApplication.googleCalendarData.calendarId && store.get("googleAPIAccess")) {
+                 GoogleCalendarServices.createNewCalendar(store.get("googleAPIAccess"))
                      .then((response) => {
                          console.log("Response: ", response);
                      })
@@ -28,6 +26,14 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
                          console.log("Error: ", error);
                      });
              }*/
+
+            GoogleCalendarServices.calendarNewEvent(res.data, store.get("googleAPIAccess"))
+                .then(function (res) {
+                    console.log("res: ", res);
+                })
+                .catch(function (error) {
+                    console.log("Error: ", error);
+                });
 
 
 
