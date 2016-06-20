@@ -7,7 +7,7 @@ angular
 function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, store, $location) {
     // console.log("dashboardCtrl loaded");
     // console.log('$scope.currentUser.applications: ', $scope.currentUser.applications);
-    console.log($scope.currentUser.applications);
+    console.log('$scope.currentUser.applications: ', $scope.currentUser.applications);
     $scope.applications = $scope.currentUser.applications.reverse();
     console.log('$scope.applications: ', $scope.applications);
     $scope.applicationDateDefault = moment().format('YYYY-MM-DD');
