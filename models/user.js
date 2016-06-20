@@ -15,14 +15,15 @@ let userSchema = new mongoose.Schema({
     name: {
         type: String
     },
-    given_name: {
-        type: String
-    },
-    family_name: {
-        type: String
-    },
+    // given_name: {
+    //     type: String
+    // },
+    // family_name: {
+    //     type: String
+    // },
     phone: {
-        type: String
+        type: String,
+        default: ''
     },
     picture: {
         type: String

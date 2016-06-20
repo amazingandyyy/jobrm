@@ -78,9 +78,16 @@ applicationSchema.statics.createApp = (applicationObj, cb) => {
         dueTime: applicationObj.dueTime,
         generalNarrativeData: applicationObj
     }
-    Application.create(newApplication, (err, application) => {
-        console.log('applicationsssss: ', application);
-        Application.findById(application._id, (err, dbApplication) => {
+    Application.create(newApplication, (err1, application) => {
+        if(err1) {
+            console.log('error while creating application: ', err1);
+            return cb(err1);
+        }
+        Application.findById(application._id, (err2, dbApplication) => {
+            if(err2) {
+                console.log('error while creating application: ', err2);
+                return cb(err2);
+            }
             dbApplication.applicant.push(applicationObj.applicant);
 
             dbApplication.save((err, savedApplication) => {
