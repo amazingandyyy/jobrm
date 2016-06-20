@@ -1,26 +1,76 @@
 @import "../myvariables";
-.section.hide {
+.section.hideLeftSide {
     transition: 0.2s all ease-in-out;
-    left: -300px;
+    background: white;
+    padding-left: 0px;
+    .application_section{
+        transition: 0.2s all ease-in-out;
+        left: -300px;
+    }
+}
+.section.hideRightSide {
+    background: white;
+    transition: 0.2s all ease-in-out;
+    padding-right: 0px;
+    .details_section{
+        transition: 0.2s all ease-in-out;
+        right: -300px;
+    }
 }
 .section {
     width: 100%;
-    position: absolute;
-    top: 55px;
-    left: -20px;
-    transition: 0.3s all ease-in-out;
+    position:relative;
+    padding-left: 260px;
+    padding-right: 280px;
+    transition: 0.2s all ease-in-out;
     z-index: 98;
-    // width: 100%;
-    .application_section {
+    background: white;
+
+    .map_section {
+        display: inline-block;
         float: left;
         background: white;
         height: 93vh;
-        max-width: 300px;
-        min-width: 300px;
+        top: 54px;
+        text-align: left;
+        padding: 20px 20px 20px 20px;
+        overflow-y: scroll;
+        border-left: 1px solid #ddd;
+        background: white;
+        width: 100%;
+        background: white;
+
+    }
+    .details_section {
+        position: absolute;
+        right: -20px;
+        top: 0px;
+        height: 100vh;
+        // width: 30%;
+        max-width: 280px;
+        min-width: 280px;
+        background: white;
+        transition: 0.2s all ease-in-out;
+
         overflow-x: hidden;
         overflow-y: scroll;
         text-align: left;
-        width: 30%;
+    }
+    .application_section {
+        z-index: 99;
+        position: absolute;
+        left: -20px;
+        top: 0px;
+        height: 100vh;
+        // width: 30%;
+        max-width: 280px;
+        min-width: 280px;
+        background: white;
+        transition: 0.2s all ease-in-out;
+
+        overflow-x: hidden;
+        overflow-y: scroll;
+        text-align: left;
         ul {
             list-style: none;
             padding-left: 20px;
@@ -107,17 +157,6 @@
         }
     }
     .map_section {
-        display: inline-block;
-        float: left;
-        background: white;
-        height: 93vh;
-        top: 54px;
-        text-align: left;
-        padding: 30px 10px 50px 30px;
-        overflow-y: scroll;
-        border-left: 1px solid #ddd;
-        background: white;
-        width: 50%;
         h1 {
             font-weight: 900;
             font-size: 2.2em;
@@ -260,27 +299,44 @@
     }
 }
 @media (max-width: 642px) {
-    .section.hide {
-        left: -20px;
-        .application_section {
-            display: inline-block;
-            width: 100%;
+    .section.hideLeftSide {
+        transition: 0.2s all ease-in-out;
+        .application_section{
+            transition: 0.2s all ease-in-out;
+            left: -20px;
+            border-right: 1px solid #ddd;
+            width: 80%;
+            max-width: 100%;
+        }
+    }
+    .section.hideRightSide {
+        transition: 0.2s all ease-in-out;
+        .details_section{
+            transition: 0.2s all ease-in-out;
+            right: 0px;
         }
     }
     .section {
-        top: 45px;
-        left: 0;
-        width: 1300px;
+        top: -10px;
+        width: 100%;
+        padding-left: 0px;
+        padding-right: 0px;
+        .application_section{
+            transition: 0.2s all ease-in-out;
+            left: -300px;
+        }
+        .details_section{
+            transition: 0.2s all ease-in-out;
+            right: -300px;
+        }
         .application_section {
-            display: none;
-            max-width: 105vw;
             font-size: 1.5em;
             li {
                 padding: 10px 10px 14px 20px;
             }
         }
         .map_section {
-            width: 105vw;
+            width: 100%;
             padding: 15px;
             .mileStoneDiv {
                 margin: 0 !important;
