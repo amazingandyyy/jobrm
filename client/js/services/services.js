@@ -23,7 +23,7 @@ angular
                 applicationData: applicationData,
                 applicantId: applicantId
             }
-            console.log('applicationData: ', applicationData);
+            console.log('applicationData: ', newApplicationRequest);
 
             return $http({
                 method: 'POST',

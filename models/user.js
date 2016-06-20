@@ -21,6 +21,9 @@ let userSchema = new mongoose.Schema({
     family_name: {
         type: String
     },
+    phone: {
+        type: String
+    },
     picture: {
         type: String
     },
@@ -71,16 +74,12 @@ userSchema.statics.saveGmailUser = (user, cb) => {
 };
 
 userSchema.statics.addApplication = (applicantId, applicationId, cb) => {
-    console.log('working');
-    console.log('applicantId: ', applicantId);
     User.findById(applicantId, (err, dbUser) => {
         console.log('dbUser: ', dbUser);
         if (dbUser.applications.indexOf(applicationId) !== -1) {
             cb(null, dbUser)
         }
         dbUser.applications.push(applicationId);
-        console.log('dbUser: ', dbUser);
-        console.log('dbUser.applications: ', dbUser.applications);
         dbUser.save((err, savedUser) => {
             if (err) cb(err);
             cb(null, savedUser);

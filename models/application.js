@@ -10,12 +10,15 @@ let applicationSchema = new mongoose.Schema({
         default: Date.now
     },
     lastUpdate: {
-        type: Date
+        type: String
     },
-    feedbackDate: {
-        type: Date
+    googleCalendarData: {
+        calendarId: { type: String },
+        events: [{
+            type: String
+        }]
     },
-    data:{
+    generalNarrativeData:{
 
     },
     dueTime: {
@@ -25,8 +28,8 @@ let applicationSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    lastUpdate: {
-        type: Date
+    notified: {
+        type: Boolean, default: false
     },
     applicant: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -38,7 +41,6 @@ let applicationSchema = new mongoose.Schema({
 });
 
 applicationSchema.statics.getLastSevenDaysAll = cb => {
-
     let today = moment().startOf('day');
     let feedbackDate = moment(today).add(7, 'days');
 
@@ -72,7 +74,11 @@ applicationSchema.statics.getOne = (applicationId, cb) => {
 
 applicationSchema.statics.createApp = (applicationObj, cb) => {
     console.log('applicationObj: ', applicationObj);
-    Application.create(applicationObj, (err, application) => {
+    let newApplication = {
+        dueTime: applicationObj.dueTime,
+        generalNarrativeData: applicationObj
+    }
+    Application.create(newApplication, (err, application) => {
         console.log('applicationsssss: ', application);
         Application.findById(application._id, (err, dbApplication) => {
             dbApplication.applicant.push(applicationObj.applicant);
@@ -86,17 +92,14 @@ applicationSchema.statics.createApp = (applicationObj, cb) => {
 };
 
 applicationSchema.statics.updateApp = (applicationId, applicationObj, cb) => {
-    Application.findByIdAndUpdate(applicationId, {
-        $set: applicationObj
-    }, {
-        new: true
-    }, (err, updatedApplication) => {
+    Application.findByIdAndUpdate(applicationId, {$set: applicationObj }, { new: true}, (err, updatedApplication) => {
         if (err) cb(err);
+        cb(null, updatedApplication);
 
-        updatedApplication.save((err, savedApplication) => {
-            if (err) cb(err);
-            cb(null, savedApplication);
-        });
+        // updatedApplication.save((err, savedApplication) => {
+        //     if (err) cb(err);
+        //     cb(null, savedApplication);
+        // });
     });
 };
 
