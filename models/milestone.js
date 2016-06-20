@@ -58,9 +58,24 @@ milestoneSchema.statics.updateMilestone = (milestoneId, updateObj, cb) => {
     Milestone.findByIdAndUpdate(milestoneId, updateObj, {new: true}, (err, updatedMilestone) =>{
         if(err || !updatedMilestone) return cb(err);
 
-        updatedMilestone.save((err, savedMilestone) => {
-            if(err) return cb(err);
-            cb(null, savedMilestone);
+        cb(null, updatedMilestone);
+    });
+};
+
+milestoneSchema.statics.deleteMilestone = (milestoneId, applicationId, cb) => {
+    Milestone.findByIdAndRemove(milestoneId, (err, deletedMilestone) => {
+        if(err || !deletedMilestone) return cb(err);
+
+        Application.findById(applicationId, (err2, application) => {
+            if(err2 || !application) return cb(err2);
+            application.milestones = application.milestones.filter(milestone => {
+                return milestone.toString() !== milestoneId
+            });
+
+            application.save((err, savedApplication) => {
+                if(err) return cb(err);
+                cb(null, savedApplication);
+            });
         });
     });
 };
