@@ -3,18 +3,10 @@
 angular
     .module("jobrmApp")
     .service("Application", function($http, store){
-        var user = store.get('currentUser');
-        var id = user._id;
-        this.getAllApplications = () => {
+        this.getOneApplication = (id) => {
             return $http({
                 method: 'GET',
-                url: `/api/applications/all/${id}`
-            });
-        }
-        this.getOneApplication = (applicationId) => {
-            return $http({
-                method: 'GET',
-                url: `/api/applications/${applicationId}`
+                url: `/api/applications/${id}`
             });
         }
         this.createOneApplication = (applicationData, applicantId) => {
@@ -23,7 +15,7 @@ angular
                 applicationData: applicationData,
                 applicantId: applicantId
             }
-            console.log('applicationData: ', newApplicationRequest);
+            console.log('applicationData: ', applicationData);
 
             return $http({
                 method: 'POST',

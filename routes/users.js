@@ -23,7 +23,7 @@ router.put('/:id', (req, res) => {
 router.get('/:id', (req, res) => {
     User.findById(req.params.id, (err, user) => {
         res.status(err ? 400 : 200).send(err || user)
-    });
+    }).populate('applications');;
 });
 
 router.get('/', (req, res) => {
