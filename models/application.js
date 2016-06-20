@@ -21,6 +21,14 @@ let applicationSchema = new mongoose.Schema({
     dueTime: {
         type: String
     },
+<<<<<<< HEAD
+=======
+    applicant: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    milestones: [],
+>>>>>>> andy
     completed: {
         type: Boolean,
         default: false
