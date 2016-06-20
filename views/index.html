@@ -110,12 +110,18 @@
                     </ul>
                 </div>
             </div>
-            <div class="map_section">
-                <div ui-view="map"></div>
-            </div>
-            <div class="details_section" resizer ng-class="{ 'mobile': isMobile }">
-                <h3>details</h3>
-            </div>
+            <span ng-controller="dashboardAppCtrl">
+                <div class="map_section">
+                    <div ui-view="map"></div>
+                </div>
+                <div class="details_section" resizer ng-class="{ 'mobile': isMobile }">
+                    <h1>Details</h1>
+                    <div class="block">
+                        <h2>Company name</h2>
+                        <h3>{{application.generalNarrativeData.company}}</h3>
+                    </div>
+                </div>
+            </span>
         </div>
     </div>
     <!-- <div ng-if="currentUser && !currentUser.applications">
