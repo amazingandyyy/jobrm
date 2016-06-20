@@ -23,9 +23,10 @@ angular
                 applicationData: applicationData,
                 applicantId: applicantId
             }
-            console.log('applicationData: ', applicationData);
+            console.log('applicationData: ', newApplicationRequest);
 
-            return $http({
+
+           return $http({
                 method: 'POST',
                 url: `/api/applications/create`,
                 data: newApplicationRequest

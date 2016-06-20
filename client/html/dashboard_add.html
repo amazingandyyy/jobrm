@@ -30,8 +30,8 @@
         </div>
         <div class="col-sm-12">
             <fieldset class="form-group">
-                <label>Anticipated Response* <small class="text-muted">When do you expect receive an initial response by? <b>Defaults</b> to 7 days from today.</small></label>
-                <input type="date" class="form-control form-control-sm" style="line-height: 1.5rem" id="applicationDate" placeholder="" ng-model="newApplication.applicationDate" value="{{ applicationDateDefault | date: 'yyyy-MM-dd' }}" required/>
+                <label>Anticipated Response* <small class="text-muted">When do you expect to receive an initial response by? <b>Defaults</b> to 7 days from today.</small></label>
+                <input type="date" class="form-control form-control-sm" style="line-height: 1.5rem" id="applicationDate" placeholder="" ng-model="newApplication.expectedInitialResponse" value="{{ applicationDateDefault | date: 'yyyy-MM-dd' }}" required/>
             </fieldset>
         </div>
     </div>
