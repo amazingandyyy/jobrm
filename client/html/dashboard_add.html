@@ -1,34 +1,166 @@
-<form ng-submit="newApplicationSubmitted()">
-    <h3>Create an application</h3>
+<form ng-submit="newApplicationSubmitted()" class="addingApplicationForm">
+    <h1>Create a New Job Narrative</h1>
     <hr/>
-    <fieldset class="form-group">
-        <label for="Company">Company*</label>
-        <input type="text" class="form-control" id="Company" placeholder="Apple, Facebook, Paypel..." ng-model="newApplication.company"required>
-        <!-- <small class="text-muted">We'll never share your email with anyone else.</small> -->
-    </fieldset>
-    <fieldset class="form-group">
-        <label for="jobTitle">Job Title*</label>
-        <input type="text" class="form-control" id="jobTitle" placeholder="Job title that you applied to" ng-model="newApplication.jobTitle"required>
-    </fieldset>
-    <fieldset class="form-group">
-        <label for="applicationDate">Application date* <small class="text-muted">when did you applied? <b>default</b> is today.</small></label>
-        <input type="date" class="form-control form-control-sm" style="line-height: 1.5rem" id="applicationDate" placeholder="" ng-model="newApplication.applicationDate" value="{{ applicationDateDefault | date: 'yyyy-MM-dd' }}" required/>
-    </fieldset>
+    <h3><i class="fa fa-info-circle" aria-hidden="true"></i> General Information <small class="text-muted">all <b>required*</b>.</small></h3>
+    <div class="row">
+        <div class="col-sm-12">
+            <fieldset class="form-group">
+                <label>Company Name*</label>
+                <input type="text" class="form-control" id="Company" placeholder="The company you applied to" ng-model="newApplication.company" required>
+                <!-- <small class="text-muted">We'll never share your email with anyone else.</small> -->
+            </fieldset>
+        </div>
+        <div class="col-sm-6">
+            <fieldset class="form-group">
+                <label>Position*</label>
+                <input type="text" class="form-control" placeholder="The position you applied for" ng-model="newApplication.position" required>
+            </fieldset>
+        </div>
+        <div class="col-sm-6">
+            <fieldset class="form-group">
+                <label>Job location*</label>
+                <input type="text" class="form-control" placeholder="The location the position is based in" ng-model="newApplication.jobLocation">
+            </fieldset>
+        </div>
+        <div class="col-sm-12">
+            <fieldset class="form-group">
+                <label>Application Submission Date* <small class="text-muted">The date you applied for the position. <b>Defaults</b> to today.</small></label>
+                <input type="date" class="form-control form-control-sm" style="line-height: 1.5rem" id="applicationDate" placeholder="" ng-model="newApplication.applicationDate" value="{{ applicationDateDefault | date: 'yyyy-MM-dd' }}"/>
+            </fieldset>
+        </div>
+        <div class="col-sm-12">
+            <fieldset class="form-group">
+                <label>Anticipated Response* <small class="text-muted">When do you expect to receive an initial response by? <b>Defaults</b> to 7 days from today.</small></label>
+                <input type="date" class="form-control form-control-sm" style="line-height: 1.5rem" id="applicationDate" placeholder="" ng-model="newApplication.dueTime" value="{{ applicationDateDefault | date: 'yyyy-MM-dd' }}"/>
+            </fieldset>
+        </div>
+    </div>
+    <div class="clickable">
+        <h5 ng-init="more=false" ng-click="more=!more"><i class="fa fa-caret-down" ng-show="!more"></i><i class="fa fa-caret-up" ng-show="more"></i> Additional Information <small class="text-muted"> Click to provide additional details</small></h5>
+    </div>
+
     <hr/>
-    <h5 ng-init="more=false" ng-click="more=!more"><i class="fa fa-caret-down" ng-show="!more"></i><i class="fa fa-caret-up" ng-show="more"></i> Extra infomation <small class="text-muted"> click to fill out more details</small></h5>
     <div ng-show="more">
-        <fieldset class="form-group">
-            <label for="exampleSelect1">Example select</label>
-            <select class="form-control" id="exampleSelect1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
-        </fieldset>
-        <fieldset class="form-group">
-            <label for="exampleSelect2">Example multiple select</label>
+        <div>
+            <h3><i class="fa fa-info-circle" aria-hidden="true"></i> Application Details</h3>
+            <div class="row">
+                <div class="col-sm-12">
+                    <fieldset class="form-group">
+                        <label>Where did you submit the application?</label>
+                        <input type="text" class="form-control" placeholder="For example, Craigslist, Indeed, via Email" ng-model="newApplication.info.resource">
+                    </fieldset>
+                </div>
+                <div class="col-sm-12">
+                    <fieldset class="form-group">
+                        <label>Online Reference to Job Posting</label>
+                        <input type="url" class="form-control" placeholder="http://www.indeed.com/someJobPosting" ng-model="newApplication.info.resourceURL">
+                    </fieldset>
+                </div>
+                <div class="col-sm-12">
+                    <label>Additional Notes for the Application</label>
+                    <textarea class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+        <hr>
+
+
+
+
+        <!--Consider being able to dynamically add Personal References/Contacts with
+        the inputs of name, phone number, email, address, relation to applicant, and notes for each one.
+        It will save space if the user does not need to add a reference, and it allows a user to add more than the
+        given three provided-->
+
+        <div class="childField">
+            <h3><i class="fa fa-university" aria-hidden="true"></i> Hiring Agency</h3>
+            <div class="row">
+                <div class="col-sm-6">
+                    <fieldset class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control form-control-sm" placeholder="" ng-model="newApplication.hiringAgency.name">
+                    </fieldset>
+                </div>
+                <div class="col-sm-6">
+                    <fieldset class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" class="form-control form-control-sm" placeholder="" ng-model="newApplication.hiringAgency.phone">
+                    </fieldset>
+                </div>
+                <div class="col-sm-6">
+                    <fieldset class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control form-control-sm" placeholder="" ng-model="newApplication.hiringAgency.email">
+                    </fieldset>
+                </div>
+                <div class="col-sm-6">
+                    <fieldset class="form-group">
+                        <label>Address</label>
+                        <input type="text" class="form-control form-control-sm" placeholder="" ng-model="newApplication.hiringAgency.address">
+                    </fieldset>
+                </div>
+                <div class="col-sm-12">
+                    <label>Notes</label>
+                    <textarea class="form-control" rows="3" ng-model="newApplication.hiringAgency.notes"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="childField">
+            <h3><i class="fa fa-user" aria-hidden="true"></i> Hiring Manager or Recruiter </h3>
+            <div class="row">
+                <div class="col-sm-6">
+                    <fieldset class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control form-control-sm" placeholder="" ng-model="newApplication.recruiter.name">
+                    </fieldset>
+                </div>
+                <div class="col-sm-6">
+                    <fieldset class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" class="form-control form-control-sm" placeholder="" ng-model="newApplication.recruiter.phone">
+                    </fieldset>
+                </div>
+                <div class="col-sm-12">
+                    <fieldset class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control form-control-sm" placeholder="" ng-model="newApplication.recruiter.email">
+                    </fieldset>
+                </div>
+                <div class="col-sm-12">
+                    <label>Notes</label>
+                    <textarea class="form-control" rows="3"  ng-model="newApplication.recruiter.notes"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="childField">
+            <h3><i class="fa fa-user-plus" aria-hidden="true"></i> Personal Referances <br><small>Do you know anyone who works at the company?</small></h3>
+            <div class="row">
+                <div class="col-sm-6">
+                    <fieldset class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control form-control-sm" placeholder="" ng-model="newApplication.friend.name">
+                    </fieldset>
+                </div>
+                <div class="col-sm-6">
+                    <fieldset class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" class="form-control form-control-sm" placeholder="" ng-model="newApplication.friend.phone">
+                    </fieldset>
+                </div>
+                <div class="col-sm-12">
+                    <fieldset class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control form-control-sm" placeholder="" ng-model="newApplication.friend.email">
+                    </fieldset>
+                </div>
+                <div class="col-sm-12">
+                    <label>Notes</label>
+                    <textarea class="form-control" rows="3" ng-model="newApplication.friend.notes"></textarea>
+                </div>
+            </div>
+        </div>
+        <!-- <fieldset class="form-group">
+            <label>Example multiple select</label>
             <select multiple class="form-control" id="exampleSelect2">
                 <option>1</option>
                 <option>2</option>
@@ -38,11 +170,11 @@
             </select>
         </fieldset>
         <fieldset class="form-group">
-            <label for="exampleTextarea">Example textarea</label>
+            <label>Example textarea</label>
             <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
         </fieldset>
         <fieldset class="form-group">
-            <label for="exampleInputFile">File input</label>
+            <label>File input</label>
             <input type="file" class="form-control-file" id="exampleInputFile">
             <small class="text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
         </fieldset>
@@ -65,7 +197,7 @@
             <label>
                 <input type="checkbox"> Check me out
             </label>
-        </div>
+        </div> -->
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

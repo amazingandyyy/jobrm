@@ -1,18 +1,16 @@
 @import "./myvariables";
 body {
     overflow: hidden;
-    position:relative;
+    position: relative;
     height: 100%;
-    padding-top: 100px;
+    padding-top: 55px;
 }
-
 html {
     height: 100%;
 }
-
 .container-fluid {
-    padding-left: 0px !important;
-    padding-right: 0px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 .btn {
     outline: none !important;
@@ -36,9 +34,13 @@ html {
 //     opacity: 0;
 // }
 .fa {
-    margin: 0px !important;
+    margin: 0 !important;
 }
 .mobileShow {
     display: none;
+}
+.clickable {
+    cursor: pointer;
+    user-select: none;
 }
 @media (max-width: 546px) {}
