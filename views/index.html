@@ -72,8 +72,7 @@
                 <ul>
                     <li class="info">
                         <b>{{currentUser.name}}</b>
-                        <br/>
-                        {{currentUser.email}}
+                        <br/> {{currentUser.email}}
                     </li>
                     <!-- <li ui-sref="dashboard"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;account</li> -->
                     <li ng-class="prifileDropdown?'':''" class="animated" ui-sref="dashboard" ng-click="prifileDropdown=!prifileDropdown"><i class="fa fa-area-chart" aria-hidden="true"></i>&nbsp;Summary</li>
@@ -103,8 +102,8 @@
                             <input type="search" name="search" class="form-control form-control-sm" placeholder="&#xf002;" style="font-family:Lato, Arial, FontAwesome" ng-model="searchFilter">
                         </li>
                         <li class="application" ng-click="toggle_mobile()" ng-repeat="application in applications | filter:searchFilter" ui-sref-active="active" ui-sref="application({applicationId: application._id})">
-                            <div class="app-h1">{{application.company}} <span class="time">{{createTime(application.createAt)}}</span></div>
-                            <div class="app-h2">{{application.jobTitle}}</div>
+                            <div class="app-h1">{{application.generalNarrativeData.company}} <span class="time">{{createTime(application.generalNarrativeData.createAt)}}</span></div>
+                            <div class="app-h2">{{application.generalNarrativeData.jobTitle}}</div>
                         </li>
                     </ul>
                 </div>
