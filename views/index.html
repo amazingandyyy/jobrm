@@ -102,8 +102,8 @@
                             <input type="search" name="search" class="form-control form-control-sm" placeholder="&#xf002;" style="font-family:Lato, Arial, FontAwesome" ng-model="searchFilter">
                         </li>
                         <li class="application" ng-click="toggle_mobile()" ng-repeat="application in applications | filter:searchFilter" ui-sref-active="active" ui-sref="application({applicationId: application._id})">
-                            <div class="app-h1">{{application.generalNarrativeData.company}} <span class="time">{{createTime(application.generalNarrativeData.createAt)}}</span></div>
-                            <div class="app-h2">{{application.generalNarrativeData.jobTitle}}</div>
+                            <div class="app-h1">{{application.generalNarrativeData.company}} <span class="time">{{createTime(application.createAt)}}</span></div>
+                            <div class="app-h2">{{application.generalNarrativeData.position}}</div>
                         </li>
                     </ul>
                 </div>

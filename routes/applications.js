@@ -32,8 +32,11 @@ router.post('/create', (req, res) => {
         if (err) {
             res.status(400).send(err);
         } else {
-            User.addApplication(applicantId, newApplication._id, (error, updateUser) => {
-                if (error) return res.status(400).send(error);
+            User.addApplication(applicantId, application._id, (error, updateUser) => {
+                if (error){
+                    console.log('error while returning updated user: ', error);
+                    res.status(400).send(error)
+                }
                 let responseData = {
                     newApplication: application,
                     updatedApplicant: updateUser
