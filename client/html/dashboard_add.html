@@ -35,7 +35,9 @@
             </fieldset>
         </div>
     </div>
-    <h5 ng-init="more=false" ng-click="more=!more"><i class="fa fa-caret-down" ng-show="!more"></i><i class="fa fa-caret-up" ng-show="more"></i> Extra infomation <small class="text-muted"> click to fill out more details</small></h5>
+    <div class="clickable">
+        <h5 ng-init="more=false" ng-click="more=!more"><i class="fa fa-caret-down" ng-show="!more"></i><i class="fa fa-caret-up" ng-show="more"></i> Extra infomation <small class="text-muted"> click to fill out more details</small></h5>
+    </div>
     <hr/>
     <div ng-show="more">
         <div>
