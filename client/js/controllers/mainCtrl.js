@@ -25,14 +25,14 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
         $scope.hide = !$scope.hide;
     };
     $scope.toggle_mobile = () => {
-        console.log('$window.innerWidth: ', $window.innerWidth);
+        // console.log('$window.innerWidth: ', $window.innerWidth);
         if ($window.innerWidth < 642) {
             $scope.hide = !$scope.hide;
         }
     };
     if (store.get("currentUser")) {
         $scope.currentUser = store.get("currentUser")
-        console.log("Current User: ", $scope.currentUser)
+        // console.log("Current User: ", $scope.currentUser)
     }
     $scope.$watch(function() {
         return store.get("currentUser");
@@ -78,7 +78,7 @@ function mainCtrl($scope, $window, auth, $state, store, $location, GmailServices
 
     if (store.get("profile")) {
         let profileInfo = store.get("profile");
-        console.log('profileInfo: ', profileInfo);
+        // console.log('profileInfo: ', profileInfo);
         //uncomment to have an automatic call to retrieve a list of the User's messages
         // Was Used to test Gmail Calls/Routes
         GmailServices.retrieveInboxList(profileInfo)

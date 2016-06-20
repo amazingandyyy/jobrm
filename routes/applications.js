@@ -25,10 +25,8 @@ router.get('/:id', (req, res) => {
 
 router.post('/create', (req, res) => {
     console.log('new application: ', req.body);
-    var newApplication = req.body.applicationData;
-    var applicantId = req.body.applicantId;
-    // console.log('newApplication: ', newApplication);
-    // console.log('applicantId: ', applicantId);
+    let newApplication = req.body.applicationData;
+    let applicantId = req.body.applicantId;
     Application.createApp(newApplication, (err, application) => {
         console.log('application: ', application);
         if (err) {
@@ -36,7 +34,7 @@ router.post('/create', (req, res) => {
         } else {
             User.addApplication(applicantId, newApplication._id, (error, updateUser) => {
                 if (error) return res.status(400).send(error);
-                var responseData = {
+                let responseData = {
                     newApplication: application,
                     updatedApplicant: updateUser
                 }
