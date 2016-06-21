@@ -4,10 +4,6 @@ const request = require('request');
 const express = require("express");
 const router = express.Router();
 
-router.get('/all/:id', (req, res) => {
-  res.status(err ? 400 : 200).send(err || allApplications);
-});
-
 router.get('/', (req, res) => {
 
   var options = {
