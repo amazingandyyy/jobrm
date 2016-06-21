@@ -25,6 +25,10 @@ let applicationSchema = new mongoose.Schema({
     notified: {
         type: Boolean, default: false
     },
+    noficationSent: {
+        type: Boolean,
+        default: false
+    },
     applicant: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -34,19 +38,21 @@ let applicationSchema = new mongoose.Schema({
     }]
 });
 
-applicationSchema.statics.getLastSevenDaysAll = cb => {
+applicationSchema.statics.getFeedbackDateList = cb => {
     let today = moment().startOf('day');
-    let feedbackDate = moment(today).add(7, 'days');
+    // let feedbackDate = moment(today).add(7, 'days');
 
     Application.find({
-        'completed': 'false',
-        feedbackDate: {
-        '$eq': today.toDate()
+        // completed: 'false',
+        noficationSent: 'false',
+        dueTime: {
+            $eq: today.toDate()
         }},
         (err, applications) => {
             if (err) cb(err);
 
             cb(null, applications);
+            // noficationSent;
     }).populate('applicant');
 };
 
@@ -93,7 +99,12 @@ applicationSchema.statics.createApp = (applicationObj, cb) => {
 };
 
 applicationSchema.statics.updateApp = (applicationId, applicationObj, cb) => {
-    Application.findByIdAndUpdate(applicationId, {$set: applicationObj }, { new: true}, (err, updatedApplication) => {
+
+    Application.findByIdAndUpdate(applicationId, {
+        $set: applicationObj
+    }, {
+        new: true
+    }, (err, updatedApplication) => {
         if (err) cb(err);
         cb(null, updatedApplication);
 
