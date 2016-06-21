@@ -8,16 +8,17 @@ angular
                 method: 'GET',
                 url: `/api/applications/${id}`
             });
-        }
+        };
         this.createOneApplication = (applicationData, applicantId) => {
             console.log('applicantIdddddd: ',applicantId);
             var newApplicationRequest = {
                 applicationData: applicationData,
                 applicantId: applicantId
-            }
+            };
             console.log('applicationData: ', applicationData);
 
-            return $http({
+
+           return $http({
                 method: 'POST',
                 url: `/api/applications/create`,
                 data: newApplicationRequest

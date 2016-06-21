@@ -48,6 +48,9 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
     $scope.signIn = function() {
         auth.signin({}, function(profile, token) {
             store.set("id_token", token);
+            //for use in Google API operations. Will have to likely store somewhere else
+            //It gets generated on each login.
+            store.set("googleAPIAccess", profile);
             $location.path("/dashboard");
             console.log("Profile: ", profile)
             saveUserToModel(profile);
@@ -60,8 +63,8 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
     $scope.logout = function() {
         auth.signout();
         store.remove("currentUserMId");
-        store.remove("currentUser");
         store.remove("id_token");
+        store.remove("googleAPIAccess");
         $scope.currentUser = null;
         $state.go('dashboard')
         $window.location.reload();
@@ -87,11 +90,21 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
         if (store.get('currentUserMId')) {
             UserService.getOne(userId)
                 .then(res => {
-                    console.log('res:', res);
+                    console.log('respone after login:', res);
                     store.set('currentUserMId', res.data._id);
                     $scope.currentUser = res.data;
                     if ($scope.currentUser) {
                         console.log('CURRENT USER: ', $scope.currentUser);
+                    }
+                    //create a new sub-Calendar in Google Calendar if there isn't one (For new users);
+                    if (!res.data.googleCalendarData.id) {
+                        GoogleCalendarServices.createNewCalendar(store.get("googleAPIAccess"), store.get("currentUserMId"))
+                            .then((response) => {
+                                console.log("Response after creation: ", response);
+                            })
+                            .catch((error) => {
+                                console.log("Error: ", error);
+                            });
                     }
                 })
                 .catch(error => {
@@ -113,9 +126,6 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
 
 //uncomment to have an automatic call to retrieve a list of the User's messages
 // Was Used to test Gmail Calls/Routes
-
-
-
 
 // console.log('$scope.currentUser: ', $scope.currentUser);
 //uncomment to have an automatic call to retrieve a list of the User's messages
