@@ -17,29 +17,74 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
         })
     }
 
-    $scope.stoneTemplate = [
-        {
-            title: "Initial Response"
-        },
-        {
-            title: "Response"
-        },
-        {
-            title: "Phone Screen"
-        },
-        {
-            title: "Notes"
-        },
-        {
-            title: "Culture-Fit Interview(s)"
-        },
-        {
-            title: "Technical Interview(s)"
-        },
-        {
-            title: "General interview(s)"
+    $scope.stoneTypeTemplate = [{
+        display: "Response from recruiter",
+        color: "",
+        titlePassing: "Response from recruiter"
+
+    }, {
+        display: "Mail I sent out",
+        color: "",
+        titlePassing: "Mail I sent out"
+    }, {
+        display: "General Stone",
+        color: "",
+        titlePassing: "General Stone"
+
+    }, {
+        display: "Interview arrangement",
+        color: "",
+        titlePassing: "Interview arrangement"
+
+    }]
+    $scope.stoneWhereTemplate = [{
+        display: "Phone",
+        titlePassing: "Phone"
+    },{
+        display: "Online",
+        titlePassing: "Online"
+    }, {
+        display: "In-person",
+        titlePassing: "In-person"
+    }]
+    $scope.newStone = {};
+    $scope.chooseStoneType = (stone) => {
+        if ($scope.newStone.stonetype == stone.display) {
+            return $scope.newStone.stonetype = '';
+            if ($scope.newStone.title == stone.titlePassing) {
+                $scope.newStone.title = ''
+            }
         }
-    ]
+        $scope.newStone.stonetype = stone.display;
+        $scope.newStone.title = stone.titlePassing;
+    }
+    $scope.chooseStoneWhere = (stone) => {
+        if ($scope.newStone.stoneWhere == stone.display) {
+            return $scope.newStone.stoneWhere = '';
+            if ($scope.newStone.title == stone.titlePassing) {
+                $scope.newStone.title = ''
+            }
+        }
+        $scope.newStone.stoneWhere = stone.display;
+        $scope.newStone.title = `${stone.titlePassing} Interview arranged`;
+    }
+
+    $scope.stoneTypeActivated = (data) => {
+        if ($scope.newStone.stonetype == data) {
+            return true
+        }
+        return false
+    }
+    $scope.stoneWhereActivated = (data) => {
+        if ($scope.newStone.stoneWhere == data) {
+            return true
+        }
+        return false
+    }
+
+    $scope.newStoneSubmitted = () => {
+        console.log('newStone: ', $scope.newStone);
+    }
 
 
 }

@@ -162,9 +162,9 @@
             -webkit-overflow-scrolling: touch;
             background: rgba(0,0,0,0);
             width: 100%;
-            height: 100px;
-            padding: 10px;
-            margin-bottom: 50px;
+            height: 60px;
+            padding: 0px 10px 10px 10px;
+            margin-bottom: 10px;
             .insideContainer {
                 width: 100px*10;
                 .addingChoice {
@@ -172,7 +172,7 @@
                     float: left;
                     margin: 5px;
                     display: inline-block;
-                    width: 130px;
+                    // max-width: 180px;
                     cursor: pointer;
                     padding: 10px 15px;
                     text-align: center;
@@ -180,12 +180,23 @@
                     line-height: 1em;
                     border-radius: 4px;
                 }
-                .addingChoice:hover {
+                .addingChoice.active,
+                .addingChoice:active {
                     background: $brand-primary;
                     color: white;
                     border: 2px solid $brand-primary;
                 }
+                .addingChoice.active:active{
+                    background: darken( $brand-primary, 10%);
+                    border: 2px solid darken( $brand-primary, 10%);
+                }
+                .addingChoice:hover {
+                    border: 2px solid $brand-primary;
+                }
             }
+        }
+        .addingContainer::-webkit-scrollbar {
+            display: none;
         }
         .mileStoneDiv {
             background: white;
@@ -216,7 +227,7 @@
                 }
             }
             .milestone:hover {
-                transform: scale(1.02);
+                transform: scale(1);
                 transition: 0.2s all ease-in-out;
             }
             .milestone.addStone {
