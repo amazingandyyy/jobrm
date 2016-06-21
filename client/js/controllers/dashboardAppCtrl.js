@@ -17,5 +17,29 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
         })
     }
 
-    
+    $scope.stoneTemplate = [
+        {
+            title: "Initial Response"
+        },
+        {
+            title: "Response"
+        },
+        {
+            title: "Phone Screen"
+        },
+        {
+            title: "Notes"
+        },
+        {
+            title: "Culture-Fit Interview(s)"
+        },
+        {
+            title: "Technical Interview(s)"
+        },
+        {
+            title: "General interview(s)"
+        }
+    ]
+
+
 }

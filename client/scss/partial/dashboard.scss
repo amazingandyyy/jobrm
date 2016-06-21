@@ -2,8 +2,8 @@
 .section.hideLeftSide {
     transition: 0.2s all ease-in-out;
     background: white;
-    padding-left: 0px;
-    .application_section{
+    padding-left: 0;
+    .application_section {
         transition: 0.2s all ease-in-out;
         left: -300px;
     }
@@ -11,47 +11,43 @@
 .section.hideRightSide {
     background: white;
     transition: 0.2s all ease-in-out;
-    padding-right: 0px;
-    .details_section{
+    padding-right: 0;
+    .details_section {
         transition: 0.2s all ease-in-out;
         right: -300px;
     }
 }
 .section {
     width: 100%;
-    position:relative;
+    position: relative;
     padding-left: 260px;
     padding-right: 280px;
     transition: 0.2s all ease-in-out;
     z-index: 98;
     background: white;
-
     .map_section {
         display: inline-block;
-        float: left;
+        // float: left;
         background: white;
         height: 93vh;
         top: 54px;
         text-align: left;
-        padding: 20px 20px 20px 20px;
+        padding: 20px;
         overflow-y: scroll;
-        border-left: 1px solid #ddd;
         background: white;
         width: 100%;
         background: white;
-
     }
     .details_section {
         position: absolute;
         right: -20px;
-        top: 0px;
+        top: 0;
         height: 100vh;
         // width: 30%;
         max-width: 280px;
         min-width: 280px;
         background: white;
         transition: 0.2s all ease-in-out;
-
         overflow-x: hidden;
         overflow-y: scroll;
         text-align: left;
@@ -60,14 +56,13 @@
         z-index: 99;
         position: absolute;
         left: -20px;
-        top: 0px;
+        top: 0;
         height: 100vh;
-        // width: 30%;
+        border-right: 1px solid #ddd;
         max-width: 280px;
         min-width: 280px;
         background: white;
         transition: 0.2s all ease-in-out;
-
         overflow-x: hidden;
         overflow-y: scroll;
         text-align: left;
@@ -160,6 +155,37 @@
         h1 {
             font-weight: 900;
             font-size: 2.2em;
+        }
+        .addingContainer {
+            overflow-y: hidden;
+            overflow-x: scroll;
+            -webkit-overflow-scrolling: touch;
+            background: rgba(0,0,0,0);
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            margin-bottom: 50px;
+            .insideContainer {
+                width: 100px*10;
+                .addingChoice {
+                    font-weight: 900;
+                    float: left;
+                    margin: 5px;
+                    display: inline-block;
+                    width: 130px;
+                    cursor: pointer;
+                    padding: 10px 15px;
+                    text-align: center;
+                    border: 2px solid #ddd;
+                    line-height: 1em;
+                    border-radius: 4px;
+                }
+                .addingChoice:hover {
+                    background: $brand-primary;
+                    color: white;
+                    border: 2px solid $brand-primary;
+                }
+            }
         }
         .mileStoneDiv {
             background: white;
@@ -301,7 +327,7 @@
 @media (max-width: 642px) {
     .section.hideLeftSide {
         transition: 0.2s all ease-in-out;
-        .application_section{
+        .application_section {
             transition: 0.2s all ease-in-out;
             left: -20px;
             border-right: 1px solid #ddd;
@@ -311,21 +337,21 @@
     }
     .section.hideRightSide {
         transition: 0.2s all ease-in-out;
-        .details_section{
+        .details_section {
             transition: 0.2s all ease-in-out;
-            right: 0px;
+            right: 0;
         }
     }
     .section {
         top: -10px;
         width: 100%;
-        padding-left: 0px;
-        padding-right: 0px;
-        .application_section{
+        padding-left: 0;
+        padding-right: 0;
+        .application_section {
             transition: 0.2s all ease-in-out;
             left: -300px;
         }
-        .details_section{
+        .details_section {
             transition: 0.2s all ease-in-out;
             right: -300px;
         }
