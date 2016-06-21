@@ -4,16 +4,16 @@ angular
     .module("jobrmApp")
     .controller("dashboardAppCtrl", dashboardAppCtrl)
 
-function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, store, $location) {
+function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GmailServices) {
     console.log("dashboardAppCtrl loaded");
 
     if ($stateParams.applicationId) {
-        console.log('applicationId: ', $stateParams.applicationId);
+        // console.log('applicationId: ', $stateParams.applicationId);
         Application.getOneApplication($stateParams.applicationId).then(res => {
-            console.log('res: ', res.data);
+            // console.log('res: ', res.data);
             $scope.application = res.data
         }, err => {
-            console.log('err when getting all applications: ', err);
+            // console.log('err when getting all applications: ', err);
         })
     }
 
@@ -83,7 +83,16 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
     }
 
     $scope.newStoneSubmitted = () => {
-        console.log('newStone: ', $scope.newStone);
+        // console.log('newStone: ', $scope.newStone);
+    }
+    if (store.get("googleAPIAccess")) {
+        let googleAPIAccess = store.get("googleAPIAccess");
+        console.log('googleAPIAccess: ', googleAPIAccess);
+        GmailServices.retrieveInboxList(googleAPIAccess)
+            .then(function(res) {
+                console.log('res: ', res);
+                $scope.emailsFronGmail = res.data;
+            })
     }
 
 

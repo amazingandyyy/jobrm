@@ -72,8 +72,7 @@ let application = {
     url: '/app/:applicationId',
     views: {
         'map': {
-            templateUrl: '/html/dashboard_map.html',
-            controller: 'dashboardAppCtrl'
+            templateUrl: '/html/dashboard_map.html'
         }
     }
 };

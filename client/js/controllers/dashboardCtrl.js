@@ -5,7 +5,7 @@ angular
     .controller("dashboardCtrl", dashboardCtrl)
 
 function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GoogleCalendarServices) {
-    console.log("dashboardCtrl loaded");
+    // console.log("dashboardCtrl loaded");
     $scope.applications = $scope.currentUser.applications.reverse();
     $scope.applicationDateDefault = moment().format('YYYY-MM-DD');
     $scope.newApplicationSubmitted = () => {
