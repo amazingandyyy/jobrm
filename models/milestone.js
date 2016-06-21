@@ -20,7 +20,7 @@ let milestoneSchema = new mongoose.Schema({
     lastUpdate: {
         type: Date
     },
-    task: [{
+    tasks: [{
 
     }],
     application: {
@@ -76,6 +76,18 @@ milestoneSchema.statics.deleteMilestone = (milestoneId, applicationId, cb) => {
                 if(err) return cb(err);
                 cb(null, savedApplication);
             });
+        });
+    });
+};
+
+milestoneSchema.statics.addTask = (milestoneId, newTaskObj, cb) => {
+    Milestone.findById(milestoneId, (err, milestone) => {
+        if(err || !milestone) return cb(err);
+        milestone.tasks.push(newTaskObj);
+
+        milestone.save((err, savedMilestone) => {
+            if(err) return cb(err);
+            cb(null, savedMilestone);
         });
     });
 };
