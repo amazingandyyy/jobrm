@@ -12,12 +12,6 @@ let applicationSchema = new mongoose.Schema({
     lastUpdate: {
         type: String
     },
-    googleCalendarData: {
-        calendarId: { type: String },
-        events: [{
-            type: String
-        }]
-    },
     generalNarrativeData:{
 
     },

@@ -1,6 +1,7 @@
 "use strict";
 
 const requestNPM = require("request");
+const User = require("./user");
 
 const googleCalendarOperations = {
     //returns the created calendar REMEMBER:
@@ -24,9 +25,18 @@ const googleCalendarOperations = {
             body: requestBody
         };
         requestNPM(options, function (error, httpResponse, body) {
+            if (error || !body.id) return callback(error);
             console.log("Error after POST: ", error);
             console.log("body after POST: ", body);
-            callback(error, body);
+            User.findById(requestData.mongooseId, (error, databaseUser) => {
+                if (error || !databaseUser) return callback(error || "There is no user");
+                databaseUser.googleCalendarData.id = body.id;
+                databaseUser.googleCalendarData.etag = body.etag;
+                databaseUser.googleCalendarData.summary = body.summary;
+                databaseUser.save((error, savedUser) => {
+                   callback(error, savedUser);
+                });
+            });
         });
     },
     
@@ -47,7 +57,7 @@ const googleCalendarOperations = {
             "summary": calendarData.title
         };
         let options = {
-            url: `https://www.googleapis.com/calendar/v3/calendars/${calendarData.calendarID}/events?key=AIzaSyAW4CgLvkN49dw_BrzhIOq4xnM3ueKOMfY`,
+            url: `https://www.googleapis.com/calendar/v3/calendars/${calendarData.calendarId}/events?key=AIzaSyAW4CgLvkN49dw_BrzhIOq4xnM3ueKOMfY`,
             method: "POST",
             headers: {
                 Authorization: `Bearer ${accessToken}`
