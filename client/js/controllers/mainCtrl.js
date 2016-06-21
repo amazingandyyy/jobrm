@@ -18,7 +18,7 @@ angular
 
 
 function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $location, GmailServices, GoogleCalendarServices, UserService) {
-    console.log("mainCtrl loaded");
+    // console.log("mainCtrl loaded");
     getCurrentUser();
     $scope.hideLeftSide = true;
     $scope.hideRightSide = true;
@@ -29,14 +29,14 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
         $scope.hideRightSide = !$scope.hideRightSide;
     };
     $scope.toggle_mobile = () => {
-        // console.log('$window.innerWidth: ', $window.innerWidth);
+        // // console.log('$window.innerWidth: ', $window.innerWidth);
         if ($window.innerWidth < 642) {
             $scope.hideLeftSide = !$scope.hideLeftSide;
         }
     };
     if (store.get("currentUser")) {
         $scope.currentUser = store.get("currentUser")
-        console.log("Profile info: ", $scope.currentUser)
+        // console.log("Profile info: ", $scope.currentUser)
     }
     $scope.$watch(function() {
         return store.get("currentUser");
@@ -52,11 +52,11 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
             //It gets generated on each login.
             store.set("googleAPIAccess", profile);
             $location.path("/dashboard");
-            console.log("Profile: ", profile)
+            // console.log("Profile: ", profile)
             saveUserToModel(profile);
             //$scope.currentUser = profile;
         }, function(error) {
-            console.log("Error: ", error);
+            // console.log("Error: ", error);
         })
     };
     //user logout
@@ -73,15 +73,15 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
     function saveUserToModel(profile) {
         UserService.savedUser(profile)
             .then(res => {
-                console.log('res:', res);
+                // console.log('res:', res);
                 store.set('currentUserMId', res.data._id);
                 getCurrentUser();
                 if ($scope.currentUser) {
-                    console.log('$scope.currentUser: ', $scope.currentUser);
+                    // console.log('$scope.currentUser: ', $scope.currentUser);
                 }
             })
             .catch(error => {
-                console.log('error:', error);
+                // console.log('error:', error);
             });
     }
 
@@ -90,78 +90,68 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
         if (store.get('currentUserMId')) {
             UserService.getOne(userId)
                 .then(res => {
-                    console.log('respone after login:', res);
+                    // console.log('respone after login:', res);
                     store.set('currentUserMId', res.data._id);
                     $scope.currentUser = res.data;
                     if ($scope.currentUser) {
-                        console.log('CURRENT USER: ', $scope.currentUser);
+                        // console.log('CURRENT USER: ', $scope.currentUser);
                     }
                     //create a new sub-Calendar in Google Calendar if there isn't one (For new users);
                     if (!res.data.googleCalendarData.id) {
                         GoogleCalendarServices.createNewCalendar(store.get("googleAPIAccess"), store.get("currentUserMId"))
                             .then((response) => {
-                                console.log("Response after creation: ", response);
+                                // console.log("Response after creation: ", response);
                             })
                             .catch((error) => {
-                                console.log("Error: ", error);
+                                // console.log("Error: ", error);
                             });
                     }
                 })
                 .catch(error => {
-                    console.log('error:', error);
+                    // console.log('error:', error);
                 });
         }
-    }
-
-    if (store.get("profile")) {
-        let profileInfo = store.get("profile");
-        console.log('profileInfo: ', profileInfo);
-
-        GmailServices.retrieveInboxList(profileInfo)
-            .then(function(res) {
-                console.log('res: ', res);
-            })
     }
 }
 
 //uncomment to have an automatic call to retrieve a list of the User's messages
 // Was Used to test Gmail Calls/Routes
 
-// console.log('$scope.currentUser: ', $scope.currentUser);
+// // console.log('$scope.currentUser: ', $scope.currentUser);
 //uncomment to have an automatic call to retrieve a list of the User's messages
 // Was Used to test Gmail Calls/Routes
 /*GmailServices.retrieveInboxList(profileInfo)
     .then(function (res) {
-        console.log("res: ", res.data)
+        // console.log("res: ", res.data)
     })
     .catch(function(error) {
-        console.log("Error: ", error);
+        // console.log("Error: ", error);
     });*/
 /*GmailServices.createNewLabel(profileInfo)
     .then(function (res) {
-        console.log("res", res.data);
+        // console.log("res", res.data);
     })
     .catch(function (error) {
-        console.log("Error: ", error);
+        // console.log("Error: ", error);
     });*/
 /* GmailServices.addLabelToEmail(profileInfo)
      .then(function (res) {
-         console.log("res: ", res.data);
+         // console.log("res: ", res.data);
      })
      .catch(function (error) {
-         console.log("Error: ", error);
+         // console.log("Error: ", error);
      })*/
 /*GoogleCalendarServices.createNewCalendar(profileInfo)
     .then(function (res) {
-        console.log("res: ", res);
+        // console.log("res: ", res);
     })
     .catch(function (error) {
-        console.log("Error: ", error);
+        // console.log("Error: ", error);
     })*/
 /*GoogleCalendarServices.calendarNewEvent(profileInfo)
     .then(function (res) {
-        console.log("res: ", res);
+        // console.log("res: ", res);
     })
     .catch(function (error) {
-        console.log("Error: ", error);
+        // console.log("Error: ", error);
     });*/
