@@ -23,13 +23,13 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
         titlePassing: "Response from recruiter"
 
     }, {
-        display: "Mail I sent out",
+        display: "Message I sent out",
         color: "",
-        titlePassing: "Mail I sent out"
+        titlePassing: "Message I sent out"
     }, {
         display: "General Stone",
         color: "",
-        titlePassing: "General Stone"
+        titlePassing: "MileStone"
 
     }, {
         display: "Interview arrangement",
@@ -66,7 +66,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
             }
         }
         $scope.newStone.stoneWhere = stone.display;
-        $scope.newStone.title = `${stone.titlePassing} Interview arranged`;
+        $scope.newStone.title = `Interview arrangement: ${stone.titlePassing}`;
     }
 
     $scope.stoneTypeActivated = (data) => {

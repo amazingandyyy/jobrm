@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div ng-if="newStone.stonetype=='Interview arrangement'">
-                <label>Where does the interview take place?</label>
+                <label>Where will/did the interview take place?</label>
                 <div class="addingContainer">
                     <div class="insideContainer">
                         <div ng-class="stoneWhereActivated(stone.display)? 'active' : '' " ng-click="chooseStoneWhere(stone)" class="addingChoice" ng-repeat="stone in stoneWhereTemplate">{{stone.display}}</div>
@@ -23,8 +23,8 @@
                 </div>
             </div>
             <fieldset class="form-group">
-                <label>Milestone Title</label>
-                <input type="text" class="form-control" placeholder="" ng-model="newStone.title" required>
+                <label>Milestone Title*</label>
+                <input type="text" class="text-capitalize form-control" placeholder="" ng-model="newStone.title" required>
             </fieldset>
             <fieldset class="form-group">
                 <label>Milestone Details*</label>
@@ -32,8 +32,15 @@
             </fieldset>
             <fieldset class="form-group">
                 <label>Milestone timestamp</label>
-                <input type="datetime-local" class="form-control" placeholder="" ng-model="newStone.time">
+                <input type="datetime-local" class="form-control form-control-sm" placeholder="" ng-model="newStone.time">
             </fieldset>
+            <hr/>
+            <div>
+                <label>Associate to any email?</label>
+                <div class="emailContainer">
+                    
+                </div>
+            </div>
             <button class="btn btn-primary">Create new Milestone</button>
         </form>
     </div>
