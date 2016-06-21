@@ -37,7 +37,7 @@
             <div>
                 <label>Associate to any email?</label>
                 <select multiple class="form-control" style="min-height: 200px">
-                    <option ng-repeat="email in emailsFronGmail">email.title</option>
+                    <option ng-repeat="email in emailsFronGmail">{{email.body.snippet}}</option>
                 </select>
                 <div class="emailContainer">
 
