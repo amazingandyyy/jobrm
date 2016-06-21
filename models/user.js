@@ -31,13 +31,21 @@ let userSchema = new mongoose.Schema({
     gmail: {
 
     },
+    googleCalendarData: {
+        id: {type: String},
+        etag: {type: String},
+        //summary is Google-designated name for title
+        summary: {type: String},
+        events: [{
+            type: String
+        }]
+    },
     applications: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Application"
     }]
 
 });
-
 
 userSchema.statics.saveGmailUser = (user, cb) => {
     console.log('User:', user);

@@ -1,8 +1,8 @@
 "use strict";
 
-let express = require("express");
-let router = express.Router();
-let twilio = require('twilio');
+const express = require("express");
+const router = express.Router();
+const twilio = require('twilio');
 
 router.post("/", (req, res) => {
 
@@ -10,7 +10,7 @@ router.post("/", (req, res) => {
    const TWILIO_AUTHTOKEN = process.env.TWILIO_AUTHTOKEN;
    const TWILIO_FROM = process.env.TWILIO_FROM;
 
-   let client = require('twilio')(TWILIO_ACCOUNTSID, TWILIO_AUTHTOKEN);
+   const client = require('twilio')(TWILIO_ACCOUNTSID, TWILIO_AUTHTOKEN);
    let twilioto = req.body.twilioto;
    let twiliobody = req.body.twiliobody;
 
