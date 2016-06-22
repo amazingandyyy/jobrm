@@ -12,6 +12,7 @@ angular
     //                     scope.isMobile = $window.innerWidth < 600 ? true : false;
     //                 })
     //             });
+
     //         }
     //     }
     // })
@@ -100,10 +101,10 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
                     if (!res.data.googleCalendarData.id) {
                         GoogleCalendarServices.createNewCalendar(store.get("googleAPIAccess"), store.get("currentUserMId"))
                             .then((response) => {
-                                // console.log("Response after creation: ", response);
+                                 console.log("Response after creation: ", response);
                             })
                             .catch((error) => {
-                                // console.log("Error: ", error);
+                                 console.log("Error: ", error);
                             });
                     }
                 })
