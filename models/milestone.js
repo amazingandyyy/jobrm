@@ -44,7 +44,6 @@ milestoneSchema.statics.createMilestone = (milestoneObj, applicationId,  cb) => 
         Application.findById(applicationId, (err, dbApplication) => {
             if(!dbApplication) return cb(err);
             dbApplication.milestones.push(milestone._id);
-
             dbApplication.save((err, savedApplication) => {
                 if (err)  return cb(err);
                 cb(null, savedApplication);
