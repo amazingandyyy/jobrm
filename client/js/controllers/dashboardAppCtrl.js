@@ -6,14 +6,13 @@ angular
 
 function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GmailServices) {
     console.log("dashboardAppCtrl loaded");
-
+    console.log('This Narrative Id: ', $stateParams.applicationId);
     if ($stateParams.applicationId) {
-        // console.log('applicationId: ', $stateParams.applicationId);
         Application.getOneApplication($stateParams.applicationId).then(res => {
-            // console.log('res: ', res.data);
+            console.log('Narrative: ', res.data);
             $scope.application = res.data
         }, err => {
-            // console.log('err when getting all applications: ', err);
+            console.log('err when getting all applications: ', err);
         })
     }
 
@@ -87,10 +86,10 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
     }
     if (store.get("googleAPIAccess")) {
         let googleAPIAccess = store.get("googleAPIAccess");
-        console.log('googleAPIAccess: ', googleAPIAccess);
+        // console.log('googleAPIAccess: ', googleAPIAccess);
         GmailServices.retrieveInboxList(googleAPIAccess)
             .then(function(res) {
-                console.log('res: ', res);
+                console.log('email lists: ', res);
                 $scope.emailsFronGmail = res.data;
             })
     }
