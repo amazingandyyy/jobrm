@@ -4,7 +4,7 @@ angular
     .module("jobrmApp")
     .controller("dashboardAppCtrl", dashboardAppCtrl)
 
-function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GmailServices) {
+function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GmailServices, Milestone) {
     console.log("dashboardAppCtrl loaded");
 
     if ($stateParams.applicationId) {
@@ -84,6 +84,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
 
     $scope.newStoneSubmitted = () => {
         console.log('newStone: ', $scope.newStone);
+        Milestone.createOneMilestone($scope.newStone, $stateParams.applicationId)
     }
     if (store.get("googleAPIAccess")) {
         let googleAPIAccess = store.get("googleAPIAccess");
