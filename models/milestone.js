@@ -23,6 +23,9 @@ let milestoneSchema = new mongoose.Schema({
     relatedEmail: {
         type: String
     },
+    newMilestone: {
+
+    },
     tasks: [{
 
     }],
@@ -46,7 +49,8 @@ milestoneSchema.statics.createMilestone = (milestoneObj, applicationId,  cb) => 
         createAt: milestoneObj.time,
         title: milestoneObj.title,
         relatedEmail: milestoneObj.emailrelated[0],
-        application: applicationId
+        application: applicationId,
+        newMilestone: milestoneObj
     };
     Milestone.create(newMilestone, (err, milestone) => {
         if(err || !milestone) return cb(err);

@@ -76,8 +76,7 @@ userSchema.statics.saveGmailUser = (user, cb) => {
         let mail = newUser.sendEmail(sendmail);
 
         newUser.save((err, savedUser) => {
-            if (err) return cb(err);
-            cb(null, savedUser);
+            cb(err, savedUser);
         });
     }).populate('applications');
 };
@@ -100,9 +99,7 @@ userSchema.statics.edit = (id, updatedUserObj, cb) => {
     User.findByIdAndUpdate(id, {
         $set: updatedUserObj
     }, (err, updatedUser) => {
-        if (err) cb(err);
-
-        cb(null, updatedUser);
+        cb(err, updatedUser);
     });
 };
 
