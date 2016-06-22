@@ -39,22 +39,21 @@
                 <select multiple ng-model="newStone.emailrelated" class="form-control" style="min-height: 200px">
                     <option ng-repeat="email in emailsFronGmail">{{email.body.snippet}}</option>
                 </select>
-                <div class="emailContainer"p
-                </div>
             </div>
             <hr/>
+
             <button class="btn btn-primary">Create new Milestone</button>
         </form>
     </div>
 </div>
-<div class="mileStoneDiv" ng-repeat="stone in mileStones">
+<div class="mileStoneDiv" ng-repeat="stone in mileStones" ng-if="mileStones">
     <div class="milestone">
         <p class="title">{{stone.title}}</p>
         <p class="description">{{stone.description}}</p>
         <p class="time"><small>{{stone.time}}</small></p>
     </div>
 </div>
-<div class="mileStoneDiv hero">
+<div class="mileStoneDiv hero start">
     <div class="milestone success">
         <p class="stoneIcon"><i class="fa fa-paper-plane" aria-hidden="true"></i></p>
         <p class="stoneTitle">The first mail sent out!</p>
