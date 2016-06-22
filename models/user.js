@@ -31,8 +31,14 @@ let userSchema = new mongoose.Schema({
     gmail: {
 
     },
-    phone: {
-        type: String
+    googleCalendarData: {
+        id: {type: String},
+        etag: {type: String},
+        //summary is Google-designated name for title
+        summary: {type: String},
+        events: [{
+            type: String
+        }]
     },
     applications: [{
         type: mongoose.Schema.Types.ObjectId,

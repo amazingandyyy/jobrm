@@ -43,4 +43,7 @@ html {
     cursor: pointer;
     user-select: none;
 }
+.form-control-sm {
+    line-height: 1.5rem !important;
+}
 @media (max-width: 546px) {}

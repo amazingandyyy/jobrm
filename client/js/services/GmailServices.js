@@ -16,11 +16,11 @@ function GmailServices($http) {
             data: toSend
         });
     };
-    
+
     this.createNewLabel = function (profile) {
         let toSend = {};
         toSend.userData = profile;
-        toSend.labelName =  "shitShit";
+        toSend.labelName =  "JRMtracking";
         return $http({
             method: "POST",
             url: "/api/gmailAPI/createNewLabel",
@@ -43,4 +43,3 @@ function GmailServices($http) {
     }
 
 }
-

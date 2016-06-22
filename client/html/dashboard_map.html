@@ -1,24 +1,49 @@
 <h1>{{application.generalNarrativeData.company}}</h1>
 <hr>
 <div class="mileStoneDiv">
-    <div class="milestone addStone" ng-init="openAddStoneForm = false">
-        <p class="title" ng-click="openAddStoneForm=!openAddStoneForm">Create a new MileStone <i class="fa fa-caret-down" ng-show="!openAddStoneForm"></i><i class="fa fa-caret-up" ng-show="openAddStoneForm"></i></p>
+    <div class="milestone addStone">
+        <p class="title" ng-init="openAddStoneForm = false" ng-click="openAddStoneForm=!openAddStoneForm">Create a new MileStone <i class="fa fa-caret-down" ng-show="!openAddStoneForm"></i><i class="fa fa-caret-up" ng-show="openAddStoneForm"></i></p>
         <form ng-show="openAddStoneForm" ng-submit="newStoneSubmitted()">
             <hr/>
+            <div>
+                <label>Milestone type</label>
+                <div class="addingContainer">
+                    <div class="insideContainer">
+                        <div ng-class="stoneTypeActivated(stone.display)? 'active' : '' " ng-click="chooseStoneType(stone)" class="addingChoice" ng-repeat="stone in stoneTypeTemplate">{{stone.display}}</div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="newStone.stonetype=='Interview arrangement'">
+                <label>Where will/did the interview take place?</label>
+                <div class="addingContainer">
+                    <div class="insideContainer">
+                        <div ng-class="stoneWhereActivated(stone.display)? 'active' : '' " ng-click="chooseStoneWhere(stone)" class="addingChoice" ng-repeat="stone in stoneWhereTemplate">{{stone.display}}</div>
+                    </div>
+                </div>
+            </div>
             <fieldset class="form-group">
-                <label>Event Title</label>
-                <input type="text" class="form-control" placeholder="" ng-model="newStone.title" required>
-                <!-- <small class="text-muted">We'll never share your email with anyone else.</small> -->
+                <label>Milestone Title*</label>
+                <input type="text" class="text-capitalize form-control" placeholder="" ng-model="newStone.title" required>
             </fieldset>
             <fieldset class="form-group">
-                <label>Event Details*</label>
-                <input type="text" class="form-control" placeholder="" ng-model="newStone.description">
+                <label>When will/did this take place?</label>
+                <input type="datetime-local" class="form-control form-control-sm" placeholder="" ng-model="newStone.time">
             </fieldset>
             <fieldset class="form-group">
-                <label>Stone timestamp</label>
-                <input type="datetime-local" class="form-control" placeholder="" ng-model="newStone.time">
+                <label>Milestone Details*</label>
+                <textarea class="form-control" rows="3" ng-model="newStone.description"></textarea>
             </fieldset>
-            <button class="btn btn-primary">Create new stone</button>
+            <hr/>
+            <div>
+                <label>Associate to any email?</label>
+                <select multiple ng-model="newStone.emailrelated" class="form-control" style="min-height: 200px">
+                    <option ng-repeat="email in emailsFronGmail">{{email.body.snippet}}</option>
+                </select>
+                <div class="emailContainer"p
+                </div>
+            </div>
+            <hr/>
+            <button class="btn btn-primary">Create new Milestone</button>
         </form>
     </div>
 </div>
@@ -36,10 +61,11 @@
         <p class="stoneTime"><small>{{createTime(application.createAt)}}</small></p>
     </div>
 </div>
-<div class="mileStoneDiv hero start">
+
+<!-- <div class="mileStoneDiv hero start">
     <div class="milestone gold">
         <p class="stoneIcon"><i class="fa fa-star" aria-hidden="true"></i></p>
         <p class="stoneTitle">Application created</p>
         <p class="stoneTime"><small>{{createTime(application.createAt)}}</small></p>
     </div>
-</div>
+</div> -->
