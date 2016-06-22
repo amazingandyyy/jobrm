@@ -49,9 +49,7 @@ applicationSchema.statics.getFeedbackDateList = cb => {
             $eq: today.toDate()
         }},
         (err, applications) => {
-            if (err) cb(err);
-
-            cb(null, applications);
+            cb(err, applications);
             // noficationSent;
     }).populate('applicant');
 };
@@ -59,17 +57,15 @@ applicationSchema.statics.getFeedbackDateList = cb => {
 applicationSchema.statics.getAll = (id, cb) => {
     Application.find({applicant: id})
         .exec((err, applications) => {
-        if (err) cb(err);
-        cb(null, applications);
+        cb(err, applications);
     });
 };
 
 applicationSchema.statics.getOne = (applicationId, cb) => {
     Application.findById(applicationId, (err, application) => {
-        if (err) cb(err);
 
-        cb(null, application);
-    }).populate('applicant');
+        cb(err, application);
+    }).populate('milestones');
 };
 
 applicationSchema.statics.createApp = (applicationObj, cb) => {
@@ -91,8 +87,7 @@ applicationSchema.statics.createApp = (applicationObj, cb) => {
             dbApplication.applicant.push(applicationObj.applicant);
 
             dbApplication.save((err, savedApplication) => {
-                if (err)  return cb(err);
-                cb(null, application);
+                cb(err, application);
             })
         })
     });
@@ -108,10 +103,6 @@ applicationSchema.statics.updateApp = (applicationId, applicationObj, cb) => {
         if (err) cb(err);
         cb(null, updatedApplication);
 
-        // updatedApplication.save((err, savedApplication) => {
-        //     if (err) cb(err);
-        //     cb(null, savedApplication);
-        // });
     });
 };
 

@@ -4,7 +4,7 @@ angular
     .module("jobrmApp")
     .controller("dashboardAppCtrl", dashboardAppCtrl)
 
-function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GmailServices) {
+function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GmailServices, Milestone) {
     console.log("dashboardAppCtrl loaded");
     console.log('This Narrative Id: ', $stateParams.applicationId);
     if ($stateParams.applicationId) {
@@ -84,6 +84,14 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
 
     $scope.newStoneSubmitted = () => {
         console.log('newStone: ', $scope.newStone);
+        let applicationId = $stateParams.applicationId
+        Milestone.createOneMilestone($scope.newStone, applicationId )
+            .then(res => {
+                console.log('response when milestone is saved', res.data)
+            })
+            .catch(err => {
+                console.log('error while saving milestone', err);
+            })
     }
     if (store.get("googleAPIAccess")) {
         let googleAPIAccess = store.get("googleAPIAccess");
