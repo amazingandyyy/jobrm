@@ -10,7 +10,8 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
     if ($stateParams.applicationId) {
         Application.getOneApplication($stateParams.applicationId).then(res => {
             console.log('Narrative: ', res.data);
-            $scope.application = res.data
+            $scope.application = res.data.generalNarrativeData;
+            $scope.applicationDetail = angular.copy(res.data.generalNarrativeData);
         }, err => {
             console.log('err when getting all applications: ', err);
         })

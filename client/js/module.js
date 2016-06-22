@@ -74,6 +74,10 @@ let application = {
         'map': {
             templateUrl: '/html/dashboard_map.html',
             controller: 'dashboardAppCtrl'
+        },
+        'details': {
+            templateUrl: '/html/dashboard_details.html',
+            controller: 'dashboardAppCtrl'
         }
     }
 };
@@ -84,7 +88,6 @@ let addApplication = {
         'map': {
             templateUrl: '/html/dashboard_add.html',
             controller: 'dashboardCtrl'
-
         }
     }
 };
