@@ -18,7 +18,7 @@ router.delete('/all', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    Application.findById(req.params.id, (err, application) => {
+    Application.getOne(req.params.id, (err, application) => {
         res.status(err ? 400 : 200).send(err || application);
     });
 });

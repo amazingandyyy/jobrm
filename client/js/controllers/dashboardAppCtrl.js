@@ -83,7 +83,14 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
 
     $scope.newStoneSubmitted = () => {
         console.log('newStone: ', $scope.newStone);
-        Milestone.createOneMilestone($scope.newStone, $stateParams.applicationId)
+        let applicationId = $stateParams.applicationId
+        Milestone.createOneMilestone($scope.newStone, applicationId )
+            .then(res => {
+                console.log('response when milestone is saved', res.data)
+            })
+            .catch(err => {
+                console.log('error while saving milestone', err);
+            })
     }
     if (store.get("googleAPIAccess")) {
         let googleAPIAccess = store.get("googleAPIAccess");

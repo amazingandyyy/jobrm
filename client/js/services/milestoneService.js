@@ -3,18 +3,17 @@
 angular
     .module("jobrmApp")
     .service("Milestone", function($http, store){
-        this.createOneMilestone = (milestoneData, applicantId) => {
-            console.log('applicantIdddddd: ',applicantId);
+        this.createOneMilestone = (milestoneData, applicationId) => {
             var newMilestone = {
                 milestoneData: milestoneData,
-                applicantId: applicantId
+                applicationId: applicationId
             };
             console.log('applicationData: ', newMilestone);
 
            return $http({
                 method: 'POST',
-                url: `/api/applications/create`,
-                data: newApplicationRequest
+                url: `/api/milestones`,
+                data: newMilestone
             });
         }
     });

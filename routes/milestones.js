@@ -8,8 +8,9 @@ const Milestone = require('../models/milestone');
 
 router.post('/', (req, res) => {
     let applicationId = req.body.applicationId;
-    let milestoneObj = req.body.milestoneObj;
-    Milestone.createMilestone(req.body, applicationId, (err, savedApplication) => {
+    let milestoneObj = req.body.milestoneData;
+    Milestone.createMilestone(milestoneObj, applicationId, (err, savedApplication) => {
+        console.log('savedApplication', savedApplication);
         res.status(err ? 400: 200).send(err || savedApplication);
     });
 });
@@ -17,7 +18,7 @@ router.post('/', (req, res) => {
 router.get('/:id', (req, res) => {
     Milestone.findById(req.params.id, (err, milestone) => {
         res.status(err ? 400: 200).send(err || milestone);
-    });
+    }).populate('milestones');
 });
 
 router.put('/:id', (req, res) => {

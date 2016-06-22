@@ -9,7 +9,7 @@ let milestoneSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
-    notes : {
+    title : {
         type: String,
         trim: true
     },
@@ -19,6 +19,9 @@ let milestoneSchema = new mongoose.Schema({
     },
     lastUpdate: {
         type: Date
+    },
+    relatedEmail: {
+        type: String
     },
     tasks: [{
 
@@ -37,17 +40,27 @@ milestoneSchema.statics.getOne = (milestoneId, cb) => {
 };
 
 milestoneSchema.statics.createMilestone = (milestoneObj, applicationId,  cb) => {
-    let newMilestone = milestoneObj;
-        newMilestone.application = applicationId;
+    console.log('milestoneObj:', applicationId)
+    let newMilestone = {
+        description:milestoneObj.description,
+        createAt: milestoneObj.time,
+        title: milestoneObj.title,
+        relatedEmail: milestoneObj.emailrelated[0],
+        application: applicationId
+    };
     Milestone.create(newMilestone, (err, milestone) => {
         if(err || !milestone) return cb(err);
         Application.findById(applicationId, (err, dbApplication) => {
             if(!dbApplication) return cb(err);
+            console.log('dbApplication:', dbApplication);
             dbApplication.milestones.push(milestone._id);
 
             dbApplication.save((err, savedApplication) => {
                 if (err)  return cb(err);
-                cb(null, savedApplication);
+                Application.findById(savedApplication._id, (err2, dbSavedApplication) => {
+                    cb(err2, dbSavedApplication);
+                }).populate('milestones');
+
             });
         });
     });
@@ -72,8 +85,7 @@ milestoneSchema.statics.deleteMilestone = (milestoneId, applicationId, cb) => {
             });
 
             application.save((err, savedApplication) => {
-                if(err) return cb(err);
-                cb(null, savedApplication);
+                cb(err, savedApplication);
             });
         });
     });
