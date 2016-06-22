@@ -83,7 +83,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
     }
 
     $scope.newStoneSubmitted = () => {
-        // console.log('newStone: ', $scope.newStone);
+        console.log('newStone: ', $scope.newStone);
     }
     if (store.get("googleAPIAccess")) {
         let googleAPIAccess = store.get("googleAPIAccess");

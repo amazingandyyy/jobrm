@@ -27,7 +27,6 @@ let milestoneSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Application'
     }
-
 });
 
 milestoneSchema.statics.getOne = (milestoneId, cb) => {
