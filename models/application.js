@@ -69,7 +69,7 @@ applicationSchema.statics.getOne = (applicationId, cb) => {
         if (err) cb(err);
 
         cb(null, application);
-    }).populate('applicant');
+    }).populate('applicant').populate('milestones');
 };
 
 applicationSchema.statics.createApp = (applicationObj, cb) => {
