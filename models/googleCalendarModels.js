@@ -108,7 +108,6 @@ const googleCalendarOperations = {
             });
         });
     }
-    
 };
 
 module.exports = googleCalendarOperations;

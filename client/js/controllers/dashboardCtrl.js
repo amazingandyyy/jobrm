@@ -35,8 +35,19 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
             console.log('err when getting all applications: ', err);
         })
     };
+    GoogleCalendarServices.retrieveEventsFromMongoose(store.get("currentUserMId"), store.get("id_token"))
+        .then((response) => {
+            console.log("Events data from Mongoose: ", response.data);
+            if (response.data.events) {
+                $scope.sevenDayForecast = GoogleCalendarServices.create7DayForecast(response.data.events);
+                console.log("In controller seven day: ", $scope.sevenDayForecast)
+            }
+        })
+        .catch((error) => {
+            console.log("Error from Google Calendar: ", error);
+        });
 
-    GoogleCalendarServices.retrieveEvents(store.get("currentUserMId"), store.get("googleAPIAccess"))
+    /*GoogleCalendarServices.retrieveEventsFromGoogle(store.get("currentUserMId"), store.get("googleAPIAccess"))
         .then((response) => {
             console.log("Events data from Google Calendar: ", response.data);
             if (response.data.items) {
@@ -46,7 +57,7 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
         })
         .catch((error) => {
             console.log("Error from Google Calendar: ", error);
-        });
+        });*/
 
 
     $scope.createTime = (time) => {
