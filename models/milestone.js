@@ -35,8 +35,8 @@ milestoneSchema.statics.getOne = (milestoneId, cb) => {
     }).populate('application');
 };
 
-milestoneSchema.statics.createMilestone = (milestoneObj, applicationId,  cb) => {
-    console.log('milestoneObj:', applicationId)
+milestoneSchema.statics.createMilestone = (milestoneObj, applicationId, googleAccess,  cb) => {
+    console.log('milestoneObj:', applicationId);
     let newMilestone = {
         description:milestoneObj.description,
         createAt: milestoneObj.time,
@@ -44,6 +44,8 @@ milestoneSchema.statics.createMilestone = (milestoneObj, applicationId,  cb) => 
         application: applicationId,
         newMilestone: milestoneObj
     };
+    console.log("New milestone: ", newMilestone);
+    console.log("Google Access: ", googleAccess);
     Milestone.create(newMilestone, (err, milestone) => {
         if(err || !milestone) return cb(err);
         Application.findById(applicationId, (err, dbApplication) => {

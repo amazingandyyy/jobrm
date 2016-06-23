@@ -102,19 +102,19 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
     $scope.dbStoneSubmitted = () => {
         console.log('dbStone: ', $scope.dbStone);
         let applicationId = $stateParams.applicationId;
-        Milestone.createOneMilestone($scope.dbStone, applicationId)
+        Milestone.createOneMilestone($scope.dbStone, applicationId, store.get("googleAPIAccess"))
             .then(res => {
                 console.log('response when milestone is saved', res.data.generalNarrativeData)
                 $scope.mileStones = res.data.milestones;
                 $scope.dbStone = null;
                 $scope.openAddStoneForm = null;
-                $window.location.reload();
+                //$window.location.reload();
 
             })
             .catch(err => {
                 console.log('error while saving milestone', err);
             })
-    }
+    };
     if (store.get("googleAPIAccess")) {
         let googleAPIAccess = store.get("googleAPIAccess");
         // console.log('googleAPIAccess: ', googleAPIAccess);
