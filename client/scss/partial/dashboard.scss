@@ -163,7 +163,7 @@
             background: rgba(0,0,0,0);
             width: 100%;
             height: 60px;
-            padding: 0px 10px 10px 10px;
+            padding: 0 10px 10px;
             margin-bottom: 10px;
             .insideContainer {
                 width: 100px*10;
@@ -186,7 +186,7 @@
                     color: white;
                     border: 2px solid $brand-primary;
                 }
-                .addingChoice.active:active{
+                .addingChoice.active:active {
                     background: darken( $brand-primary, 10%);
                     border: 2px solid darken( $brand-primary, 10%);
                 }
@@ -195,26 +195,23 @@
                 }
             }
         }
-
         .addingContainer::-webkit-scrollbar {
             display: none;
         }
         .mileStoneDiv {
             background: white;
-            padding: 10px 10px 0 0;
+            padding: 5px 10px 5px 0;
             display: block;
             margin: 0;
             position: relative;
             border-left: 3px solid #ddd;
             margin-left: 10px;
             .milestone {
-                border: 5px solid white;
-                border-left: 2px solid white;
                 position: relative;
                 margin-left: 30px;
                 padding: 15px 30px;
                 background: $stone-default;
-                border-radius: 6px;
+                border-radius: 3px;
                 transition: 0.2s all ease-in-out;
                 p {
                     display: block;
@@ -226,13 +223,75 @@
                     font-size: 1.2em;
                     font-weight: 600;
                 }
+                .icon-circle {
+                    background: none;
+                    height: 100%;
+                    margin-top: 25px;
+                    width: 100%;
+                    border-radius: 100px;
+                    display: inline-block;
+                    text-align: center;
+                    transform: scale(2.3);
+                }
             }
             .milestone:hover {
+                cursor: pointer;
                 transform: scale(1);
                 transition: 0.2s all ease-in-out;
+                box-shadow: 0px 0px 30px 10px rgba(0,0,0,0.1);
+                transform: scale(1.01);
+                z-index: 99;
+                .icon-circle {
+                    transform: scale(2.5);
+                    transition: .2s all ease-in-out;
+                }
             }
             .milestone.addStone {
                 cursor: pointer;
+            }
+            .milestone.responseIn {
+                color: white;
+                background: #23D38C !important;
+                .icon-circle::before {
+                    display: inline-block;
+                    // color: #23D38C;
+                    color: white;
+                    content: '\f01c';
+                    font-family: FontAwesome;
+                }
+            }
+            .milestone.sendout {
+                color: white;
+                background: #52A2FF !important;
+                .icon-circle::before {
+                    display: inline-block;
+                    // color: #52A2FF;
+                    color: white;
+                    content: '\f112';
+                    font-family: FontAwesome;
+                }
+            }
+            .milestone.general {
+                background: #F6F6F6 !important;
+                .icon-circle::before {
+                    display: inline-block;
+                    // color: #F6F6F6;
+                    color: black;
+                    content: '\f024';
+                    font-family: FontAwesome;
+                }
+            }
+            .milestone.interview {
+                color: white;
+                background: #FF5252 !important;
+                .icon-circle::before {
+                    display: inline-block;
+                    // color: #FF5252;
+                    color: white;
+                    content: '\f073';
+                    font-family: FontAwesome;
+                    transition: .2s all ease-in-out;
+                }
             }
         }
         .mileStoneDiv::before {
@@ -243,6 +302,16 @@
             width: 30px;
             height: 2px;
             background: #ddd;
+        }
+        .mileStoneDiv::after {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            content: '\f013';
+            color: white;
+            font-family: FontAwesome;
+            width: 20px;
+            height: 20px;
         }
         .mileStoneDiv.start::after {
             position: absolute;
