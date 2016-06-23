@@ -35,6 +35,20 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
             console.log('err when getting all applications: ', err);
         })
     };
+
+    GoogleCalendarServices.retrieveEvents(store.get("currentUserMId"), store.get("googleAPIAccess"))
+        .then((response) => {
+            console.log("Events data from Google Calendar: ", response.data);
+            if (response.data.items) {
+                $scope.sevenDayForecast = GoogleCalendarServices.create7DayForecast(response.data.items);
+                console.log("In controller seven day: ", $scope.sevenDayForecast)
+            }
+        })
+        .catch((error) => {
+            console.log("Error from Google Calendar: ", error);
+        });
+
+
     $scope.createTime = (time) => {
         // console.log('checked');
         // console.log('time: ', time);
@@ -46,7 +60,7 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
             lastWeek: 'h:mm:ss a, ddd. MMMM Do YYYY',
             sameElse: 'MM/DD/YY'
         });
-    }
+    };
 
     $scope.options = {
         chart: {

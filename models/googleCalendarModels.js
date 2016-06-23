@@ -62,6 +62,7 @@ const googleCalendarOperations = {
     },
 
     calendarNewEvent: (requestData, callback) => {
+        console.log("The request data: ", requestData);
         let userData = requestData.userData;
         let calendarData = requestData.calendarData;
         let accessToken = userData.identities[0].access_token;
@@ -87,9 +88,24 @@ const googleCalendarOperations = {
             body: requestBody
         };
         requestNPM(options, (error, httpResponse, body) => {
+            if (error) return callback(error);
             console.log("Error after POST: ", error);
             console.log("body after POST: ", body);
-            callback(error, body);
+            User.findById(requestData.mongooseId, (error, databaseUser) => {
+                if (error || !databaseUser) return callback(error || { error: "There is no user." });
+                let newEntry = {
+                    id: body.id,
+                    summary: body.summary,
+                    startDate: body.start.date,
+                    htmlLink: body.htmlLink,
+                    description: body.description
+                };
+                databaseUser.googleCalendarData.events.push(newEntry);
+                databaseUser.save((error, savedUser) => {
+                    console.log("Saved User: ", savedUser);
+                    callback(error, body);
+                });
+            });
         });
     }
     
