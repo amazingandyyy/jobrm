@@ -16,7 +16,7 @@ const googleCalendarOperations = {
             ]
         };
         let options = {
-            url: `https://www.googleapis.com/calendar/v3/calendars?key=AIzaSyAW4CgLvkN49dw_BrzhIOq4xnM3ueKOMfY`,
+            url: `https://www.googleapis.com/calendar/v3/calendars?key=${process.env.GoogleKEY}`,
             method: "POST",
             headers: {
                 Authorization: `Bearer ${accessToken}`
@@ -78,7 +78,7 @@ const googleCalendarOperations = {
             "summary": calendarData.title
         };
         let options = {
-            url: `https://www.googleapis.com/calendar/v3/calendars/${calendarData.calendarId}/events?key=AIzaSyAW4CgLvkN49dw_BrzhIOq4xnM3ueKOMfY`,
+            url: `https://www.googleapis.com/calendar/v3/calendars/${calendarData.calendarId}/events?key=${process.env.GoogleKEY}`,
             method: "POST",
             headers: {
                 Authorization: `Bearer ${accessToken}`

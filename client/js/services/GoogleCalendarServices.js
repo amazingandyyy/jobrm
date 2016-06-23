@@ -27,6 +27,20 @@ function GoogleCalendarServices($http) {
         return $http.post("/api/googleCalendar/retrieveEvents", toSend);
     };
 
+    this.create7DayForecast = (eventsData) => {
+        let sevenDayForecast = [];
+        for (let i = 0; i < eventsData.length; i++) {
+            let calendaredEvent = eventsData[i].start.date;
+            let sevenDaysFromNow = moment().add(7, "day");
+            //third argument is true so that the difference isn't rounded
+            if (sevenDaysFromNow.diff(calendaredEvent, "days", true) < 7 && sevenDaysFromNow.diff(calendaredEvent, "days", true) >= 0) {
+                sevenDayForecast.push(eventsData[i]);
+            }
+        }
+        console.log("Seven Day Forecast: ", sevenDayForecast);
+        return sevenDayForecast;
+    };
+
     this.calendarNewEvent = (userData, mongooseId, calendarData) => {
         let toSend = {
             userData: userData,

@@ -37,6 +37,9 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
     GoogleCalendarServices.retrieveEvents(store.get("currentUserMId"), store.get("googleAPIAccess"))
         .then((response) => {
             console.log("Events data from Google Calendar: ", response.data);
+            $scope.sevenDayForecast = GoogleCalendarServices.create7DayForecast(response.data.items);
+            console.log("In controller seven day: ", $scope.sevenDayForecast)
+            
         })
         .catch((error) => {
             console.log("Error from Google Calendar: ", error);
