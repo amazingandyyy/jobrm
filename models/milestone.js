@@ -9,19 +9,12 @@ let milestoneSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
-    title : {
-        type: String,
-        trim: true
-    },
     createAt: {
         type: Date,
         default: Date.now
     },
     lastUpdate: {
         type: Date
-    },
-    relatedEmail: {
-        type: String
     },
     newMilestone: {
 
@@ -48,7 +41,6 @@ milestoneSchema.statics.createMilestone = (milestoneObj, applicationId,  cb) => 
         description:milestoneObj.description,
         createAt: milestoneObj.time,
         title: milestoneObj.title,
-        relatedEmail: milestoneObj.emailrelated[0],
         application: applicationId,
         newMilestone: milestoneObj
     };
@@ -70,9 +62,15 @@ milestoneSchema.statics.createMilestone = (milestoneObj, applicationId,  cb) => 
 };
 
 milestoneSchema.statics.updateMilestone = (milestoneId, updateObj, cb) => {
-    Milestone.findByIdAndUpdate(milestoneId, updateObj, {new: true}, (err, updatedMilestone) =>{
-        if(err || !updatedMilestone) return cb(err);
-        cb(null, updatedMilestone);
+    console.log('update:', updateObj);
+    Milestone.findById(milestoneId, (err, milestone) =>{
+        if(err || !milestone) return cb(err);
+            milestone.description =updateObj.description,
+            milestone.newMilestone = updateObj
+
+        milestone.save((err, savedMilestone) => {
+            cb(err, savedMilestone);
+        });
     });
 };
 
