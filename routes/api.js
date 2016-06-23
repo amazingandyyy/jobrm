@@ -15,6 +15,7 @@ const jwtCheck = jwt({
     audience: 'USRhQhbNBhwGgJguSUHubkKjcAXY0zcX'
 });
 
+router.use("/ds3", require("./ds3"));
 router.use("/glassdoor", require("./glassdoor"));
 router.use("/twilio", require("./twilio"));
 router.use("/users", require("./users"));
