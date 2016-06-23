@@ -126,10 +126,23 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
     $scope.applicationDetailUpdated = () => {
         console.log('applicationDetailUpdated: ', $scope.applicationDetail);
         Application.updateApplication($scope.applicationDetail, $stateParams.applicationId).then(res => {
-            console.log('res: ', res.data);
+            console.log('applicationDetailUpdated res: ', res.data);
         }, err => {
-            console.log('err when getting all applications: ', err);
+            console.log('err when applicationDetailUpdated: ', err);
         })
+    }
+    $scope.openEditStoneTriggered = false;
+    $scope.dbStoneUpdatedSetting = (stoneId) => {
+        $scope.openEditStoneTriggered = !$scope.openEditStoneTriggered;
+        Milestone.getOneMilestone(stoneId).then(res => {
+            console.log('stone updated res: ', res.data);
+            $scope.dbStoneUpdate = angular.copy(res.data);
+        }, err => {
+            console.log('err when getting one one stone: ', err);
+        })
+    }
+    $scope.dbStoneUpdated = () => {
+        console.log('dbStoneUpdate: ', $scope.dbStoneUpdate);
     }
 
 
