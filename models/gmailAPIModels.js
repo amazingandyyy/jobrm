@@ -48,7 +48,7 @@ const gmailAPIOperations = {
             "name": requestData.labelName
         };
         let options = {
-            url: `https://www.googleapis.com/gmail/v1/users/${userData.email}/labels?key=AIzaSyAW4CgLvkN49dw_BrzhIOq4xnM3ueKOMfY`,
+            url: `https://www.googleapis.com/gmail/v1/users/${userData.email}/labels?key=${process.env.GoogleKEY}`,
             method: "POST",
             headers: {
                 Authorization: `Bearer ${accessToken}`
@@ -73,7 +73,7 @@ const gmailAPIOperations = {
             ]
         };
         let options = {
-            url: `https://www.googleapis.com/gmail/v1/users/${userData.email}/messages/${labelData.messageID}/modify?key=AIzaSyAW4CgLvkN49dw_BrzhIOq4xnM3ueKOMfY`,
+            url: `https://www.googleapis.com/gmail/v1/users/${userData.email}/messages/${labelData.messageID}/modify?key=${process.env.GoogleKEY}`,
             method: "POST",
             headers: {
                 Authorization: `Bearer ${accessToken}`
