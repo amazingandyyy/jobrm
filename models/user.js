@@ -37,6 +37,7 @@ let userSchema = new mongoose.Schema({
         //summary is Google-designated name for title
         summary: {type: String},
         events: [{
+            parentNarrativeId: { type: String },
             id: { type: String },
             summary: { type: String },
             startDate: { type: String },

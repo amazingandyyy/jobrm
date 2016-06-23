@@ -94,6 +94,7 @@ const googleCalendarOperations = {
             User.findById(requestData.mongooseId, (error, databaseUser) => {
                 if (error || !databaseUser) return callback(error || { error: "There is no user." });
                 let newEntry = {
+                    parentNarrativeId: calendarData.parentNarrativeId,
                     id: body.id,
                     summary: body.summary,
                     startDate: body.start.date,

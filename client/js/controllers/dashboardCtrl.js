@@ -12,8 +12,9 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
 
     $scope.newApplicationSubmitted = () => {
         Application.createOneApplication($scope.newApplication, $scope.currentUser._id).then(afterNewAppRes => {
-            console.log("Response here: ", afterNewAppRes);
+            console.log("Response after new narrative creation: ", afterNewAppRes);
             let calendarEntry = {
+                parentNarrativeId: afterNewAppRes.data.newApplication._id,
                 calendarId: afterNewAppRes.data.updatedApplicant.googleCalendarData.id,
                 newEndDate: afterNewAppRes.data.newApplication.generalNarrativeData.expectedInitialResponse.slice(0, 10),
                 newStartDate: afterNewAppRes.data.newApplication.generalNarrativeData.expectedInitialResponse.slice(0, 10),
@@ -46,6 +47,10 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
         .catch((error) => {
             console.log("Error from Google Calendar: ", error);
         });
+
+    $scope.takeToNarrative = (narrativeId) => {
+        $state.go("application", {applicationId: narrativeId});
+    };
 
     /*GoogleCalendarServices.retrieveEventsFromGoogle(store.get("currentUserMId"), store.get("googleAPIAccess"))
         .then((response) => {

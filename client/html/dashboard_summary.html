@@ -2,7 +2,7 @@
 <h4>7-Day Forecast of Scheduled Events, Tasks, and To-Do's</h4>
 
 <hr>
-<div class="mileStoneDiv" ng-repeat="event in sevenDayForecast" ng-if="sevenDayForecast">
+<div class="mileStoneDiv" ng-repeat="event in sevenDayForecast" ng-if="sevenDayForecast" ng-click="takeToNarrative(event.parentNarrativeId)">
     <div class="milestone">
         <p class="title">{{event.summary}}</p>
         <p class="description">{{event.description}}</p>
