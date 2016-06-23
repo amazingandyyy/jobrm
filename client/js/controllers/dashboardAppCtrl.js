@@ -167,7 +167,9 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
             console.log('err when getting one stone: ', err);
         })
     }
-    $scope.deleteMilestoneClicked = (applicationId, milestoneId) => {
+    $scope.deleteMilestoneClicked = (milestoneId) => {
+        let applicationId = $stateParams.applicationId;
+        console.log('delete: ', applicationId, milestoneId);
         console.log('deleteMilestoneClicked triggerred');
         Milestone.deleteMilestone(applicationId, milestoneId).then(res => {
             console.log('stone delete, res: ', res.data);
