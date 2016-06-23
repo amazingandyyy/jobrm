@@ -27,7 +27,7 @@ angular
         this.updateApplication = (updateData, applicationId) => {
             return $http({
                 method: 'PUT',
-                url: `/api/applications/${updateMilestone}`,
+                url: `/api/applications/${applicationId}`,
                 data: updateData
             })
         };

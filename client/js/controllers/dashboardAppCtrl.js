@@ -125,9 +125,12 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
 
     $scope.applicationDetailUpdated = () => {
         console.log('applicationDetailUpdated: ', $scope.applicationDetail);
+        Application.updateApplication($scope.applicationDetail, $stateParams.applicationId).then(res => {
+            console.log('res: ', res.data);
+        }, err => {
+            console.log('err when getting all applications: ', err);
+        })
     }
-
-
 
 
 }

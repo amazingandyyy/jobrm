@@ -33,7 +33,7 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
             console.log('err when getting all applications: ', err);
         })
     };
-    
+
     GoogleCalendarServices.retrieveEvents(store.get("currentUserMId"), store.get("googleAPIAccess"))
         .then((response) => {
             console.log("Events data from Google Calendar: ", response.data);
@@ -41,10 +41,8 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
         .catch((error) => {
             console.log("Error from Google Calendar: ", error);
         });
-    
+
     $scope.createTime = (time) => {
-        // console.log('checked');
-        // console.log('time: ', time);
         return moment(time).calendar(null, {
             sameDay: 'h:mm a, [Today]',
             nextDay: 'h:mm a, [Tomorrow]',
@@ -54,4 +52,6 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
             sameElse: 'MM/DD/YY'
         });
     }
+
+
 }
