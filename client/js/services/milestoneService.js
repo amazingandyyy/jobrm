@@ -15,5 +15,24 @@ angular
                 url: `/api/milestones`,
                 data: newMilestone
             });
-        }
+        };
+        this.getOneMilestone = (id) => {
+            return $http({
+                method: 'GET',
+                url: `/api/milestones/${id}`
+            });
+        };
+        this.updateMilestone = (milestoneData, applicationId) => {
+            return $http({
+                method: 'PUT',
+                url: `/api/milestones`,
+                data: milestoneData
+            });
+        };
+        this.deleteMilestone = (applicationId, milestoneId) => {
+            return $http({
+                method: 'DELETE',
+                url: `/api/milestones/${applicationId}/delete/${milestoneId}`
+            });
+        };
     });
