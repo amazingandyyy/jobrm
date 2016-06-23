@@ -42,7 +42,7 @@
             </div>
             <hr/>
 
-            <button class="btn btn-primary">Create new Milestone</button>
+            <button type="submit" class="btn btn-primary">Create new Milestone</button>
         </form>
     </div>
 </div>
@@ -57,8 +57,41 @@
                 <p class="title">{{stone.newMilestone.title}}</p>
                 <p class="description">{{stone.newMilestone.description}}</p>
                 <p class="time"><small>{{stone.newMilestone.time}}</small></p>
+                <!-- <p class="time">{{stone._id}}</p> -->
             </div>
         </div>
+
+        <div class="setting fa fa-cog" ng-click="dbStoneUpdatedSetting(stone._id)"></div>
+        <!-- <form> -->
+        <form ng-show="isTheOne(stone._id) && openEditStoneTriggered" ng-submit="dbStoneUpdated(dbStoneUpdate, dbStoneUpdate._id)">
+            <hr/>
+            <fieldset class="form-group">
+                <label>Milestone Title*</label>
+                <input type="text" class="text-capitalize form-control" placeholder="" ng-model="dbStoneUpdate.title" required>
+            </fieldset>
+            <fieldset class="form-group">
+                <label>When will/did this take place?</label>
+                <input type="datetime-local" class="form-control form-control-sm" placeholder="" ng-model="dbStoneUpdate.time" required>
+            </fieldset>
+            <fieldset class="form-group">
+                <label>Milestone Details*</label>
+                <textarea class="form-control" rows="3" ng-model="dbStoneUpdate.description"></textarea>
+            </fieldset>
+            <hr/>
+            <div>
+                <label>Associate to any email?</label>
+                <select multiple ng-model="dbStoneUpdate.emailrelated" class="form-control" style="min-height: 200px">
+                    <option ng-repeat="email in emailsFronGmail">{{email.body.snippet}}</option>
+                </select>
+            </div>
+            <hr/>
+            <button type="submit" class="btn btn-secondary">Update Milestone</button>
+            <button type="button" class="btn btn-danger" ng-click="deleteMilestoneClicked(application._id, dbStoneUpdate._id)">Delete Milestone</button>
+            <br>
+            <br>
+
+
+        </form>
     </div>
 </div>
 <div class="mileStoneDiv hero start">
