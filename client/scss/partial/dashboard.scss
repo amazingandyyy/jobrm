@@ -294,6 +294,21 @@
                 }
             }
         }
+        .milestone::after {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            transform: scale(1.02);
+            content: '\f013';
+            color: white;
+            font-family: FontAwesome;
+            width: 20px;
+            height: 20px;
+            opacity: 1;
+        }
+        .milestone::after:hover{
+            opacity: 0.8;
+        }
         .mileStoneDiv::before {
             position: absolute;
             left: 0;
@@ -303,16 +318,7 @@
             height: 2px;
             background: #ddd;
         }
-        .mileStoneDiv::after {
-            position: absolute;
-            left: 15px;
-            top: 15px;
-            content: '\f013';
-            color: white;
-            font-family: FontAwesome;
-            width: 20px;
-            height: 20px;
-        }
+
         .mileStoneDiv.start::after {
             position: absolute;
             left: -30px;
