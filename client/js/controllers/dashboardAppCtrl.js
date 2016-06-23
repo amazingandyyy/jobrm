@@ -4,7 +4,7 @@ angular
     .module("jobrmApp")
     .controller("dashboardAppCtrl", dashboardAppCtrl)
 
-function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GmailServices, Milestone) {
+function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GmailServices, Milestone, $window) {
     console.log("dashboardAppCtrl loaded");
     console.log('This Narrative Id: ', $stateParams.applicationId);
     if ($stateParams.applicationId) {
@@ -108,6 +108,8 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
                 $scope.mileStones = res.data.milestones;
                 $scope.dbStone = null;
                 $scope.openAddStoneForm = null;
+                $window.location.reload();
+
             })
             .catch(err => {
                 console.log('error while saving milestone', err);
@@ -127,6 +129,8 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
         console.log('applicationDetailUpdated: ', $scope.applicationDetail);
         Application.updateApplication($scope.applicationDetail, $stateParams.applicationId).then(res => {
             console.log('applicationDetailUpdated res: ', res.data);
+            $window.location.reload();
+
         }, err => {
             console.log('err when applicationDetailUpdated: ', err);
         })
@@ -144,8 +148,9 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
     $scope.dbStoneUpdatedSetting = (stoneId) => {
         $scope.openEditStoneTriggered = !$scope.openEditStoneTriggered;
         Milestone.getOneMilestone(stoneId).then(res => {
-            console.log('stone updated res: ', res.data);
-            $scope.dbStoneUpdate = angular.copy(res.data);
+            console.log('stone before setting: ', res.data);
+            $scope.dbStoneUpdate = angular.copy(res.data.newMilestone);
+            $scope.dbStoneUpdate._id = res.data._id;
             $scope.isTheOne = (stoneId) => {
                 if(stoneId == res.data._id){
                     return true
@@ -159,12 +164,15 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
 
     }
 
-    $scope.dbStoneUpdated = (dbStoneUpdate,stoneId) => {
+    $scope.dbStoneUpdated = (dbStoneUpdate, stoneId) => {
+        console.log('dbStoneUpdate: ',dbStoneUpdate);
+        console.log('stoneId: ',stoneId);
         console.log('dbStoneUpdate triggerred');
         Milestone.updateMilestone(dbStoneUpdate,stoneId).then(res => {
             console.log('stone updated, res: ', res.data);
+            $window.location.reload();
         }, err => {
-            console.log('err when getting one stone: ', err);
+            console.log('err when updating one stone: ', err);
         })
     }
     $scope.deleteMilestoneClicked = (milestoneId) => {
@@ -173,6 +181,8 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
         console.log('deleteMilestoneClicked triggerred');
         Milestone.deleteMilestone(applicationId, milestoneId).then(res => {
             console.log('stone delete, res: ', res.data);
+            $window.location.reload();
+
         }, err => {
             console.log('err when deleting one stone: ', err);
         })
