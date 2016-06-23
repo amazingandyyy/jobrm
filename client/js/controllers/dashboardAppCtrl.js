@@ -101,7 +101,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
 
     $scope.dbStoneSubmitted = () => {
         console.log('dbStone: ', $scope.dbStone);
-        let applicationId = $stateParams.applicationId
+        let applicationId = $stateParams.applicationId;
         Milestone.createOneMilestone($scope.dbStone, applicationId)
             .then(res => {
                 console.log('response when milestone is saved', res.data.generalNarrativeData)
@@ -131,18 +131,49 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
             console.log('err when applicationDetailUpdated: ', err);
         })
     }
+    $scope.deleteApplication = (applicantId) => {
+        let applicationId = $stateParams.applicationId;
+        console.log('delete: ', applicationId, applicantId);
+        Application.deleteApplication(applicationId, applicantId).then(res => {
+            console.log('application delete res: ', res.data);
+        }, err => {
+            console.log('err when application delete: ', err);
+        })
+    }
     $scope.openEditStoneTriggered = false;
     $scope.dbStoneUpdatedSetting = (stoneId) => {
         $scope.openEditStoneTriggered = !$scope.openEditStoneTriggered;
         Milestone.getOneMilestone(stoneId).then(res => {
             console.log('stone updated res: ', res.data);
             $scope.dbStoneUpdate = angular.copy(res.data);
+            $scope.isTheOne = (stoneId) => {
+                if(stoneId == res.data._id){
+                    return true
+                }else{
+                    return false
+                }
+            }
         }, err => {
             console.log('err when getting one one stone: ', err);
         })
+
     }
-    $scope.dbStoneUpdated = () => {
-        console.log('dbStoneUpdate: ', $scope.dbStoneUpdate);
+
+    $scope.dbStoneUpdated = (dbStoneUpdate,stoneId) => {
+        console.log('dbStoneUpdate triggerred');
+        Milestone.updateMilestone(dbStoneUpdate,stoneId).then(res => {
+            console.log('stone updated, res: ', res.data);
+        }, err => {
+            console.log('err when getting one stone: ', err);
+        })
+    }
+    $scope.deleteMilestoneClicked = (applicationId, milestoneId) => {
+        console.log('deleteMilestoneClicked triggerred');
+        Milestone.deleteMilestone(applicationId, milestoneId).then(res => {
+            console.log('stone delete, res: ', res.data);
+        }, err => {
+            console.log('err when deleting one stone: ', err);
+        })
     }
 
 

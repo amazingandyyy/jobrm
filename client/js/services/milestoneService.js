@@ -22,10 +22,10 @@ angular
                 url: `/api/milestones/${id}`
             });
         };
-        this.updateMilestone = (milestoneData, applicationId) => {
+        this.updateMilestone = (milestoneData, milestoneId) => {
             return $http({
                 method: 'PUT',
-                url: `/api/milestones`,
+                url: `/api/milestones/${milestoneId}`,
                 data: milestoneData
             });
         };

@@ -72,7 +72,6 @@ milestoneSchema.statics.createMilestone = (milestoneObj, applicationId,  cb) => 
 milestoneSchema.statics.updateMilestone = (milestoneId, updateObj, cb) => {
     Milestone.findByIdAndUpdate(milestoneId, updateObj, {new: true}, (err, updatedMilestone) =>{
         if(err || !updatedMilestone) return cb(err);
-
         cb(null, updatedMilestone);
     });
 };

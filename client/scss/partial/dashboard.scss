@@ -206,6 +206,9 @@
             position: relative;
             border-left: 3px solid #ddd;
             margin-left: 10px;
+            .form-control:active,.form-control:focus {
+                border: 1px solid rgba(0,0,0,0);
+            }
             .milestone {
                 position: relative;
                 margin-left: 30px;

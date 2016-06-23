@@ -34,7 +34,7 @@ angular
         this.deleteApplication  = (applicationId, applicantId) => {
             return $http({
                 method: 'DELETE',
-                url: `/api/application/${applicantId}/delete/${applicationId}`
+                url: `/api/applications/${applicantId}/delete/${applicationId}`
             })
         }
     });

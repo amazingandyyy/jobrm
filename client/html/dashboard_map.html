@@ -42,7 +42,7 @@
             </div>
             <hr/>
 
-            <button class="btn btn-primary">Create new Milestone</button>
+            <button type="submit" class="btn btn-primary">Create new Milestone</button>
         </form>
     </div>
 </div>
@@ -57,13 +57,13 @@
                 <p class="title">{{stone.newMilestone.title}}</p>
                 <p class="description">{{stone.newMilestone.description}}</p>
                 <p class="time"><small>{{stone.newMilestone.time}}</small></p>
-                <p class="time"></p>
+                <!-- <p class="time">{{stone._id}}</p> -->
             </div>
         </div>
 
         <div class="setting fa fa-cog" ng-click="dbStoneUpdatedSetting(stone._id)"></div>
         <!-- <form> -->
-        <form ng-show="openEditStoneTriggered" ng-submit="dbStoneUpdated()">
+        <form ng-show="isTheOne(stone._id) && openEditStoneTriggered" ng-submit="dbStoneUpdated(dbStoneUpdate, dbStoneUpdate._id)">
             <hr/>
             <fieldset class="form-group">
                 <label>Milestone Title*</label>
@@ -85,8 +85,12 @@
                 </select>
             </div>
             <hr/>
+            <button type="submit" class="btn btn-secondary">Update Milestone</button>
+            <button type="button" class="btn btn-danger" ng-click="deleteMilestoneClicked(application._id, dbStoneUpdate._id)">Delete Milestone</button>
+            <br>
+            <br>
 
-            <button class="btn btn-primary">Update Milestone</button>
+
         </form>
     </div>
 </div>
