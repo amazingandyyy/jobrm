@@ -94,9 +94,12 @@ applicationSchema.statics.createApp = (applicationObj, cb) => {
 };
 
 applicationSchema.statics.updateApp = (applicationId, applicationObj, cb) => {
-
+    let newApplication = {
+        dueTime: applicationObj.dueTime,
+        generalNarrativeData: applicationObj
+    }
     Application.findByIdAndUpdate(applicationId, {
-        $set: applicationObj
+        $set: newApplication
     }, {
         new: true
     }, (err, updatedApplication) => {
