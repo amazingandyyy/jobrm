@@ -4,9 +4,9 @@ const requestNPM = require("request");
 const User = require("./user");
 
 const googleCalendarOperations = {
-    //returns the created calendar REMEMBER:
+    //returns the created calendar. REMEMBER:
     // save the calendar ID (will be needed when creating calendar entries)and etag
-    createNewCalendar: function (requestData, callback) {
+    createNewCalendar: (requestData, callback) => {
         let userData = requestData.userData;
         let calendarData = requestData.calendarData;
         let accessToken = userData.identities[0].access_token;
@@ -16,7 +16,7 @@ const googleCalendarOperations = {
             ]
         };
         let options = {
-            url: `https://www.googleapis.com/calendar/v3/calendars?key=AIzaSyAW4CgLvkN49dw_BrzhIOq4xnM3ueKOMfY`,
+            url: `https://www.googleapis.com/calendar/v3/calendars?key=${process.env.GoogleKEY}`,
             method: "POST",
             headers: {
                 Authorization: `Bearer ${accessToken}`
@@ -24,7 +24,7 @@ const googleCalendarOperations = {
             json: true,
             body: requestBody
         };
-        requestNPM(options, function (error, httpResponse, body) {
+        requestNPM(options, (error, httpResponse, body) => {
             if (error || !body.id) return callback(error);
             console.log("Error after POST: ", error);
             console.log("body after POST: ", body);
@@ -39,8 +39,29 @@ const googleCalendarOperations = {
             });
         });
     },
-    
-    calendarNewEvent: function (requestData, callback) {
+
+    retrieveEvents: (requestData, callback) => {
+        let userData = requestData.userData;
+        let accessToken = userData.identities[0].access_token;
+        User.findById(requestData.mongooseId, (error, databaseUser) => {
+            if (error || !databaseUser) return callback(error || { error: "There is no user." });
+            let options = {
+                url: `https://www.googleapis.com/calendar/v3/calendars/${databaseUser.googleCalendarData.id}/events`,
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            };
+            requestNPM(options, (error, httpResponse, body) => {
+                console.log("Error: ", error);
+                console.log("Body after GET: ", body);
+                callback(error, body);
+            })
+
+        });
+    },
+
+    calendarNewEvent: (requestData, callback) => {
         let userData = requestData.userData;
         let calendarData = requestData.calendarData;
         let accessToken = userData.identities[0].access_token;
@@ -57,7 +78,7 @@ const googleCalendarOperations = {
             "summary": calendarData.title
         };
         let options = {
-            url: `https://www.googleapis.com/calendar/v3/calendars/${calendarData.calendarId}/events?key=AIzaSyAW4CgLvkN49dw_BrzhIOq4xnM3ueKOMfY`,
+            url: `https://www.googleapis.com/calendar/v3/calendars/${calendarData.calendarId}/events?key=${process.env.GoogleKEY}`,
             method: "POST",
             headers: {
                 Authorization: `Bearer ${accessToken}`
@@ -65,7 +86,7 @@ const googleCalendarOperations = {
             json: true,
             body: requestBody
         };
-        requestNPM(options, function (error, httpResponse, body) {
+        requestNPM(options, (error, httpResponse, body) => {
             console.log("Error after POST: ", error);
             console.log("body after POST: ", body);
             callback(error, body);

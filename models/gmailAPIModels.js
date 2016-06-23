@@ -7,7 +7,7 @@ const gmailAPIOperations = {
 
     getEmails: function (userData, callback) {
         let options = {
-            url: `https://www.googleapis.com/gmail/v1/users/${userData.profile.email}/messages?maxResults=20&key=AIzaSyAW4CgLvkN49dw_BrzhIOq4xnM3ueKOMfY`,
+            url: `https://www.googleapis.com/gmail/v1/users/${userData.profile.email}/messages?maxResults=20&key=${process.env.GoogleKEY}`,
             headers: {
                 Authorization: `Bearer ${userData.accessToken}`
             }
@@ -29,7 +29,7 @@ const gmailAPIOperations = {
                     let messageId = value.id;
                     batch.add({
                         "method": "GET",
-                        "path": `/gmail/v1/users/${userData.profile.email}/messages/${messageId}/?key=AIzaSyAW4CgLvkN49dw_BrzhIOq4xnM3ueKOMfY`
+                        "path": `/gmail/v1/users/${userData.profile.email}/messages/${messageId}/?key=${process.env.GoogleKEY}`
                     })
                 });
             }
@@ -48,7 +48,7 @@ const gmailAPIOperations = {
             "name": requestData.labelName
         };
         let options = {
-            url: `https://www.googleapis.com/gmail/v1/users/${userData.email}/labels?key=AIzaSyAW4CgLvkN49dw_BrzhIOq4xnM3ueKOMfY`,
+            url: `https://www.googleapis.com/gmail/v1/users/${userData.email}/labels?key=${process.env.GoogleKEY}`,
             method: "POST",
             headers: {
                 Authorization: `Bearer ${accessToken}`
@@ -73,7 +73,7 @@ const gmailAPIOperations = {
             ]
         };
         let options = {
-            url: `https://www.googleapis.com/gmail/v1/users/${userData.email}/messages/${labelData.messageID}/modify?key=AIzaSyAW4CgLvkN49dw_BrzhIOq4xnM3ueKOMfY`,
+            url: `https://www.googleapis.com/gmail/v1/users/${userData.email}/messages/${labelData.messageID}/modify?key=${process.env.GoogleKEY}`,
             method: "POST",
             headers: {
                 Authorization: `Bearer ${accessToken}`

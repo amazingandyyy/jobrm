@@ -1,5 +1,15 @@
-<h1>{{applications.length}} applications</h1>
+<h1>{{applications.length}} Active Job Applications</h1>
+<h4>7-Day Forecast of Scheduled Events, Tasks, and To-Do's</h4>
 
-Summary Page from D3 
+<hr>
+<div class="mileStoneDiv" ng-repeat="event in sevenDayForecast" ng-if="sevenDayForecast">
+    <div class="milestone">
+        <p class="title">{{event.summary}}</p>
+        <p class="description">{{event.description}}</p>
+        <p class="time"><small>{{event.start.date}}</small></p>
+    </div>
+</div>
+
+Summary Page from D3
 
 <nvd3 options="options" data="data"></nvd3>

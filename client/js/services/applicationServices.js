@@ -23,5 +23,18 @@ angular
                 url: `/api/applications/create`,
                 data: newApplicationRequest
             });
+        };
+        this.updateApplication = (updateData, applicationId) => {
+            return $http({
+                method: 'PUT',
+                url: `/api/applications/${applicationId}`,
+                data: updateData
+            })
+        };
+        this.deleteApplication  = (applicationId, applicantId) => {
+            return $http({
+                method: 'DELETE',
+                url: `/api/applications/${applicantId}/delete/${applicationId}`
+            })
         }
     });
