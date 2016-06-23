@@ -27,8 +27,8 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:milestoneid/delete/:applicationId', (req, res) => {
-    let milestoneid = req.params.milestoneid;
+router.delete('/:applicationId/delete/:milestoneId', (req, res) => {
+    let milestoneId = req.params.milestoneId;
     let applicationId = req.params.applicationId;
     Milestone.deleteMilestone(milestoneId, applicationId, (err, updatedApplication) => {
         res.status(err ? 400: 200).send(err || updatedApplication);
