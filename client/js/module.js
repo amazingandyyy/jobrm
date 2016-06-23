@@ -2,6 +2,17 @@
 
 angular
     .module("jobrmApp", ["ui.router", "auth0", "angular-storage", "angular-jwt"])
+    .directive('dateInput', function() {
+        return {
+            restrict: 'A',
+            scope: {
+                ngModel: '='
+            },
+            link: function(scope) {
+                if (scope.ngModel) scope.ngModel = new Date(scope.ngModel);
+            }
+        }
+    })
     .config(function($stateProvider, $urlRouterProvider, authProvider, $httpProvider, $locationProvider, jwtInterceptorProvider) {
         ///Auth0 Shit
         authProvider.init({
@@ -13,15 +24,15 @@ angular
         jwtInterceptorProvider.tokenGetter = function(store) {
             return store.get('token');
         };
-/*        //Called when login is successful
-        authProvider.on('loginSuccess', function($location, profilePromise, idToken, store) {
-            console.log("Login Success");
-            profilePromise.then(function(profile) {
-                store.set('profile', profile);
-                store.set('token', idToken);
-            });
-            $location.path('/');
-        });*/
+        /*        //Called when login is successful
+                authProvider.on('loginSuccess', function($location, profilePromise, idToken, store) {
+                    console.log("Login Success");
+                    profilePromise.then(function(profile) {
+                        store.set('profile', profile);
+                        store.set('token', idToken);
+                    });
+                    $location.path('/');
+                });*/
         //Called when login fails
         authProvider.on('loginFailure', function() {
             console.log("Error logging in");

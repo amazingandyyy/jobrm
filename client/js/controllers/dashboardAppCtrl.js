@@ -4,7 +4,7 @@ angular
     .module("jobrmApp")
     .controller("dashboardAppCtrl", dashboardAppCtrl)
 
-function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GmailServices, Milestone) {
+function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GmailServices, Milestone, $window) {
     console.log("dashboardAppCtrl loaded");
     console.log('This Narrative Id: ', $stateParams.applicationId);
     if ($stateParams.applicationId) {
@@ -148,8 +148,9 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
     $scope.dbStoneUpdatedSetting = (stoneId) => {
         $scope.openEditStoneTriggered = !$scope.openEditStoneTriggered;
         Milestone.getOneMilestone(stoneId).then(res => {
-            console.log('stone updated res: ', res.data);
+            console.log('stone before setting: ', res.data);
             $scope.dbStoneUpdate = angular.copy(res.data.newMilestone);
+            $scope.dbStoneUpdate._id = res.data._id;
             $scope.isTheOne = (stoneId) => {
                 if(stoneId == res.data._id){
                     return true
@@ -157,23 +158,21 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
                     return false
                 }
             }
-            $window.location.reload();
-
         }, err => {
             console.log('err when getting one one stone: ', err);
         })
 
     }
 
-    $scope.dbStoneUpdated = (dbStoneUpdate,stoneId) => {
+    $scope.dbStoneUpdated = (dbStoneUpdate, stoneId) => {
         console.log('dbStoneUpdate: ',dbStoneUpdate);
+        console.log('stoneId: ',stoneId);
         console.log('dbStoneUpdate triggerred');
         Milestone.updateMilestone(dbStoneUpdate,stoneId).then(res => {
             console.log('stone updated, res: ', res.data);
             $window.location.reload();
-
         }, err => {
-            console.log('err when getting one stone: ', err);
+            console.log('err when updating one stone: ', err);
         })
     }
     $scope.deleteMilestoneClicked = (milestoneId) => {
