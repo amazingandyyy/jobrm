@@ -16,18 +16,18 @@ router.post('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    Milestone.findById(req.params.id, (err, milestone) => {
+    Milestone.getOne(req.params.id, (err, milestone) => {
         res.status(err ? 400: 200).send(err || milestone);
-    }).populate('milestones');
+    });
 });
 
 router.put('/:id', (req, res) => {
-    Milestone.update(req.params.id, req.body, (err, updatedMilestone) => {
+    Milestone.updateMilestone(req.params.id, req.body, (err, updatedMilestone) => {
         res.status(err ? 400: 200).send(err || updatedMilestone);
     });
 });
 
-router.delete('/:milestoneid/remove/:applicationId', (req, res) => {
+router.delete('/:milestoneid/delete/:applicationId', (req, res) => {
     let milestoneid = req.params.milestoneid;
     let applicationId = req.params.applicationId;
     Milestone.deleteMilestone(milestoneId, applicationId, (err, updatedApplication) => {
@@ -43,7 +43,5 @@ router.post('/:milestoneId', (req, res) => {
 });
 
 //remove task from a milestone
-
-
 
 module.exports = router;
