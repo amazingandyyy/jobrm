@@ -5,25 +5,43 @@ const User = require('../models/user');
 const moment = require('moment');
 
 let applicationSchema = new mongoose.Schema({
+    company: {type: String },
+    position: { type: String},
+    jobLocation: { type: String },
+    applicationDate: { type: String },
+    expectedInitialResponse: { type: String },
+    friend: {
+        email: String,
+        name: String,
+        phone: String,
+        notes: String
+    },
+    hiringAgency: {
+        address: String,
+        email: String,
+        name: String,
+        phone: String,
+        notes: String
+    },
+    info: {
+        jobLocation: String,
+        position: String
+    },
+    reruiter: {
+        email: String,
+        name: String,
+        notes: String,
+        phone: String
+    },
     createAt: {
         type: Date,
         default: Date.now
-    },
-    lastUpdate: {
-        type: String
     },
     generalNarrativeData:{
 
     },
     dueTime: {
         type: String
-    },
-    completed: {
-        type: Boolean,
-        default: false
-    },
-    notified: {
-        type: Boolean, default: false
     },
     noficationSent: {
         type: Boolean,
@@ -88,8 +106,8 @@ applicationSchema.statics.createApp = (applicationObj, cb) => {
 
             dbApplication.save((err, savedApplication) => {
                 cb(err, application);
-            })
-        })
+            });
+        });
     });
 };
 

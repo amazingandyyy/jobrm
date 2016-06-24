@@ -9,12 +9,26 @@ let milestoneSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
+    state: {
+        title: String,
+        color: String,
+        className: String
+    },
+    title: {
+        type: String
+    },
+    date: {
+        type: String
+    },
+    time: {
+        type: String
+    },
+    emailrelated: {
+        type: String
+    },
     createAt: {
         type: Date,
         default: Date.now
-    },
-    lastUpdate: {
-        type: Date
     },
     newMilestone: {
 
@@ -39,25 +53,27 @@ milestoneSchema.statics.createMilestone = (milestoneObj, applicationId, googleAc
     console.log('milestoneObj:', applicationId);
     let newMilestone = {
         description:milestoneObj.description,
-        createAt: milestoneObj.time,
+        stoneWhere: milestoneObj.stoneWhere,
+        state: milestoneObj.state,
         title: milestoneObj.title,
+        date: milestoneObj.date,
+        time: milestoneObj.time,
         application: applicationId,
+        emailrelated: milestoneObj.emailrelated,
         newMilestone: milestoneObj
     };
-    console.log("New milestone: ", newMilestone);
-    console.log("Google Access: ", googleAccess);
     Milestone.create(newMilestone, (err, milestone) => {
         if(err || !milestone) return cb(err);
         Application.findById(applicationId, (err, dbApplication) => {
             if(!dbApplication) return cb(err);
-            console.log('dbApplication:', dbApplication);
             dbApplication.milestones.push(milestone._id);
             dbApplication.save((err, savedApplication) => {
+                console.log('savedApplication:', savedApplication);
                 if (err)  return cb(err);
                 Application.findById(savedApplication._id, (err2, dbSavedApplication) => {
+                    console.log('findById:', dbSavedApplication);
                     cb(err2, dbSavedApplication);
                 }).populate('milestones');
-
             });
         });
     });

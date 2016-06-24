@@ -5,9 +5,9 @@ const router = express.Router();
 const Application = require('../models/application');
 const User = require('../models/user');
 
-router.get('/all/:id', (req, res) => {
-    console.log('id:', req.params.id);
-    Application.getAll(req.params.id, (err, allApplications) => {
+router.get('/all/:applicantId', (req, res) => {
+    console.log('applicantId:', req.params.applicantId);
+    Application.getAll(req.params.applicantId, (err, allApplications) => {
         res.status(err ? 400 : 200).send(err || allApplications);
     });
 });
