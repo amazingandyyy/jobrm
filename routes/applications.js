@@ -27,7 +27,7 @@ router.post('/create', (req, res) => {
     console.log('new application: ', req.body);
     let newApplication = req.body.applicationData;
     let applicantId = req.body.applicantId;
-    Application.createApp(newApplication, (err, application) => {
+    Application.createApp(newApplication, applicantId, (err, application) => {
         console.log('application: ', application);
         if (err) {
             res.status(400).send(err);

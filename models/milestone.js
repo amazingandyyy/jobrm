@@ -30,9 +30,9 @@ let milestoneSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    newMilestone: {
-
-    },
+    // newMilestone: {
+    //
+    // },
     tasks: [{
 
     }],
