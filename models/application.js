@@ -5,11 +5,25 @@ const User = require('../models/user');
 const moment = require('moment');
 
 let applicationSchema = new mongoose.Schema({
-    company: {type: String },
-    position: { type: String},
-    jobLocation: { type: String },
-    applicationDate: { type: String },
-    expectedInitialResponse: { type: String },
+    company: {
+        type: String
+    },
+    position: {
+        type: String
+    },
+    jobLocation: {
+        type: String
+    },
+    applicationDate: {
+        type: String
+    },
+    expectedInitialResponse: {
+        type: String
+    },
+    info: {
+        resource: String,
+        resourceUrl: String
+    },
     friend: {
         email: String,
         name: String,
@@ -33,9 +47,9 @@ let applicationSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    generalNarrativeData:{
-
-    },
+    // generalNarrativeData: {
+    //
+    // },
     dueTime: {
         type: String
     },
@@ -48,7 +62,8 @@ let applicationSchema = new mongoose.Schema({
         ref: 'User'
     },
     milestones: [{
-        type: mongoose.Schema.Types.ObjectId, ref: 'Milestone'
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Milestone'
     }]
 });
 
@@ -57,22 +72,25 @@ applicationSchema.statics.getFeedbackDateList = cb => {
     // let feedbackDate = moment(today).add(7, 'days');
 
     Application.find({
-        // completed: 'false',
-        noficationSent: 'false',
-        dueTime: {
-            $eq: today.toDate()
-        }},
+            // completed: 'false',
+            noficationSent: 'false',
+            dueTime: {
+                $eq: today.toDate()
+            }
+        },
         (err, applications) => {
             cb(err, applications);
             // noficationSent;
-    }).populate('applicant');
+        }).populate('applicant');
 };
 
 applicationSchema.statics.getAll = (id, cb) => {
-    Application.find({applicant: id})
+    Application.find({
+            applicant: id
+        })
         .exec((err, applications) => {
-        cb(err, applications);
-    });
+            cb(err, applications);
+        });
 };
 
 applicationSchema.statics.getOne = (applicationId, cb) => {
@@ -90,11 +108,12 @@ applicationSchema.statics.createApp = (applicationObj, applicantId, cb) => {
         jobLocation: applicationObj.jobLocation,
         applicationDate: applicationObj.applicationDate,
         expectedInitialResponse: applicationObj.expectedInitialResponse,
+        info: applicationObj.info,
         friend: applicationObj.friend,
         hiringAgency: applicationObj.hiringAgency,
         recruiter: applicationObj.recruiter,
         dueTime: applicationObj.dueTime,
-        generalNarrativeData: applicationObj,
+        // generalNarrativeData: applicationObj,
         applicant: applicantId
     }
     Application.create(newApplication, (err1, application) => {
