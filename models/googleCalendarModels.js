@@ -87,6 +87,9 @@ const googleCalendarOperations = {
             json: true,
             body: requestBody
         };
+        console.log("Google Calendar requestBody: ", requestBody);
+        console.log("Google Calendar Options: ", options)
+
         requestNPM(options, (error, httpResponse, body) => {
             if (error) return callback(error);
             console.log("Error after POST: ", error);
