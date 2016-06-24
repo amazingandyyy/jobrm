@@ -10,9 +10,10 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     if ($stateParams.applicationId) {
         Application.getOneApplication($stateParams.applicationId).then(res => {
             console.log('Narrative: ', res.data);
-            $scope.application = res.data.generalNarrativeData;
-            $scope.applicationDetail = angular.copy(res.data.generalNarrativeData);
+            $scope.application = res.data;
+            $scope.applicationDetail = angular.copy(res.data);
             $scope.mileStones = res.data.milestones;
+            console.log('$scope.mileStones', $scope.mileStones);
         }, err => {
             console.log('err when getting all applications: ', err);
         })
@@ -108,7 +109,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         console.log("To Send: ", toSend)
         Milestone.createOneMilestone(toSend, applicationId, store.get("googleAPIAccess"))
             .then(res => {
-                console.log('response when milestone is saved', res.data.generalNarrativeData)
+                console.log('response when milestone is saved', res.data)
                 $scope.mileStones = res.data.milestones;
                 $scope.dbStone = null;
                 $scope.openAddStoneForm = null;
@@ -161,9 +162,10 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         $scope.openEditStoneTriggered = !$scope.openEditStoneTriggered;
         Milestone.getOneMilestone(stoneId).then(res => {
             console.log('stone before setting: ', res.data);
-            $scope.dbStoneUpdate = angular.copy(res.data.newMilestone);
+            $scope.dbStoneUpdate = angular.copy(res.data);
             $scope.dbStoneUpdate._id = res.data._id;
             $scope.isTheOne = (stoneId) => {
+
                 if(stoneId == res.data._id){
                     return true
                 }else{

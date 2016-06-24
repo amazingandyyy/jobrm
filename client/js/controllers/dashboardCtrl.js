@@ -16,10 +16,10 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
             let calendarEntry = {
                 parentNarrativeId: afterNewAppRes.data.newApplication._id,
                 calendarId: afterNewAppRes.data.updatedApplicant.googleCalendarData.id,
-                newEndDate: afterNewAppRes.data.newApplication.generalNarrativeData.expectedInitialResponse.slice(0, 10),
-                newStartDate: afterNewAppRes.data.newApplication.generalNarrativeData.expectedInitialResponse.slice(0, 10),
-                description: `Initial follow up with ${afterNewAppRes.data.newApplication.generalNarrativeData.company} regarding ${afterNewAppRes.data.newApplication.generalNarrativeData.position}`,
-                title: `Initial F/U re: ${afterNewAppRes.data.newApplication.generalNarrativeData.position} at ${afterNewAppRes.data.newApplication.generalNarrativeData.company}`
+                newEndDate: afterNewAppRes.data.newApplication.expectedInitialResponse.slice(0, 10),
+                newStartDate: afterNewAppRes.data.newApplication.expectedInitialResponse.slice(0, 10),
+                description: `Initial follow up with ${afterNewAppRes.data.newApplication.company} regarding ${afterNewAppRes.data.newApplication.position}`,
+                title: `Initial F/U re: ${afterNewAppRes.data.newApplication.position} at ${afterNewAppRes.data.newApplication.company}`
             };
           GoogleCalendarServices.calendarNewEvent(store.get("googleAPIAccess"), store.get("currentUserMId"), calendarEntry)
                 .then((res) => {

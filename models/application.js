@@ -5,11 +5,25 @@ const User = require('../models/user');
 const moment = require('moment');
 
 let applicationSchema = new mongoose.Schema({
-    company: {type: String },
-    position: { type: String},
-    jobLocation: { type: String },
-    applicationDate: { type: String },
-    expectedInitialResponse: { type: String },
+    company: {
+        type: String
+    },
+    position: {
+        type: String
+    },
+    jobLocation: {
+        type: String
+    },
+    applicationDate: {
+        type: String
+    },
+    expectedInitialResponse: {
+        type: String
+    },
+    info: {
+        resource: String,
+        resourceUrl: String
+    },
     friend: {
         email: String,
         name: String,
@@ -23,11 +37,7 @@ let applicationSchema = new mongoose.Schema({
         phone: String,
         notes: String
     },
-    info: {
-        jobLocation: String,
-        position: String
-    },
-    reruiter: {
+    recruiter: {
         email: String,
         name: String,
         notes: String,
@@ -37,9 +47,9 @@ let applicationSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    generalNarrativeData:{
-
-    },
+    // generalNarrativeData: {
+    //
+    // },
     dueTime: {
         type: String
     },
@@ -47,12 +57,13 @@ let applicationSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    applicant: [{
+    applicant: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }],
+    },
     milestones: [{
-        type: mongoose.Schema.Types.ObjectId, ref: 'Milestone'
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Milestone'
     }]
 });
 
@@ -61,22 +72,25 @@ applicationSchema.statics.getFeedbackDateList = cb => {
     // let feedbackDate = moment(today).add(7, 'days');
 
     Application.find({
-        // completed: 'false',
-        noficationSent: 'false',
-        dueTime: {
-            $eq: today.toDate()
-        }},
+            // completed: 'false',
+            noficationSent: 'false',
+            dueTime: {
+                $eq: today.toDate()
+            }
+        },
         (err, applications) => {
             cb(err, applications);
             // noficationSent;
-    }).populate('applicant');
+        }).populate('applicant');
 };
 
 applicationSchema.statics.getAll = (id, cb) => {
-    Application.find({applicant: id})
+    Application.find({
+            applicant: id
+        })
         .exec((err, applications) => {
-        cb(err, applications);
-    });
+            cb(err, applications);
+        });
 };
 
 applicationSchema.statics.getOne = (applicationId, cb) => {
@@ -86,28 +100,24 @@ applicationSchema.statics.getOne = (applicationId, cb) => {
     }).populate('milestones');
 };
 
-applicationSchema.statics.createApp = (applicationObj, cb) => {
+applicationSchema.statics.createApp = (applicationObj, applicantId, cb) => {
     console.log('applicationObj: ', applicationObj);
     let newApplication = {
+        company: applicationObj.company,
+        position: applicationObj.position,
+        jobLocation: applicationObj.jobLocation,
+        applicationDate: applicationObj.applicationDate,
+        expectedInitialResponse: applicationObj.expectedInitialResponse,
+        info: applicationObj.info,
+        friend: applicationObj.friend,
+        hiringAgency: applicationObj.hiringAgency,
+        recruiter: applicationObj.recruiter,
         dueTime: applicationObj.dueTime,
-        generalNarrativeData: applicationObj
+        // generalNarrativeData: applicationObj,
+        applicant: applicantId
     }
     Application.create(newApplication, (err1, application) => {
-        if(err1) {
-            console.log('error while creating application: ', err1);
-            return cb(err1);
-        }
-        Application.findById(application._id, (err2, dbApplication) => {
-            if(err2) {
-                console.log('error while creating application: ', err2);
-                return cb(err2);
-            }
-            dbApplication.applicant.push(applicationObj.applicant);
-
-            dbApplication.save((err, savedApplication) => {
-                cb(err, application);
-            });
-        });
+        cb(err1, application);
     });
 };
 
