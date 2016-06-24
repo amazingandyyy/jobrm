@@ -15,7 +15,6 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
             console.log("Response after new narrative creation: ", afterNewAppRes);
             let calendarEntry = {
                 parentNarrativeId: afterNewAppRes.data.newApplication._id,
-                calendarId: afterNewAppRes.data.updatedApplicant.googleCalendarData.id,
                 newEndDate: afterNewAppRes.data.newApplication.expectedInitialResponse.slice(0, 10),
                 newStartDate: afterNewAppRes.data.newApplication.expectedInitialResponse.slice(0, 10),
                 description: `Initial follow up with ${afterNewAppRes.data.newApplication.company} regarding ${afterNewAppRes.data.newApplication.position}`,

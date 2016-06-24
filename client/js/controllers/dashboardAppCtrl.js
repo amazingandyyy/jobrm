@@ -109,18 +109,25 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         console.log("To Send: ", toSend)
         Milestone.createOneMilestone(toSend, applicationId, store.get("googleAPIAccess"))
             .then(res => {
-                console.log('response when milestone is saved', res.data)
                 $scope.mileStones = res.data.milestones;
                 $scope.dbStone = null;
                 $scope.openAddStoneForm = null;
-                console.log("Return Data:", res.data)
+                console.log("Return Data:", res.data);
+                console.log("To send data prior to milestone creation: ", toSend);
                 let newCalendarData = {
+                    parentNarrativeId: res.data._id,
                     newEndDate: toSend.date,
                     newStartDate: toSend.date,
                     description: toSend.description,
                     title: toSend.title
                 };
-                //GoogleCalendarServices.calendarNewEvent();
+                GoogleCalendarServices.calendarNewEvent(store.get("googleAPIAccess"), store.get("currentUserMId"), newCalendarData)
+                    .then((response) => {
+                        console.log("Response after event creation: ", response.data);
+                    })
+                    .catch((error) => {
+                        console.log("Error: ", error);
+                    });
                 //$window.location.reload();
 
             })
