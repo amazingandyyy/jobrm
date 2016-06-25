@@ -4,7 +4,7 @@ angular
     .module("jobrmApp")
     .controller("dashboardAppCtrl", dashboardAppCtrl)
 
-function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GmailServices, Milestone, $window) {
+function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServices, $timeout, $state, store, $location, GmailServices, Milestone, $window) {
     console.log("dashboardAppCtrl loaded");
     console.log('This Narrative Id: ', $stateParams.applicationId);
     if ($stateParams.applicationId) {
@@ -103,12 +103,31 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
     $scope.dbStoneSubmitted = () => {
         console.log('dbStone: ', $scope.dbStone);
         let applicationId = $stateParams.applicationId;
-        Milestone.createOneMilestone($scope.dbStone, applicationId, store.get("googleAPIAccess"))
+        let toSend = angular.copy($scope.dbStone);
+        // toSend.date = moment(toSend.date).format("YYYY MM DD");
+        toSend.date = moment(toSend.date).format("YYYY MM DD").replace(/\s/gi, "-");
+        console.log("To Send: ", toSend)
+        Milestone.createOneMilestone(toSend, applicationId, store.get("googleAPIAccess"))
             .then(res => {
-                console.log('response when milestone is saved', res.data)
                 $scope.mileStones = res.data.milestones;
                 $scope.dbStone = null;
                 $scope.openAddStoneForm = null;
+                console.log("Return Data:", res.data);
+                console.log("To send data prior to milestone creation: ", toSend);
+                let newCalendarData = {
+                    parentNarrativeId: res.data._id,
+                    newEndDate: toSend.date,
+                    newStartDate: toSend.date,
+                    description: toSend.description,
+                    title: toSend.title
+                };
+                GoogleCalendarServices.calendarNewEvent(store.get("googleAPIAccess"), store.get("currentUserMId"), newCalendarData)
+                    .then((response) => {
+                        console.log("Response after event creation: ", response.data);
+                    })
+                    .catch((error) => {
+                        console.log("Error: ", error);
+                    });
                 //$window.location.reload();
 
             })

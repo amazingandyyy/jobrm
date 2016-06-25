@@ -4,7 +4,10 @@ const mongoose = require('mongoose');
 const Application = require('../models/application');
 const moment = require('moment');
 
+const GoogleCalendarOperations = require("./googleCalendarModels");
+
 let milestoneSchema = new mongoose.Schema({
+    googleCalendarId: { type: String },
     description: {
         type: String,
         trim: true
@@ -46,7 +49,7 @@ milestoneSchema.statics.getOne = (milestoneId, cb) => {
     }).populate('application');
 };
 
-milestoneSchema.statics.createMilestone = (milestoneObj, applicationId, googleAccess,  cb) => {
+milestoneSchema.statics.createMilestone = (milestoneObj, applicationId,  cb) => {
     console.log('milestoneObj:', applicationId);
     let newMilestone = {
         description:milestoneObj.description,

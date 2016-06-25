@@ -53,7 +53,7 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
             //It gets generated on each login.
             store.set("googleAPIAccess", profile);
             $location.path("/dashboard");
-            // console.log("Profile: ", profile)
+            console.log("Profile: ", profile)
             saveUserToModel(profile);
             //$scope.currentUser = profile;
         }, function(error) {

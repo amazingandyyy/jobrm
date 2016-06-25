@@ -29,6 +29,7 @@ router.post("/retrieveEventsFromDatabase", (request, response) => {
 });
 
 router.post("/calendarNewEvent", (request, response) => {
+    console.log("Request.body in hurr: ", request.body);
     GoogleCalendarOperations.calendarNewEvent(request.body, (error, calendarData) => {
         if (error) response.status(400).send(error);
         response.send(calendarData);
