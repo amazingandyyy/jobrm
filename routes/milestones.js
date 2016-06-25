@@ -20,6 +20,11 @@ router.get('/:id', (req, res) => {
         res.status(err ? 400: 200).send(err || milestone);
     });
 });
+router.get('/', (req, res) => {
+    Milestone.find({}, (err, milestones) => {
+        res.status(err ? 400: 200).send(err || milestones);
+    });
+});
 
 router.put('/:id', (req, res) => {
     Milestone.updateMilestone(req.params.id, req.body, (err, updatedMilestone) => {

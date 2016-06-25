@@ -12,13 +12,13 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
 
     $scope.newApplicationSubmitted = () => {
         Application.createOneApplication($scope.newApplication, $scope.currentUser._id).then(afterNewAppRes => {
-            console.log("Response here: ", afterNewAppRes);
+            console.log("Response after new narrative creation: ", afterNewAppRes);
             let calendarEntry = {
-                calendarId: afterNewAppRes.data.updatedApplicant.googleCalendarData.id,
-                newEndDate: afterNewAppRes.data.newApplication.generalNarrativeData.expectedInitialResponse.slice(0, 10),
-                newStartDate: afterNewAppRes.data.newApplication.generalNarrativeData.expectedInitialResponse.slice(0, 10),
-                description: `Initial follow up with ${afterNewAppRes.data.newApplication.generalNarrativeData.company} regarding ${afterNewAppRes.data.newApplication.generalNarrativeData.position}`,
-                title: `Initial F/U re: ${afterNewAppRes.data.newApplication.generalNarrativeData.position} at ${afterNewAppRes.data.newApplication.generalNarrativeData.company}`
+                parentNarrativeId: afterNewAppRes.data.newApplication._id,
+                newEndDate: afterNewAppRes.data.newApplication.expectedInitialResponse.slice(0, 10),
+                newStartDate: afterNewAppRes.data.newApplication.expectedInitialResponse.slice(0, 10),
+                description: `Initial follow up with ${afterNewAppRes.data.newApplication.company} regarding ${afterNewAppRes.data.newApplication.position}`,
+                title: `Initial F/U re: ${afterNewAppRes.data.newApplication.position} at ${afterNewAppRes.data.newApplication.company}`
             };
           GoogleCalendarServices.calendarNewEvent(store.get("googleAPIAccess"), store.get("currentUserMId"), calendarEntry)
                 .then((res) => {
@@ -35,6 +35,35 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
             console.log('err when getting all applications: ', err);
         })
     };
+    GoogleCalendarServices.retrieveEventsFromMongoose(store.get("currentUserMId"), store.get("id_token"))
+        .then((response) => {
+            console.log("Events data from Mongoose: ", response.data);
+            if (response.data.events) {
+                $scope.sevenDayForecast = GoogleCalendarServices.create7DayForecast(response.data.events);
+                console.log("In controller seven day: ", $scope.sevenDayForecast)
+            }
+        })
+        .catch((error) => {
+            console.log("Error from Google Calendar: ", error);
+        });
+
+    $scope.takeToNarrative = (narrativeId) => {
+        $state.go("application", {applicationId: narrativeId});
+    };
+
+    /*GoogleCalendarServices.retrieveEventsFromGoogle(store.get("currentUserMId"), store.get("googleAPIAccess"))
+        .then((response) => {
+            console.log("Events data from Google Calendar: ", response.data);
+            if (response.data.items) {
+                $scope.sevenDayForecast = GoogleCalendarServices.create7DayForecast(response.data.items);
+                console.log("In controller seven day: ", $scope.sevenDayForecast)
+            }
+        })
+        .catch((error) => {
+            console.log("Error from Google Calendar: ", error);
+        });*/
+
+
     $scope.createTime = (time) => {
         // console.log('checked');
         // console.log('time: ', time);
@@ -46,7 +75,7 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
             lastWeek: 'h:mm:ss a, ddd. MMMM Do YYYY',
             sameElse: 'MM/DD/YY'
         });
-    }
+    };
 
     $scope.options = {
         chart: {
