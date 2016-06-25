@@ -62,37 +62,58 @@ const googleCalendarOperations = {
     },
 
     calendarNewEvent: (requestData, callback) => {
+        console.log("The request data: ", requestData);
         let userData = requestData.userData;
         let calendarData = requestData.calendarData;
+        let mongooseId = requestData.mongooseId;
         let accessToken = userData.identities[0].access_token;
-        let requestBody = {
-            "end": {
-                //in YYYY-MM-DD format
-                //Can use other formats
-                "date": calendarData.newEndDate
-            },
-            "start": {
-                "date": calendarData.newStartDate
-            },
-            "description": calendarData.description,
-            "summary": calendarData.title
-        };
-        let options = {
-            url: `https://www.googleapis.com/calendar/v3/calendars/${calendarData.calendarId}/events?key=${process.env.GoogleKEY}`,
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            },
-            json: true,
-            body: requestBody
-        };
-        requestNPM(options, (error, httpResponse, body) => {
-            console.log("Error after POST: ", error);
-            console.log("body after POST: ", body);
-            callback(error, body);
+
+        User.findById(mongooseId, (error, databaseUser) => {
+            if (error || !databaseUser) return callback(error || { error: "There is no such user." });
+            let requestBody = {
+                "end": {
+                    //in YYYY-MM-DD format
+                    //Can use other formats
+                    "date": calendarData.newEndDate
+                },
+                "start": {
+                    "date": calendarData.newStartDate
+                },
+                "description": calendarData.description,
+                "summary": calendarData.title
+            };
+            let options = {
+                url: `https://www.googleapis.com/calendar/v3/calendars/${databaseUser.googleCalendarData.id}/events?key=${process.env.GoogleKEY}`,
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                },
+                json: true,
+                body: requestBody
+            };
+            console.log("Google Calendar requestBody: ", requestBody);
+            console.log("Google Calendar Options: ", options);
+
+            requestNPM(options, (error, httpResponse, body) => {
+                if (error) return callback(error);
+                console.log("Error after POST: ", error);
+                console.log("body after POST: ", body);
+                let newEntry = {
+                    parentNarrativeId: calendarData.parentNarrativeId,
+                    id: body.id,
+                    summary: body.summary,
+                    startDate: body.start.date,
+                    htmlLink: body.htmlLink,
+                    description: body.description
+                };
+                databaseUser.googleCalendarData.events.push(newEntry);
+                databaseUser.save((error, savedUser) => {
+                    console.log("Saved User: ", savedUser);
+                    callback(error, body);
+                });
+            });
         });
     }
-    
 };
 
 module.exports = googleCalendarOperations;

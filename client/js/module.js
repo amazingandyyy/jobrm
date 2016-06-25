@@ -1,7 +1,7 @@
 "use strict";
 
 angular
-    .module("jobrmApp", ["ui.router", "auth0", "angular-storage", "angular-jwt"])
+    .module("jobrmApp", ["ui.router", "auth0", "angular-storage", "angular-jwt", 'nvd3'])
     .directive('dateInput', function() {
         return {
             restrict: 'A',
@@ -13,6 +13,7 @@ angular
             }
         }
     })
+
     .config(function($stateProvider, $urlRouterProvider, authProvider, $httpProvider, $locationProvider, jwtInterceptorProvider) {
         ///Auth0 Shit
         authProvider.init({
@@ -75,6 +76,7 @@ let dashboard = {
         'map': {
             templateUrl: '/html/dashboard_summary.html',
             controller: 'dashboardCtrl'
+            // controller: '`dashboardSummaryCtrl`'
         }
     }
 };

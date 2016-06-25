@@ -3,10 +3,11 @@
 angular
     .module("jobrmApp")
     .service("Milestone", function($http, store){
-        this.createOneMilestone = (milestoneData, applicationId) => {
+        this.createOneMilestone = (milestoneData, applicationId, googleAccess) => {
             var newMilestone = {
                 milestoneData: milestoneData,
-                applicationId: applicationId
+                applicationId: applicationId,
+                googleAccess: googleAccess
             };
             console.log('applicationData: ', newMilestone);
 

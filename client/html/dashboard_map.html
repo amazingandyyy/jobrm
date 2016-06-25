@@ -2,7 +2,7 @@
 <hr>
 <div class="mileStoneDiv">
     <div class="milestone addStone">
-        <p class="title" ng-init="openAddStoneForm = false" ng-click="openAddStoneForm=!openAddStoneForm">Create a new MileStone <i class="fa fa-caret-down" ng-show="!openAddStoneForm"></i><i class="fa fa-caret-up" ng-show="openAddStoneForm"></i></p>
+        <p class="title" ng-init="openAddStoneForm = false" ng-click="openAddStoneForm=!openAddStoneForm">Create a new Milestone in this Job Search Narrative<i class="fa fa-caret-down" ng-show="!openAddStoneForm"></i><i class="fa fa-caret-up" ng-show="openAddStoneForm"></i></p>
         <form ng-show="openAddStoneForm" ng-submit="dbStoneSubmitted()">
             <hr/>
             <div>
@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div ng-if="dbStone.state.title=='Interview arrangement'">
-                <label>Where will/did the interview take place?</label>
+                <label>Where will this milestone take place, or when did it occur?</label>
                 <div class="addingContainer">
                     <div class="insideContainer">
                         <div ng-class="stoneWhereActivated(stone.state)? 'active' : '' " ng-click="chooseStoneWhere(stone)" class="addingChoice" ng-repeat="stone in stoneWhereTemplate" required>{{stone.state}}</div>
@@ -22,12 +22,14 @@
                 </div>
             </div>
             <fieldset class="form-group">
-                <label>Milestone Title*</label>
-                <input type="text" class="text-capitalize form-control" placeholder="" ng-model="dbStone.title" required>
+                <label>How would you like to title this Milestone?*</label>
+                <input type="text" class="text-capitalize form-control" placeholder="First Telephonic Interview, or Culture-Fit Interview" ng-model="dbStone.title" required>
             </fieldset>
             <fieldset class="form-group">
-                <label>When will/did this take place?</label>
-                <input type="datetime-local" class="form-control form-control-sm" placeholder="" ng-model="dbStone.time" required>
+                <label>On what date will this milestone occur, or on what date did it occur?</label>
+                <input type="date" class="form-control form-control-sm" placeholder="" ng-model="dbStone.date" required>
+                <label>At what time on {{dbStone.date | date:"MM/dd/yyyy" }} will this Milestone occur, or what time did it occur?</label>
+                <input type="time" class="form-control form-control-sm" placeholder="" ng-model="dbStone.time">
             </fieldset>
             <fieldset class="form-group">
                 <label>Milestone Details*</label>
@@ -35,28 +37,27 @@
             </fieldset>
             <hr/>
             <div>
-                <label>Associate to any email?</label>
+                <label>Associate with any of these emails?</label>
                 <select multiple ng-model="dbStone.emailrelated" class="form-control" style="min-height: 200px">
                     <option ng-repeat="email in emailsFronGmail">{{email.body.snippet}}</option>
                 </select>
             </div>
             <hr/>
-
             <button type="submit" class="btn btn-primary">Create new Milestone</button>
         </form>
     </div>
 </div>
 <div class="mileStoneDiv" ng-repeat="stone in mileStones">
-    <div class="milestone" ng-class=" '{{stone.newMilestone.state.className}}' ">
-        <!-- <div class="milestone" ng-class="stone.newMilestone.className" ng-style="{'background': '#{{stone.newMilestone.state.color}}', 'color': '{{(stone.newMilestone.state.color!=='F6F6F6') ? 'white' : 'black' }}'}"> -->
+    <div class="milestone" ng-class=" '{{stone.state.className}}' ">
+        <!-- <div class="milestone" ng-class="stone.className" ng-style="{'background': '#{{stone.state.color}}', 'color': '{{(stone.state.color!=='F6F6F6') ? 'white' : 'black' }}'}"> -->
         <div class="row">
             <div class="col-sm-2">
                 <span class="icon-circle"></span>
             </div>
             <div class="col-sm-10">
-                <p class="title">{{stone.newMilestone.title}}</p>
-                <p class="description">{{stone.newMilestone.description}}</p>
-                <p class="time"><small>{{stone.newMilestone.time}}</small></p>
+                <p class="title">{{stone.title}}</p>
+                <p class="description">{{stone.description}}</p>
+                <p class="time"><small>{{stone.time}}</small></p>
                 <!-- <p class="time">{{stone._id}}</p> -->
             </div>
         </div>

@@ -37,7 +37,12 @@ let userSchema = new mongoose.Schema({
         //summary is Google-designated name for title
         summary: {type: String},
         events: [{
-            type: String
+            parentNarrativeId: { type: String },
+            id: { type: String },
+            summary: { type: String },
+            startDate: { type: String },
+            htmlLink: { type: String },
+            description: { type: String }
         }]
     },
     applications: [{
@@ -66,7 +71,7 @@ userSchema.statics.saveGmailUser = (user, cb) => {
             family_name: user.family_name,
             gmail: user,
             clientId: user.clientId
-        })
+        });
 
         let sendmail = {
             email: user.email,
