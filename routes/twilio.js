@@ -19,7 +19,7 @@ router.post("/", (req, res) => {
        from: TWILIO_FROM,
        body: twiliobody
    },  (err, message) => {
-      res.status(err ? 400 : 200).send(err);
+      res.status(err ? 400 : 200).send(err || message);
    });
 });
 

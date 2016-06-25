@@ -76,7 +76,6 @@ let dashboard = {
         'map': {
             templateUrl: '/html/dashboard_summary.html',
             controller: 'dashboardCtrl'
-            // controller: '`dashboardSummaryCtrl`'
         }
     }
 };

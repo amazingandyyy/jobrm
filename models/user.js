@@ -73,7 +73,10 @@ userSchema.statics.saveGmailUser = (user, cb) => {
             subject: 'JRM signup',
             message: 'Thank you for signing up for JRM. you can now start using our App.'
         };
+
+        console.log('sendmailsendmail');
         let mail = newUser.sendEmail(sendmail);
+        console.log('mailmailmailmail');
 
         newUser.save((err, savedUser) => {
             cb(err, savedUser);
@@ -103,31 +106,18 @@ userSchema.statics.edit = (id, updatedUserObj, cb) => {
     });
 };
 
-
+const SendGrid = require('../lib/sendgrid');
 userSchema.methods.sendEmail = function(obj) {
-    let userEmail = obj.email;
-    let subject = obj.subject
-    let message = obj.message
-    let transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-            user: process.env.EMAIL_ACCOUNT,
-            pass: process.env.GMAIL_PASSWORD
-        }
-    });
 
-    let mailOptions = {
-        from: `"JRM" ${process.env.GMAIL_PASSWORD}`, // sender address
-        to: userEmail, // list of receivers
-        subject: subject, // Subject line
-        text: message, // plaintext body
-        html: message // html body
+    let jobAppArr = {};
+    jobAppArr  = {
+        userEmail : obj.email,
+        subject : obj.subject,
+        message : obj.message
     };
-    transporter.sendMail(mailOptions, function(error, info) {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Message sent: ' + info.response);
+
+    SendGrid.sendGridNotification(jobAppArr, (err, returnValue) => {
+        if (err) { console.log(err); }
     });
 }
 
