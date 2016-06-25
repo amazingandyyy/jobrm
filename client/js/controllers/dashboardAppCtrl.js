@@ -183,7 +183,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, $timeout, $state, s
         console.log('deleteMilestoneClicked triggerred');
         Milestone.deleteMilestone(applicationId, milestoneId).then(res => {
             console.log('stone delete, res: ', res.data);
-            $window.location.reload();
+            // $window.location.reload();
 
         }, err => {
             console.log('err when deleting one stone: ', err);
