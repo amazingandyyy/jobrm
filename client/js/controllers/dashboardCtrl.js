@@ -6,11 +6,19 @@ angular
 
 function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GoogleCalendarServices, DashboardServices) {
     console.log("dashboardCtrl loaded");
-
+    $scope.newApplication = {};
     $scope.applications = $scope.currentUser.applications.reverse();
-    $scope.applicationDateDefault = moment().format('YYYY-MM-DD');
-
+    let todayDate = moment(Date.now());
+    let applicationDefaultDate = new Date().toISOString().split("T")[0];
+    let expectedInitialDefaultDate = moment(applicationDefaultDate).add(7, 'day')._d.toISOString().split("T")[0];
+    $scope.newApplication.applicationDate = new Date(applicationDefaultDate);
+    $scope.newApplication.expectedInitialResponse = new Date(expectedInitialDefaultDate);
+    // .toISOString().split("T")[0];
     $scope.newApplicationSubmitted = () => {
+        console.log($scope.newApplication);
+        console.log($scope.newApplication.applicationDate);
+        console.log($scope.newApplication.expectedInitialResponse);
+
         Application.createOneApplication($scope.newApplication, $scope.currentUser._id).then(afterNewAppRes => {
             console.log("Response after new narrative creation: ", afterNewAppRes);
             let calendarEntry = {
@@ -20,6 +28,7 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
                 description: `Initial follow up with ${afterNewAppRes.data.newApplication.company} regarding ${afterNewAppRes.data.newApplication.position}`,
                 title: `Initial F/U re: ${afterNewAppRes.data.newApplication.position} at ${afterNewAppRes.data.newApplication.company}`
             };
+            console.log('calendarEntry: ', calendarEntry);
           GoogleCalendarServices.calendarNewEvent(store.get("googleAPIAccess"), store.get("currentUserMId"), calendarEntry)
                 .then((res) => {
                     console.log("response after calendar: ", res);
@@ -32,7 +41,7 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
                     console.log("Error: ", error);
                 });
         }, err => {
-            console.log('err when getting all applications: ', err);
+            console.log('err when creating a new application: ', err);
         })
     };
     GoogleCalendarServices.retrieveEventsFromMongoose(store.get("currentUserMId"), store.get("id_token"))
@@ -48,7 +57,9 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
         });
 
     $scope.takeToNarrative = (narrativeId) => {
-        $state.go("application", {applicationId: narrativeId});
+        $state.go("application", {
+            applicationId: narrativeId
+        });
     };
 
     /*GoogleCalendarServices.retrieveEventsFromGoogle(store.get("currentUserMId"), store.get("googleAPIAccess"))
@@ -81,17 +92,26 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
         chart: {
             type: 'discreteBarChart',
             height: 450,
-            margin : {
+            margin: {
                 top: 20,
                 right: 20,
                 bottom: 60,
                 left: 55
             },
-            x: function(d){ return d.label; },
-            y: function(d){ return d.value; },
+            x: function(d) {
+                return d.label;
+            },
+            y: function(d) {
+                return d.value;
+            },
             showValues: true,
+<<<<<<< HEAD
             valueFormat: function(d){
                 return d3.format(',d')(d);
+=======
+            valueFormat: function(d) {
+                return d3.format(',.4f')(d);
+>>>>>>> andy
             },
             transitionDuration: 500,
             xAxis: {
@@ -104,6 +124,7 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
         }
     };
 
+<<<<<<< HEAD
     let appCount = 0;
     DashboardServices.getDS3ChartUser($scope.currentUser._id)
         .then(res => {
@@ -125,6 +146,36 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
         }]
     }
 
+=======
+    $scope.data = [{
+        key: "Cumulative Return",
+        values: [{
+            "label": "A",
+            "value": -29.765957771107
+        }, {
+            "label": "B",
+            "value": 0
+        }, {
+            "label": "C",
+            "value": 32.807804682612
+        }, {
+            "label": "D",
+            "value": 196.45946739256
+        }, {
+            "label": "E",
+            "value": 0.19434030906893
+        }, {
+            "label": "F",
+            "value": -98.079782601442
+        }, {
+            "label": "G",
+            "value": -13.925743130903
+        }, {
+            "label": "H",
+            "value": -5.1387322875705
+        }]
+    }]
+>>>>>>> andy
 }
 
 /*

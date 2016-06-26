@@ -48,9 +48,9 @@
     </div>
 </div>
 <div class="mileStoneDiv" ng-repeat="stone in mileStones">
-    <div class="milestone" ng-class=" '{{stone.state.className}}' ">
+    <div class="milestone clickable" ng-class=" '{{stone.state.className}}' " >
         <!-- <div class="milestone" ng-class="stone.className" ng-style="{'background': '#{{stone.state.color}}', 'color': '{{(stone.state.color!=='F6F6F6') ? 'white' : 'black' }}'}"> -->
-        <div class="row">
+        <div class="row" ng-click="dbStoneUpdatedSetting(stone._id)">
             <div class="col-sm-2">
                 <span class="icon-circle"></span>
             </div>
@@ -62,7 +62,7 @@
             </div>
         </div>
 
-        <div class="setting fa fa-cog" ng-click="dbStoneUpdatedSetting(stone._id)"></div>
+        <!-- <div class="setting fa fa-cog" ng-click="dbStoneUpdatedSetting(stone._id)"></div> -->
         <!-- <form> -->
         <form ng-show="isTheOne(stone._id) && openEditStoneTriggered" ng-submit="dbStoneUpdated(dbStoneUpdate, dbStoneUpdate._id)">
             <hr/>
@@ -71,8 +71,10 @@
                 <input type="text" class="text-capitalize form-control" placeholder="" ng-model="dbStoneUpdate.title" required>
             </fieldset>
             <fieldset class="form-group">
-                <label>When will/did this take place?</label>
-                <input type="datetime-local" class="form-control form-control-sm" placeholder="" ng-model="dbStoneUpdate.time" required>
+                <label>On what date will this milestone occur, or on what date did it occur?</label>
+                <input type="date" class="form-control form-control-sm" placeholder="" ng-model="dbStoneUpdate.date | date:'MM/dd/yyyy'" required>
+                <label>At what time on {{dbStoneUpdate.date | date:"MM/dd/yyyy" }} will this Milestone occur, or what time did it occur?</label>
+                <input type="time" class="form-control form-control-sm" placeholder="" ng-model="dbStoneUpdate.time">
             </fieldset>
             <fieldset class="form-group">
                 <label>Milestone Details*</label>
