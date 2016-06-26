@@ -7,7 +7,7 @@ const gmailAPIOperations = {
 
     getEmails: function (userData, callback) {
         let options = {
-            url: `https://www.googleapis.com/gmail/v1/users/${userData.profile.email}/messages?maxResults=20&key=${process.env.GoogleKEY}`,
+            url: `https://www.googleapis.com/gmail/v1/users/${userData.profile.email}/messages?maxResults=40&key=${process.env.GoogleKEY}`,
             headers: {
                 Authorization: `Bearer ${userData.accessToken}`
             }
@@ -38,7 +38,7 @@ const gmailAPIOperations = {
             });
         });
     },
-    
+
     createNewLabel: function (requestData, callback) {
         let userData = requestData.userData;
         let accessToken = userData.identities[0].access_token;
