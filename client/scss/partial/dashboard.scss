@@ -5,7 +5,7 @@
     padding-left: 0;
     .application_section {
         transition: 0.2s all ease-in-out;
-        left: -300px;
+        left: -400px;
     }
 }
 .section.hideRightSide {
@@ -14,7 +14,7 @@
     padding-right: 0;
     .details_section {
         transition: 0.2s all ease-in-out;
-        right: -300px;
+        right: -400px;
     }
 }
 .section {
@@ -434,11 +434,11 @@
         padding-right: 0;
         .application_section {
             transition: 0.2s all ease-in-out;
-            left: -300px;
+            left: -400px;
         }
         .details_section {
             transition: 0.2s all ease-in-out;
-            right: -300px;
+            right: -400px;
         }
         .application_section {
             font-size: 1.5em;
@@ -448,7 +448,7 @@
         }
         .map_section {
             width: 100%;
-            padding: 15px;
+            padding: 20px;
             .mileStoneDiv {
                 margin: 0 !important;
                 .milestone {
