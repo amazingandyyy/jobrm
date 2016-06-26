@@ -23,7 +23,7 @@ angular
         });
         //Angular HTTP Interceptor function
         jwtInterceptorProvider.tokenGetter = function(store) {
-            return store.get('token');
+            return store.get('id_token');
         };
         /*        //Called when login is successful
                 authProvider.on('loginSuccess', function($location, profilePromise, idToken, store) {

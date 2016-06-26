@@ -38,6 +38,7 @@ let userSchema = new mongoose.Schema({
         summary: {type: String},
         events: [{
             parentNarrativeId: { type: String },
+            milestoneId: { type: String },
             id: { type: String },
             summary: { type: String },
             startDate: { type: String },
