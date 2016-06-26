@@ -53,6 +53,16 @@ function GoogleCalendarServices($http) {
         return sevenDayForecast;
     };
 
+    this.deleteCalendaredEvent = (mongooseId, milestoneId, userData) => {
+        let toSend = {
+            mongooseId: mongooseId,
+            milestoneId: milestoneId,
+            userData: userData
+        };
+        console.log("TO Send: ", toSend)
+        return $http.post("/api/googleCalendar/deleteCalendaredEvent", toSend);
+    };
+
     this.calendarNewEvent = (userData, mongooseId, calendarData) => {
         let toSend = {
             userData: userData,

@@ -14,6 +14,14 @@ router.post("/createNewCalendar", (request,response) => {
     });
 });
 
+router.post("/deleteCalendaredEvent", (request, response) => {
+    console.log("HEReeeee")
+    GoogleCalendarOperations.deleteCalendaredEvent(request.body, (error, outcome) => {
+        if (error) response.status(400).send(error);
+        response.send(outcome);
+    });
+});
+
 router.post("/retrieveEventsFromGoogle", (request, response) => {
      GoogleCalendarOperations.retrieveEvents(request.body, (error, eventsData) => {
         if (error) response.status(400).send(error);
