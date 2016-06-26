@@ -4,7 +4,7 @@ angular
     .module("jobrmApp")
     .controller("dashboardCtrl", dashboardCtrl)
 
-function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GoogleCalendarServices) {
+function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GoogleCalendarServices, DashboardServices) {
     console.log("dashboardCtrl loaded");
 
     $scope.applications = $scope.currentUser.applications.reverse();
@@ -103,6 +103,26 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
             }
         }
     };
+
+    // if ($stateParams.applicationId) {
+    //     DashboardServices.getDS3ChartUser('5764b9e05761ffdb91e8de73').then(res => {
+    //         console.log('data: ', res.data);
+    //         $scope.application = res.data;
+    //         $scope.applicationDetail = angular.copy(res.data);
+    //         $scope.mileStones = res.data.milestones;
+    //         console.log('$scope.mileStones', $scope.mileStones);
+    //     }, err => {
+    //         console.log('err when getting all applications: ', err);
+    //     })
+    // }
+
+    // DashboardServices.getDS3ChartUser('5764b9e05761ffdb91e8de73')
+    //     .then(res => {
+    //         console.log('data: ', res.data);
+    //     })
+    //     .catch((error) => {
+    //         console.log("Error from DS3 Calendar: ", error);
+    //     });
 
     $scope.data = [{
     key: "Cumulative Return",
