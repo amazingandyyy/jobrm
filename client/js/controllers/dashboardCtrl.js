@@ -4,7 +4,7 @@ angular
     .module("jobrmApp")
     .controller("dashboardCtrl", dashboardCtrl)
 
-function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GoogleCalendarServices) {
+function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GoogleCalendarServices, DashboardServices) {
     console.log("dashboardCtrl loaded");
     $scope.newApplication = {};
     $scope.applications = $scope.currentUser.applications.reverse();
@@ -105,8 +105,13 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
                 return d.value;
             },
             showValues: true,
+<<<<<<< HEAD
+            valueFormat: function(d){
+                return d3.format(',d')(d);
+=======
             valueFormat: function(d) {
                 return d3.format(',.4f')(d);
+>>>>>>> andy
             },
             transitionDuration: 500,
             xAxis: {
@@ -119,6 +124,29 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
         }
     };
 
+<<<<<<< HEAD
+    let appCount = 0;
+    DashboardServices.getDS3ChartUser($scope.currentUser._id)
+        .then(res => {
+            console.log('res.data', res.data);
+            appCount = res.data.applications.length;
+            AppChart(appCount);
+        })
+        .catch((error) => {
+            console.log("Error from DS3 Calendar: ", error);
+        });
+
+    function AppChart(appCount) {
+        console.log('appCountappCountappCountappCount', appCount);
+        $scope.data = [{
+            key: "Cumulative Return",
+            values: [
+                { "label" : "Applications" , "value" : appCount }
+            ]
+        }]
+    }
+
+=======
     $scope.data = [{
         key: "Cumulative Return",
         values: [{
@@ -147,6 +175,7 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
             "value": -5.1387322875705
         }]
     }]
+>>>>>>> andy
 }
 
 /*

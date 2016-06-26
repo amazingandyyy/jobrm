@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  User.findbyId({}, (err, user) => {
+  User.findById(req.params.id, (err, user) => {
       res.status(err ? 400 : 200).send(err || user);
     }).populate('applications');
 });
