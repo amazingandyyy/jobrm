@@ -5,25 +5,25 @@ const router = express.Router();
 const Application = require('../models/application');
 const User = require('../models/user');
 
-router.get('/all/:applicantId', (req, res) => {
+router.get('/all/:applicantId', User.isLoggedIn, (req, res) => {
     console.log('applicantId:', req.params.applicantId);
     Application.getAll(req.params.applicantId, (err, allApplications) => {
         res.status(err ? 400 : 200).send(err || allApplications);
     });
 });
-router.delete('/all', (req, res) => {
+router.delete('/all', User.isLoggedIn, (req, res) => {
     Application.remove({}, (err, allApplications) => {
         res.status(err ? 400 : 200).send(err || allApplications);
     });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', User.isLoggedIn,  (req, res) => {
     Application.getOne(req.params.id, (err, application) => {
         res.status(err ? 400 : 200).send(err || application);
     });
 });
 
-router.post('/create', (req, res) => {
+router.post('/create', User.isLoggedIn, (req, res) => {
     console.log('new application: ', req.body);
     let newApplication = req.body.applicationData;
     let applicantId = req.body.applicantId;
@@ -47,13 +47,13 @@ router.post('/create', (req, res) => {
     });
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', User.isLoggedIn, (req, res) => {
     Application.updateApp(req.params.id, req.body, (err, updatedApplication) => {
         res.status(err ? 400 : 200).send(err || updatedApplication);
     });
 });
 
-router.delete('/:userId/delete/:appId', (req, res) => {
+router.delete('/:userId/delete/:appId', User.isLoggedIn, (req, res) => {
     Application.deleteApp(req.params.userId, req.params.appId, (err, deletedApplication) => {
         res.status(err ? 400 : 200).send(err || deletedApplication);
     });

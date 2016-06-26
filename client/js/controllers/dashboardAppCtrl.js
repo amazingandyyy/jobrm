@@ -176,9 +176,9 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
             $scope.dbStoneUpdate._id = res.data._id;
             $scope.isTheOne = (stoneId) => {
 
-                if(stoneId == res.data._id){
+                if (stoneId == res.data._id) {
                     return true
-                }else{
+                } else {
                     return false
                 }
             }
@@ -189,10 +189,10 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     }
 
     $scope.dbStoneUpdated = (dbStoneUpdate, stoneId) => {
-        console.log('dbStoneUpdate: ',dbStoneUpdate);
-        console.log('stoneId: ',stoneId);
+        console.log('dbStoneUpdate: ', dbStoneUpdate);
+        console.log('stoneId: ', stoneId);
         console.log('dbStoneUpdate triggerred');
-        Milestone.updateMilestone(dbStoneUpdate,stoneId).then(res => {
+        Milestone.updateMilestone(dbStoneUpdate, stoneId).then(res => {
             console.log('stone updated, res: ', res.data);
             $window.location.reload();
         }, err => {
@@ -205,14 +205,17 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         console.log('deleteMilestoneClicked triggerred');
         Milestone.deleteMilestone(applicationId, milestoneId).then(res => {
             console.log('stone delete, res: ', res.data);
-            //$window.location.reload();
-                GoogleCalendarServices.deleteCalendaredEvent(store.get("currentUserMId"),milestoneId, store.get("googleAPIAccess"))
-                    .then((response) => {
-                        console.log("Response: ", response);
-                    })
-                    .catch((error) => {
-                        console.log("Error: ", error);
-                    });
+            // $window.location.reload();
+
+
+            GoogleCalendarServices.deleteCalendaredEvent(store.get("currentUserMId"), milestoneId, store.get("googleAPIAccess"))
+                .then((response) => {
+                    console.log("Response: ", response);
+                })
+                .catch((error) => {
+                    console.log("Error: ", error);
+                });
+
         }, err => {
             console.log('err when deleting one stone: ', err);
         })
