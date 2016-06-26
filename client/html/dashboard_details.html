@@ -26,13 +26,13 @@
         <div class="col-sm-12">
             <fieldset class="form-group">
                 <label>Application Submission Date</label>
-                <input ng-class="" type="date" class="form-control form-control-sm" style="line-height: 1.5rem" id="applicationDate" placeholder="" ng-model="applicationDetail.applicationDate" value="{{ applicationDateDefault | date: 'yyyy-MM-dd' }}" />
+                <input ng-class="" type="date" class="form-control form-control-sm" style="line-height: 1.5rem" id="applicationDate" placeholder="yyyy-MM-dd" ng-model="applicationDetail.applicationDate"/>
             </fieldset>
         </div>
         <div class="col-sm-12">
             <fieldset class="form-group">
                 <label>Anticipated Response</label>
-                <input ng-class="" type="date" class="form-control form-control-sm" id="applicationDate" placeholder="" ng-model="applicationDetail.expectedInitialResponse" value="{{ applicationDateDefault | date: 'yyyy-MM-dd' }}" required/>
+                <input ng-class="" type="date" class="form-control form-control-sm" id="expectedInitialResponse" placeholder="yyyy-MM-dd" ng-model="applicationDetail.expectedInitialResponse"/>
             </fieldset>
         </div>
     </div>

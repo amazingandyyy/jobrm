@@ -103,9 +103,7 @@ userSchema.statics.saveGmailUser = (user, cb) => {
             message: 'Thank you for signing up for JRM. you can now start using our App.'
         };
 
-        console.log('sendmailsendmail');
         let mail = newUser.sendEmail(sendmail);
-        console.log('mailmailmailmail');
 
         var token = newUser.generateToken();
 

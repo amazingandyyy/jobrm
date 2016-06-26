@@ -11,18 +11,26 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         Application.getOneApplication($stateParams.applicationId).then(res => {
             console.log('Narrative: ', res.data);
             $scope.application = res.data;
-            $scope.applicationDetail = angular.copy(res.data);
-            $scope.mileStones = res.data.milestones;
-            console.log('$scope.mileStones', $scope.mileStones);
+            if(res.data.length < 1){
+                $state.go('dashboard');
+            }else{
+                $scope.applicationDetail = angular.copy(res.data);
+                let applicationDateDate = res.data.applicationDate.split("T")[0];
+                let expectedInitialResponseDate = res.data.expectedInitialResponse.split("T")[0];
+                $scope.applicationDetail.applicationDate = new Date(applicationDateDate);
+                $scope.applicationDetail.expectedInitialResponse = new Date(expectedInitialResponseDate);
+                $scope.mileStones = res.data.milestones;
+                console.log('MileStones', $scope.mileStones);
+            }
         }, err => {
-            console.log('err when getting all applications: ', err);
+            console.log('err when getting all application and all milstones: ', err);
+            $state.go('dashboard');
         })
     }
 
     $scope.stoneTypeTemplate = [{
         state: {
             title: "Response from recruiter",
-            color: "23D38C",
             className: "responseIn"
         },
         titleSaved: "Response from recruiter"
@@ -30,14 +38,12 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     }, {
         state: {
             title: "Message I sent out",
-            color: "52A2FF",
             className: "sendout"
         },
         titleSaved: "Message I sent out"
     }, {
         state: {
             title: "General Stone",
-            color: "F6F6F6",
             className: "general"
         },
         titleSaved: "General Stone"
@@ -45,7 +51,6 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     }, {
         state: {
             title: "Interview arrangement",
-            color: "FF5252",
             className: "interview"
         },
         titleSaved: "Interview arrangement"
@@ -111,11 +116,11 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
             .then(res => {
                 $scope.mileStones = res.data.dbSavedApplication.milestones;
                 let newMilestone = res.data.newMilestone;
-                console.log("New Milestone: ", newMilestone);
+                // console.log("New Milestone: ", newMilestone);
                 $scope.dbStone = null;
                 $scope.openAddStoneForm = null;
-                console.log("Return Data:", res.data);
-                console.log("To send data prior to milestone creation: ", toSend);
+                // console.log("Return Data:", res.data);
+                // console.log("To send data prior to milestone creation: ", toSend);
                 let newCalendarData = {
                     parentNarrativeId: res.data.dbSavedApplication._id,
                     milestoneId: newMilestone._id,
@@ -163,6 +168,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         console.log('delete: ', applicationId, applicantId);
         Application.deleteApplication(applicationId, applicantId).then(res => {
             console.log('application delete res: ', res.data);
+            $state.go('dashboard');
         }, err => {
             console.log('err when application delete: ', err);
         })
@@ -206,8 +212,6 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         Milestone.deleteMilestone(applicationId, milestoneId).then(res => {
             console.log('stone delete, res: ', res.data);
             // $window.location.reload();
-
-
             GoogleCalendarServices.deleteCalendaredEvent(store.get("currentUserMId"), milestoneId, store.get("googleAPIAccess"))
                 .then((response) => {
                     console.log("Response: ", response);
