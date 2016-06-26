@@ -119,7 +119,6 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
         }
     };
 
-<<<<<<< HEAD
     let appCount = 0;
     DashboardServices.getDS3ChartUser($scope.currentUser._id)
         .then(res => {
