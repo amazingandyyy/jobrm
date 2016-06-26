@@ -8,45 +8,41 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
     console.log("dashboardCtrl loaded");
     $scope.newApplication = {};
     $scope.applications = $scope.currentUser.applications.reverse();
-    // $scope.applicationDateDefault = moment().format('YYYY-MM-DD');
-    let nowTime = Date.now();
-    console.log('nowTime: ', nowTime);
-    let todayDate = moment(nowTime);
+    let todayDate = moment(Date.now());
     let applicationDefaultDate = new Date().toISOString().split("T")[0];
-    console.log('applicationDefaultDate: ', applicationDefaultDate);
-    // let expectedInitialResponse = moment(applicationDefaultDate).add(7 'day');
-
+    let expectedInitialDefaultDate = moment(applicationDefaultDate).add(7, 'day')._d.toISOString().split("T")[0];
     $scope.newApplication.applicationDate = new Date(applicationDefaultDate);
-
+    $scope.newApplication.expectedInitialResponse = new Date(expectedInitialDefaultDate);
+    // .toISOString().split("T")[0];
     $scope.newApplicationSubmitted = () => {
         console.log($scope.newApplication);
         console.log($scope.newApplication.applicationDate);
         console.log($scope.newApplication.expectedInitialResponse);
 
-        // Application.createOneApplication($scope.newApplication, $scope.currentUser._id).then(afterNewAppRes => {
-        //     console.log("Response after new narrative creation: ", afterNewAppRes);
-        //     let calendarEntry = {
-        //         parentNarrativeId: afterNewAppRes.data.newApplication._id,
-        //         newEndDate: afterNewAppRes.data.newApplication.expectedInitialResponse.slice(0, 10),
-        //         newStartDate: afterNewAppRes.data.newApplication.expectedInitialResponse.slice(0, 10),
-        //         description: `Initial follow up with ${afterNewAppRes.data.newApplication.company} regarding ${afterNewAppRes.data.newApplication.position}`,
-        //         title: `Initial F/U re: ${afterNewAppRes.data.newApplication.position} at ${afterNewAppRes.data.newApplication.company}`
-        //     };
-        //     console.log('calendarEntry: ', calendarEntry);
-        // //   GoogleCalendarServices.calendarNewEvent(store.get("googleAPIAccess"), store.get("currentUserMId"), calendarEntry)
-        // //         .then((res) => {
-        // //             console.log("response after calendar: ", res);
-        // //             $state.go('application', {
-        // //                 applicationId: afterNewAppRes.data.newApplication._id
-        // //             });
-        // //             $scope.applications.unshift(afterNewAppRes.data.newApplication)
-        // //         })
-        // //         .catch((error) => {
-        // //             console.log("Error: ", error);
-        // //         });
-        // }, err => {
-        //     console.log('err when creating a new application: ', err);
-        // })
+        Application.createOneApplication($scope.newApplication, $scope.currentUser._id).then(afterNewAppRes => {
+            console.log("Response after new narrative creation: ", afterNewAppRes);
+            let calendarEntry = {
+                parentNarrativeId: afterNewAppRes.data.newApplication._id,
+                newEndDate: afterNewAppRes.data.newApplication.expectedInitialResponse.slice(0, 10),
+                newStartDate: afterNewAppRes.data.newApplication.expectedInitialResponse.slice(0, 10),
+                description: `Initial follow up with ${afterNewAppRes.data.newApplication.company} regarding ${afterNewAppRes.data.newApplication.position}`,
+                title: `Initial F/U re: ${afterNewAppRes.data.newApplication.position} at ${afterNewAppRes.data.newApplication.company}`
+            };
+            console.log('calendarEntry: ', calendarEntry);
+          GoogleCalendarServices.calendarNewEvent(store.get("googleAPIAccess"), store.get("currentUserMId"), calendarEntry)
+                .then((res) => {
+                    console.log("response after calendar: ", res);
+                    $state.go('application', {
+                        applicationId: afterNewAppRes.data.newApplication._id
+                    });
+                    $scope.applications.unshift(afterNewAppRes.data.newApplication)
+                })
+                .catch((error) => {
+                    console.log("Error: ", error);
+                });
+        }, err => {
+            console.log('err when creating a new application: ', err);
+        })
     };
     GoogleCalendarServices.retrieveEventsFromMongoose(store.get("currentUserMId"), store.get("id_token"))
         .then((response) => {

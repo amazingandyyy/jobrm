@@ -12,6 +12,12 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
             console.log('Narrative: ', res.data);
             $scope.application = res.data;
             $scope.applicationDetail = angular.copy(res.data);
+            let applicationDateDate = res.data.applicationDate.split("T")[0];
+            let expectedInitialResponseDate = res.data.expectedInitialResponse.split("T")[0];
+            console.log('applicationDateDate: ', applicationDateDate);
+            console.log('expectedInitialResponseDate: ', expectedInitialResponseDate);
+            $scope.applicationDetail.applicationDate = new Date(applicationDateDate);
+            $scope.applicationDetail.expectedInitialResponse = new Date(expectedInitialResponseDate);
             $scope.mileStones = res.data.milestones;
             console.log('$scope.mileStones', $scope.mileStones);
         }, err => {

@@ -25,14 +25,13 @@
         <div class="col-sm-12">
             <fieldset class="form-group">
                 <label>Application Submission Date* <small class="text-muted">The date you applied for the position. <b>Defaults</b> to today.</small></label>
-                {{newApplication.applicationDate | date: 'yyyy-MM-dd'}}
                 <input type="date" class="form-control form-control-sm" style="line-height: 1.5rem" id="applicationDate" ng-model="newApplication.applicationDate" placeholder="yyyy-MM-dd"/>
             </fieldset>
         </div>
         <div class="col-sm-12">
             <fieldset class="form-group">
                 <label>Anticipated Response* <small class="text-muted">When do you expect to receive an initial response by? <b>Defaults</b> to 7 days from today.</small></label>
-                <input type="date" class="form-control form-control-sm" id="applicationDate" ng-model="newApplication.expectedInitialResponse" placeholder="yyyy-MM-dd" required/>
+                <input type="date" class="form-control form-control-sm" id="applicationDate" ng-model="newApplication.expectedInitialResponse" placeholder="yyyy-MM-dd"/>
             </fieldset>
         </div>
     </div>
