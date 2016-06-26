@@ -22,7 +22,6 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     $scope.stoneTypeTemplate = [{
         state: {
             title: "Response from recruiter",
-            color: "23D38C",
             className: "responseIn"
         },
         titleSaved: "Response from recruiter"
@@ -30,14 +29,12 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     }, {
         state: {
             title: "Message I sent out",
-            color: "52A2FF",
             className: "sendout"
         },
         titleSaved: "Message I sent out"
     }, {
         state: {
             title: "General Stone",
-            color: "F6F6F6",
             className: "general"
         },
         titleSaved: "General Stone"
@@ -45,7 +42,6 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     }, {
         state: {
             title: "Interview arrangement",
-            color: "FF5252",
             className: "interview"
         },
         titleSaved: "Interview arrangement"
@@ -206,8 +202,6 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         Milestone.deleteMilestone(applicationId, milestoneId).then(res => {
             console.log('stone delete, res: ', res.data);
             // $window.location.reload();
-
-
             GoogleCalendarServices.deleteCalendaredEvent(store.get("currentUserMId"), milestoneId, store.get("googleAPIAccess"))
                 .then((response) => {
                     console.log("Response: ", response);
