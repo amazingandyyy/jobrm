@@ -91,7 +91,7 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
             y: function(d){ return d.value; },
             showValues: true,
             valueFormat: function(d){
-                return d3.format(',.4f')(d);
+                return d3.format(',d')(d);
             },
             transitionDuration: 500,
             xAxis: {
@@ -104,39 +104,27 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
         }
     };
 
-    // if ($stateParams.applicationId) {
-    //     DashboardServices.getDS3ChartUser('5764b9e05761ffdb91e8de73').then(res => {
-    //         console.log('data: ', res.data);
-    //         $scope.application = res.data;
-    //         $scope.applicationDetail = angular.copy(res.data);
-    //         $scope.mileStones = res.data.milestones;
-    //         console.log('$scope.mileStones', $scope.mileStones);
-    //     }, err => {
-    //         console.log('err when getting all applications: ', err);
-    //     })
-    // }
+    let appCount = 0;
+    DashboardServices.getDS3ChartUser($scope.currentUser._id)
+        .then(res => {
+            console.log('res.data', res.data);
+            appCount = res.data.applications.length;
+            AppChart(appCount);
+        })
+        .catch((error) => {
+            console.log("Error from DS3 Calendar: ", error);
+        });
 
-    // DashboardServices.getDS3ChartUser('5764b9e05761ffdb91e8de73')
-    //     .then(res => {
-    //         console.log('data: ', res.data);
-    //     })
-    //     .catch((error) => {
-    //         console.log("Error from DS3 Calendar: ", error);
-    //     });
+    function AppChart(appCount) {
+        console.log('appCountappCountappCountappCount', appCount);
+        $scope.data = [{
+            key: "Cumulative Return",
+            values: [
+                { "label" : "Applications" , "value" : appCount }
+            ]
+        }]
+    }
 
-    $scope.data = [{
-    key: "Cumulative Return",
-    values: [
-      { "label" : "A" , "value" : -29.765957771107 },
-      { "label" : "B" , "value" : 0 },
-      { "label" : "C" , "value" : 32.807804682612 },
-      { "label" : "D" , "value" : 196.45946739256 },
-      { "label" : "E" , "value" : 0.19434030906893 },
-      { "label" : "F" , "value" : -98.079782601442 },
-      { "label" : "G" , "value" : -13.925743130903 },
-      { "label" : "H" , "value" : -5.1387322875705 }
-      ]
-    }]
 }
 
 /*
