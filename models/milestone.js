@@ -71,7 +71,11 @@ milestoneSchema.statics.createMilestone = (milestoneObj, applicationId,  cb) => 
                 if (err)  return cb(err);
                 Application.findById(savedApplication._id, (err2, dbSavedApplication) => {
                     console.log('findById:', dbSavedApplication);
-                    cb(err2, dbSavedApplication);
+                    let toReturn = {
+                        dbSavedApplication: dbSavedApplication,
+                        newMilestone: milestone
+                    };
+                    cb(err2, toReturn);
                 }).populate('milestones');
             });
         });
