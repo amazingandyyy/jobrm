@@ -2,6 +2,7 @@
 //amazing andy2!!
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+var moment = require('moment');
 const bcrypt = require("bcryptjs");
 const nodemailer = require('nodemailer');
 
@@ -15,12 +16,12 @@ let userSchema = new mongoose.Schema({
     name: {
         type: String
     },
-    // given_name: {
-    //     type: String
-    // },
-    // family_name: {
-    //     type: String
-    // },
+    given_name: {
+        type: String
+    },
+    family_name: {
+        type: String
+    },
     phone: {
         type: String,
         default: ''
@@ -52,6 +53,26 @@ let userSchema = new mongoose.Schema({
 
 });
 
+userSchema.statics.isLoggedIn = (req, res, next) => {
+    var token = req.cookies.accessToken;
+
+    jwt.verify(token, JWT_SECRET, (err, payload) => {
+        if (err) return res.status(401).send({
+            error: 'Authentication required'
+        });
+
+        User.findById(payload._id, (err, user) => {
+            if (err || !user) return res.status(401).send({
+                error: 'User not found'
+            });
+            req.user = user;
+
+            next();
+        });
+    });
+
+};
+
 userSchema.statics.saveGmailUser = (user, cb) => {
     console.log('User:', user);
     User.findOne({
@@ -60,7 +81,9 @@ userSchema.statics.saveGmailUser = (user, cb) => {
         if (err) {
             return cb(err);
         } else if (dbUser) {
-            return cb(null, dbUser);
+
+            var token = dbUser.generateToken();
+            return cb(null, token, dbUser);
         }
         user.identities.access_token = '';
         let newUser = new User({
@@ -83,8 +106,10 @@ userSchema.statics.saveGmailUser = (user, cb) => {
         let mail = newUser.sendEmail(sendmail);
         console.log('mailmailmailmail');
 
+        var token = newUser.generateToken();
+
         newUser.save((err, savedUser) => {
-            cb(err, savedUser);
+            cb(err, token, savedUser);
         });
     }).populate('applications');
 };
@@ -110,6 +135,16 @@ userSchema.statics.edit = (id, updatedUserObj, cb) => {
         cb(err, updatedUser);
     });
 };
+
+userSchema.methods.generateToken = function() {
+    var payload = {
+        _id: this._id,
+        exp: moment().add(1, 'day').unix()
+    };
+    console.log('JWT_SECRET:', JWT_SECRET);
+    return jwt.sign(payload, JWT_SECRET);
+};
+
 
 const SendGrid = require('../lib/sendgrid');
 userSchema.methods.sendEmail = function(obj) {
