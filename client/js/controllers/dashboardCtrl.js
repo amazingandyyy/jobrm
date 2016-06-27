@@ -125,13 +125,13 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
         .then(res => {
             console.log('res.data', res.data);
             appCount = res.data.applications.length;
-            AppChart(appCount);
+            appChart(appCount);
         })
         .catch((error) => {
             console.log("Error from DS3 Calendar: ", error);
         });
 
-    function AppChart(appCount) {
+    function appChart(appCount) {
         console.log('appCountappCountappCountappCount', appCount);
         $scope.data = [{
             key: "Cumulative Return",
