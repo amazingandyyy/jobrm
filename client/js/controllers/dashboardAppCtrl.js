@@ -24,14 +24,14 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
                 $scope.stoneDateTime = (date, time) => {
                     let timeDisplay = time.split("T")[1].split(':').slice(0, 2).join(':');;
                     let dateDisplay = moment(date).calendar(null, {
-                        sameDay: 'h:mm a, [Today]',
-                        nextDay: 'h:mm a, [Tomorrow]',
-                        nextWeek: 'dddd',
-                        lastDay: 'h:mm:ss a, [Yesterday]',
-                        lastWeek: 'h:mm:ss a, ddd. MMMM Do YYYY',
+                        sameDay: 'MM/DD/YY',
+                        nextDay: 'MM/DD/YY',
+                        nextWeek: 'MM/DD/YY',
+                        lastDay: 'MM/DD/YY',
+                        lastWeek: 'MM/DD/YY',
                         sameElse: 'MM/DD/YY'
                     })
-                    console.log('timeDisplay: ', timeDisplay);
+                    // console.log('timeDisplay: ', timeDisplay);
                     return `${timeDisplay}, ${dateDisplay}`;
                     // console.log();
 
@@ -108,8 +108,10 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     }
 
     $scope.stoneTypeActivated = (data) => {
-        if ($scope.dbStone.state && $scope.dbStone.state.title == data) {
-            return true
+        if ($scope.dbStone.state) {
+            if($scope.dbStone.state.title == data){
+                return true
+            }
         }
         return false
     }
@@ -125,7 +127,8 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         let applicationId = $stateParams.applicationId;
         let toSend = angular.copy($scope.dbStone);
         console.log('toSend: ', toSend);
-        // toSend.date = moment(toSend.date).format("YYYY MM DD").replace(/\s/gi, "-");
+        console.log('toSend.date: ', toSend.date);
+        toSend.date2 = moment(toSend.date).format("YYYY MM DD").replace(/\s/gi, "-");
         // console.log("To Send: ", toSend)
         // console.log("To Send time: ", toSend.time.toISOString().split("T")[1].split(':'))
         // console.log("To Send time: ", toSend.time)
@@ -141,8 +144,8 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
                 let newCalendarData = {
                     parentNarrativeId: res.data.dbSavedApplication._id,
                     milestoneId: newMilestone._id,
-                    newEndDate: toSend.date,
-                    newStartDate: toSend.date,
+                    newEndDate: toSend.date2,
+                    newStartDate: toSend.date2,
                     description: toSend.description,
                     title: toSend.title
                 };
@@ -195,9 +198,12 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
             console.log('stone before setting: ', res.data);
             $scope.dbStoneUpdate = angular.copy(res.data);
             $scope.dbStoneUpdate._id = res.data._id;
-            let accurateDate = moment(res.data.date)
+            let accurateDate = moment(res.data.date);
+            let accurateTime = moment(res.data.time).add(8, 'hours');
             console.log('accurateDate: ' ,accurateDate);
             $scope.dbStoneUpdate.date = new Date(accurateDate);
+            $scope.dbStoneUpdate.time = new Date(accurateTime);
+
             $scope.isTheOne = (stoneId) => {
 
                 if (stoneId == res.data._id) {
@@ -216,15 +222,18 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         console.log('dbStoneUpdate: ', dbStoneUpdate);
         console.log('stoneId: ', stoneId);
         console.log('dbStoneUpdate triggerred');
-        Milestone.updateMilestone(dbStoneUpdate, stoneId).then(res => {
-            console.log('stone updated, res: ', res.data);
-            // $window.location.reload();
-            $state.go($state.current, {}, {
-                reload: true
-            });
-        }, err => {
-            console.log('err when updating one stone: ', err);
-        })
+        dbStoneUpdate.time = moment(dbStoneUpdate.time).subtract(8, 'hours');
+        $timeout(function(){
+            Milestone.updateMilestone(dbStoneUpdate, stoneId).then(res => {
+                console.log('stone updated, res: ', res.data);
+                // $window.location.reload();
+                $state.go($state.current, {}, {
+                    reload: true
+                });
+            }, err => {
+                console.log('err when updating one stone: ', err);
+            })
+        },0)
     }
     $scope.deleteMilestoneClicked = (milestoneId) => {
         let applicationId = $stateParams.applicationId;
