@@ -18,7 +18,7 @@ function adjustWidth() {
     $(window).on('resize', function() {
         console.log('window width: ', $(window).width());
         // var width = $(window).width()-280;
-        console.log('width: ', width);
+        //console.log('width: ', width);
         // $('.map_section').width(width)
     });
 }

@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div ng-if="dbStone.state.title=='Interview arrangement'">
-                <label>Where will this milestone take place, or when did it occur?</label>
+                <label>In what context will this milestone occur in?</label>
                 <div class="addingContainer">
                     <div class="insideContainer">
                         <div ng-class="stoneWhereActivated(stone.state)? 'active' : '' " ng-click="chooseStoneWhere(stone)" class="addingChoice" ng-repeat="stone in stoneWhereTemplate" required>{{stone.state}}</div>
@@ -23,7 +23,7 @@
             </div>
             <fieldset class="form-group">
                 <label>How would you like to title this Milestone?*</label>
-                <input type="text" class="text-capitalize form-control" placeholder="First Telephonic Interview, or Culture-Fit Interview" ng-model="dbStone.title" required>
+                <input type="text" class="text-capitalize form-control" placeholder="For example, First Telephonic Interview with Mr. Dave, or Culture-Fit Interview with Mr. Tsinat" ng-model="dbStone.title" required>
             </fieldset>
             <fieldset class="form-group">
                 <label>On what date will this milestone occur, or on what date did it occur?</label>
@@ -100,7 +100,7 @@
 <div class="mileStoneDiv hero start">
     <div class="milestone gold">
         <p class="stoneIcon"><i class="fa fa-rocket" aria-hidden="true"></i></p>
-        <p class="stoneTitle">The first mail sent out!</p>
+        <p class="stoneTitle">Application to {{application.company}} was submitted.</p>
         <p class="stoneTime"><small>{{createTime(application.createAt)}}</small></p>
     </div>
 </div>

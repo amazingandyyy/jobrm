@@ -30,31 +30,32 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
 
     $scope.stoneTypeTemplate = [{
         state: {
-            title: "Response from recruiter",
+            title: "Culture-Fit Interview",
             className: "responseIn"
         },
-        titleSaved: "Response from recruiter"
+        titleSaved: "Culture-Fit Interview"
 
     }, {
         state: {
-            title: "Message I sent out",
+            title: "Technical Interview",
             className: "sendout"
         },
-        titleSaved: "Message I sent out"
+        titleSaved: "Technical Interview"
     }, {
         state: {
-            title: "General Stone",
+            title: "General Interview",
             className: "general"
         },
-        titleSaved: "General Stone"
+        titleSaved: "General Interview"
 
     }, {
         state: {
-            title: "Interview arrangement",
+            title: "Custom Milestone",
             className: "interview"
         },
-        titleSaved: "Interview arrangement"
-    }]
+        titleSaved: "Custom Milestone"
+    }];
+    
     $scope.stoneWhereTemplate = [{
         state: "Phone",
         titleSaved: "Phone"
@@ -64,7 +65,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     }, {
         state: "In-person",
         titleSaved: "In-person"
-    }]
+    }];
     $scope.dbStone = {};
     $scope.chooseStoneType = (stone) => {
         if ($scope.dbStone.state == stone.state) {
