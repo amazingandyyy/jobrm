@@ -4,7 +4,7 @@ angular
     .module("jobrmApp")
     .controller("dashboardCtrl", dashboardCtrl)
 
-function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GoogleCalendarServices, DashboardServices) {
+function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GoogleCalendarServices, DashboardServices, Milestone) {
     console.log("dashboardCtrl loaded");
     $scope.newApplication = {};
     $scope.applications = $scope.currentUser.applications.reverse();
@@ -105,8 +105,9 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
                 return d.value;
             },
             showValues: true,
-            valueFormat: function(d) {
-                return d3.format(',.4f')(d);
+            valueFormat: function(d){
+                return d3.format(',d')(d);
+
             },
             transitionDuration: 500,
             xAxis: {

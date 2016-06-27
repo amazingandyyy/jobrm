@@ -140,7 +140,6 @@ userSchema.methods.generateToken = function() {
         _id: this._id,
         exp: moment().add(1, 'day').unix()
     };
-    console.log('JWT_SECRET:', JWT_SECRET);
     return jwt.sign(payload, JWT_SECRET);
 };
 
