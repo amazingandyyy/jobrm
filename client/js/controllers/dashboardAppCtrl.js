@@ -16,13 +16,14 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
             } else {
                 $scope.applicationDetail = angular.copy(res.data);
                 console.log("Examine this: ", res.data)
+                // let applicationDateDate = moment(res.data.applicationDate).format("YYYY-MM-DD");
                 let applicationDateDate = res.data.applicationDate.split("T")[0];
                 console.log("And this: ", applicationDateDate)
                 $scope.applicationDetail.applicationDate = new Date(applicationDateDate);
                 $scope.mileStones = res.data.milestones;
                 console.log('MileStones', $scope.mileStones);
                 $scope.stoneDateTime = (date, time) => {
-                    console.log("Time: ", time);
+                    // console.log("Time: ", time);
                     let timeDisplay = time.split("T")[1].split(':').slice(0, 2).join(':');
                     let dateDisplay = moment(date).calendar(null, {
                         sameDay: 'MM/DD/YY',
@@ -71,7 +72,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         },
         titleSaved: "Custom Milestone"
     }];
-    
+
     $scope.stoneWhereTemplate = [{
         state: "Phone",
         titleSaved: "Phone"
@@ -186,8 +187,10 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     $scope.deleteApplication = (applicantId) => {
         let applicationId = $stateParams.applicationId;
         console.log('delete: ', applicationId, applicantId);
+
         Application.deleteApplication(applicationId, applicantId).then(res => {
             console.log('application delete res: ', res.data);
+            $window.location.reload();
             $state.go('dashboard');
         }, err => {
             console.log('err when application delete: ', err);
