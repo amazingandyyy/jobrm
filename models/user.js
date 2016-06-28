@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const nodemailer = require('nodemailer');
-
+const moment = require('moment');
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -109,6 +109,12 @@ userSchema.statics.edit = (id, updatedUserObj, cb) => {
     });
 };
 
+userSchema.statics.getUsers = (cb) => {
+    User.find( {}, (err, users) => {
+        cb(err, users);
+    });
+};
+
 const SendGrid = require('../lib/sendgrid');
 userSchema.methods.sendEmail = function(obj) {
 
@@ -122,7 +128,7 @@ userSchema.methods.sendEmail = function(obj) {
     SendGrid.sendGridNotification(jobAppArr, (err, returnValue) => {
         if (err) { console.log(err); }
     });
-}
+};
 
 let User = mongoose.model("User", userSchema);
 

@@ -91,7 +91,7 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
             y: function(d){ return d.value; },
             showValues: true,
             valueFormat: function(d){
-                return d3.format(',d')(d);
+                return d3.format('d')(d);
             },
             transitionDuration: 500,
             xAxis: {
@@ -104,24 +104,66 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
         }
     };
 
-    let appCount = 0;
+    let appCount = 0, appDateArr = [], appDate;
+
     DashboardServices.getDS3ChartUser($scope.currentUser._id)
         .then(res => {
-            console.log('res.data', res.data);
             appCount = res.data.applications.length;
-            appChart(appCount);
+            appDate = res.data.applications;
+
+            var count = 0;
+            var objArr = [];
+            appDate.map( c => {
+
+                var isExist = appDateArr.some( c2 => {
+                    if ( c.applicationDate.slice(0, 10) ==  c2 ) {
+                        // count++;
+                        return true;
+                    }
+                });
+
+                if (!isExist) {
+                    appDateArr.push(c.applicationDate.slice(0, 10));
+                    count++;
+
+                } else {
+                    count++;
+                }
+
+                // count++;
+                obj = {
+                    "label" : c.applicationDate.slice(0, 10),
+                    "value": count
+                }
+
+                console.log('count', count);
+
+                objArr.push(obj);
+            })
+
+            var obj = {
+                // "label": appDateArr,
+                // "value": appCount
+            };
+
+            console.log('objArr', JSON.stringify(objArr));
+
+            appChart(objArr);
         })
         .catch((error) => {
             console.log("Error from DS3 Calendar: ", error);
         });
 
-    function appChart(appCount) {
-        console.log('appCountappCountappCountappCount', appCount);
+    // function appChart(appCount, obj) {
+    function appChart(objArr) {
+        // console.log('appCountappCountappCountappCount', appCount);
         $scope.data = [{
             key: "Cumulative Return",
-            values: [
-                { "label" : "Applications" , "value" : appCount }
-            ]
+            // values: [
+            //     { "label" : "2016-06-27" , "value" : appCount },
+            //     { "label" : "2016-06-28" , "value" : appCount }
+            // ]
+            values: objArr
         }]
     }
 
