@@ -34,7 +34,10 @@ let milestoneSchema = new mongoose.Schema({
         default: Date.now
     },
     tasks: [{
-
+        title: String,
+        summary: String,
+        createAt: { type: Date, default: Date.now },
+        finishBy: String
     }],
     application: {
         type: mongoose.Schema.Types.ObjectId,
@@ -117,6 +120,38 @@ milestoneSchema.statics.addTask = (milestoneId, newTaskObj, cb) => {
         });
     });
 };
+
+milestoneSchema.statics.updateTask = (milestoneId, taskId, newTaskObj, cb) => {
+    Milestone.findById(milestoneId, (err, milestone) => {
+        if(err || !milestone) return cb(err);
+
+        for(var i=0, x = milestone.tasks.length; i < x; i++){
+            if(milestone.tasks[i]._id == taskId){
+                console.log('test:', taskId)
+                milestone.tasks[i].title = newTaskObj.title;
+                milestone.tasks[i].summary = newTaskObj.summary;
+                milestone.tasks[i].finishBy = newTaskObj.finishBy;
+
+            }
+        }
+        milestone.save((err, updatedMilestone) => {
+            cb(err, updatedMilestone);
+        });
+    });
+}
+
+milestoneSchema.statics.removeTask = (milestoneId, taskId, cb) => {
+    Milestone.findById(milestoneId, (err, milestone) => {
+        if(err || !milestone) return cb(err);
+
+        milestone.tasks = milestone.tasks.filter(function(obj) {
+            return obj._id != taskId;
+        });
+        milestone.save((err, updatedMilestone) =>{
+            cb(err, updatedMilestone);
+        });
+    });
+}
 
 let Milestone = mongoose.model('Milestone', milestoneSchema);
 

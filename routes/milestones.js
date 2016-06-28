@@ -21,7 +21,7 @@ router.get('/:id', User.isLoggedIn,  (req, res) => {
         res.status(err ? 400: 200).send(err || milestone);
     });
 });
-router.get('/', User.isLoggedIn, (req, res) => {
+router.get('/', User.isLoggedIn,  (req, res) => {
     Milestone.find({}, (err, milestones) => {
         res.status(err ? 400: 200).send(err || milestones);
     });
@@ -48,6 +48,18 @@ router.post('/:milestoneId', User.isLoggedIn, (req, res) => {
     });
 });
 
+//edit task from a given milestone
+router.put('/:milestoneId/update/:taskId', User.isLoggedIn, (req, res) => {
+    Milestone.updateTask(req.params.milestoneId, req.params.taskId, req.body, (err, updatedMilestone) => {
+        res.status(err ? 400: 200).send(err || updatedMilestone);
+    });
+});
+
 //remove task from a milestone
+router.delete('/:milestoneId/remove/:taskId', User.isLoggedIn, (req, res) => {
+    Milestone.removeTask(req.params.milestoneId, req.params.taskId, (err, updatedMilestone) => {
+        res.status(err ? 400: 200).send(err || updatedMilestone)
+    })
+})
 
 module.exports = router;
