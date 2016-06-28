@@ -19,4 +19,10 @@ function UserService($http){
             url: `/api/users/${userId}`
         });
     };
+    this.logout = () => {
+        return $http({
+            method: 'POST',
+            url: `/api/users/logout`
+        });
+    };
 }

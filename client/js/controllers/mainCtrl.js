@@ -66,6 +66,7 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
         store.remove("currentUserMId");
         store.remove("id_token");
         store.remove("googleAPIAccess");
+        logoutUserFromLocalDB();
         $scope.currentUser = null;
         $state.go('dashboard')
         $window.location.reload();
@@ -83,6 +84,16 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
             })
             .catch(error => {
                 // console.log('error:', error);
+            });
+    }
+
+    function logoutUserFromLocalDB() {
+        UserService.logout()
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log('error while loging out user', err);
             });
     }
 

@@ -61,6 +61,46 @@ const googleCalendarOperations = {
         });
     },
 
+    deleteCalendaredEvent: (requestData, callback) => {
+        let mongooseId = requestData.mongooseId;
+        let milestoneId = requestData.milestoneId;
+        let accessToken = requestData.userData.identities[0].access_token;
+        console.log("HEre 1")
+        User.findById(mongooseId, (error, databaseUser) => {
+            if (error || !databaseUser) return callback(error || { error: "There is no such user." });
+            let databaseEvents = databaseUser.googleCalendarData.events;
+            let eventId;
+            let indexInEvents;
+            for (let i = 0; i < databaseEvents.length; i++) {
+                console.log("i: ", i);
+                if (databaseEvents[i].milestoneId === milestoneId) {
+                    eventId = databaseEvents[i].id;
+                    indexInEvents = i;
+                }
+            }
+            console.log("HEre 2")
+            let options = {
+                url: `https://www.googleapis.com/calendar/v3/calendars/${databaseUser.googleCalendarData.id}/events/${eventId}?key=${process.env.GoogleKEY}`,
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            };
+            console.log("HEre 3")
+            console.log("Options: ", options)
+            requestNPM(options, (error, responseObject, responseData) => {
+                console.log("Error: ", error);
+                console.log("ResponseData: ", responseData)
+                if (error) return callback(error);
+                databaseEvents.splice(indexInEvents, 1);
+                databaseUser.googleCalendarData.events = databaseEvents;
+                databaseUser.save((error, savedUser) => {
+                    return callback(error, savedUser);
+                })
+            });
+        });
+    },
+
     calendarNewEvent: (requestData, callback) => {
         console.log("The request data: ", requestData);
         let userData = requestData.userData;
@@ -100,6 +140,7 @@ const googleCalendarOperations = {
                 console.log("body after POST: ", body);
                 let newEntry = {
                     parentNarrativeId: calendarData.parentNarrativeId,
+                    milestoneId: calendarData. milestoneId,
                     id: body.id,
                     summary: body.summary,
                     startDate: body.start.date,

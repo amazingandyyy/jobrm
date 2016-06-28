@@ -47,9 +47,6 @@ let applicationSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    // generalNarrativeData: {
-    //
-    // },
     dueTime: {
         type: String
     },
@@ -113,7 +110,6 @@ applicationSchema.statics.createApp = (applicationObj, applicantId, cb) => {
         hiringAgency: applicationObj.hiringAgency,
         recruiter: applicationObj.recruiter,
         dueTime: applicationObj.dueTime,
-        // generalNarrativeData: applicationObj,
         applicant: applicantId
     }
     Application.create(newApplication, (err1, application) => {
@@ -122,12 +118,8 @@ applicationSchema.statics.createApp = (applicationObj, applicantId, cb) => {
 };
 
 applicationSchema.statics.updateApp = (applicationId, applicationObj, cb) => {
-    let newApplication = {
-        dueTime: applicationObj.dueTime,
-        generalNarrativeData: applicationObj
-    }
     Application.findByIdAndUpdate(applicationId, {
-        $set: newApplication
+        $set: applicationObj
     }, {
         new: true
     }, (err, updatedApplication) => {
