@@ -17,9 +17,6 @@ let applicationSchema = new mongoose.Schema({
     applicationDate: {
         type: String
     },
-    expectedInitialResponse: {
-        type: String
-    },
     info: {
         resource: String,
         resourceUrl: String
@@ -104,7 +101,6 @@ applicationSchema.statics.createApp = (applicationObj, applicantId, cb) => {
         position: applicationObj.position,
         jobLocation: applicationObj.jobLocation,
         applicationDate: applicationObj.applicationDate,
-        expectedInitialResponse: applicationObj.expectedInitialResponse,
         info: applicationObj.info,
         friend: applicationObj.friend,
         hiringAgency: applicationObj.hiringAgency,

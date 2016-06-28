@@ -9,7 +9,7 @@ angular
                 url: `/api/applications/${id}`
             });
         };
-        this.createOneApplication = (applicationData, applicantId) => {
+        this.createOneApplication = (applicationData, applicantId, googleAccess) => {
             console.log('applicantIdddddd: ',applicantId);
             var newApplicationRequest = {
                 applicationData: applicationData,
