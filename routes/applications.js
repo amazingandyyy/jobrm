@@ -4,6 +4,7 @@ const express = require("express");
 const router = express.Router();
 const Application = require('../models/application');
 const User = require('../models/user');
+const Milestone = require('../models/milestone');
 
 router.get('/all/:applicantId', User.isLoggedIn, (req, res) => {
     console.log('applicantId:', req.params.applicantId);
@@ -37,11 +38,27 @@ router.post('/create', User.isLoggedIn, (req, res) => {
                     console.log('error while returning updated user: ', error);
                     res.status(400).send(error)
                 }
-                let responseData = {
-                    newApplication: application,
-                    updatedApplicant: updateUser
-                }
-                res.send(responseData);
+
+                let newMilestone = {
+                    description: `Follow-up with ${application.company} regarding the ${application.position} position if I have not received a response from them.`,
+                    stoneWhere: application.company,
+                    //state: milestoneObj.state,
+                    title: `Follow-up with ${application.company} Regarding ${application.position}`,
+                    time: "12:00T",
+                    date: application.expectedInitialResponse,
+                    application: application._id
+                };
+
+                console.log("New Milestone: ", newMilestone)
+                Milestone.createMilestone(newMilestone, application._id, (error, savedMilestone) => {
+                    let responseData = {
+                        newApplication: application,
+                        updatedApplicant: updateUser,
+                        savedMilestone: savedMilestone
+                    };
+                    console.log("Response Data: ", responseData)
+                    res.send(responseData);
+                });
             });
         }
     });

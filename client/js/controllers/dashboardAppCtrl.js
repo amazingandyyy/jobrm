@@ -15,14 +15,15 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
                 $state.go('dashboard');
             } else {
                 $scope.applicationDetail = angular.copy(res.data);
+                console.log("Examine this: ", res.data)
                 let applicationDateDate = res.data.applicationDate.split("T")[0];
-                let expectedInitialResponseDate = res.data.expectedInitialResponse.split("T")[0];
+                console.log("And this: ", applicationDateDate)
                 $scope.applicationDetail.applicationDate = new Date(applicationDateDate);
-                $scope.applicationDetail.expectedInitialResponse = new Date(expectedInitialResponseDate);
                 $scope.mileStones = res.data.milestones;
                 console.log('MileStones', $scope.mileStones);
                 $scope.stoneDateTime = (date, time) => {
-                    let timeDisplay = time.split("T")[1].split(':').slice(0, 2).join(':');;
+                    console.log("Time: ", time);
+                    let timeDisplay = time.split("T")[1].split(':').slice(0, 2).join(':');
                     let dateDisplay = moment(date).calendar(null, {
                         sameDay: 'MM/DD/YY',
                         nextDay: 'MM/DD/YY',
@@ -30,7 +31,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
                         lastDay: 'MM/DD/YY',
                         lastWeek: 'MM/DD/YY',
                         sameElse: 'MM/DD/YY'
-                    })
+                    });
                     // console.log('timeDisplay: ', timeDisplay);
                     return `${timeDisplay}, ${dateDisplay}`;
                     // console.log();
@@ -45,31 +46,32 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
 
     $scope.stoneTypeTemplate = [{
         state: {
-            title: "Response from recruiter",
+            title: "Culture-Fit Interview",
             className: "responseIn"
         },
-        titleSaved: "Response from recruiter"
+        titleSaved: "Culture-Fit Interview"
 
     }, {
         state: {
-            title: "Message I sent out",
+            title: "Technical Interview",
             className: "sendout"
         },
-        titleSaved: "Message I sent out"
+        titleSaved: "Technical Interview"
     }, {
         state: {
-            title: "General Stone",
+            title: "General Interview",
             className: "general"
         },
-        titleSaved: "General Stone"
+        titleSaved: "General Interview"
 
     }, {
         state: {
-            title: "Interview arrangement",
+            title: "Custom Milestone",
             className: "interview"
         },
-        titleSaved: "Interview arrangement"
-    }]
+        titleSaved: "Custom Milestone"
+    }];
+    
     $scope.stoneWhereTemplate = [{
         state: "Phone",
         titleSaved: "Phone"
@@ -79,7 +81,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     }, {
         state: "In-person",
         titleSaved: "In-person"
-    }]
+    }];
     $scope.dbStone = {};
     $scope.chooseStoneType = (stone) => {
         if ($scope.dbStone.state == stone.state) {
