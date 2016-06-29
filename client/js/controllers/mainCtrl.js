@@ -20,6 +20,7 @@ angular
 
 function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $location, GmailServices, GoogleCalendarServices, UserService) {
     // console.log("mainCtrl loaded");
+    console.log("Auth: ", auth);
     getCurrentUser();
     $scope.hideLeftSide = true;
     $scope.hideRightSide = true;
