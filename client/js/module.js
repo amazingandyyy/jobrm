@@ -51,19 +51,30 @@ angular
         $urlRouterProvider.otherwise("/dashboard");
     })
     .run(function($rootScope, auth, store, jwtHelper, $location) {
-        $rootScope.$on('$locationChangeStart', function() {
 
-            var token = store.get('token');
+        auth.hookEvents();
+
+        //this should get triggered on refresh or url changes
+        $rootScope.$on('$locationChangeStart', function() {
+            var token = store.get('id_token');
+            console.log("TOken: ", token);
             if (token) {
-                if (!jwtHelper.isTokenExpired(token)) {
-                    if (!auth.isAuthenticated) {
+                if (jwtHelper.isTokenExpired(token)) {
+                   /* if (!auth.isAuthenticated) {
                         //Re-authenticate user if token is valid
-                        auth.authenticate(store.get('profile'), token);
-                    }
-                } else {
+                        //auth.authenticate(store.get('profile'), token);
+                        auth.authenticate(store.get('googleAPIAccess'), token);
+                    } else {*/
+                        auth.signout();
+                        store.remove("profile");
+                        store.remove("googleAPIAccess");
+                        store.remove("currentUserMId");
+                        store.remove("id_token");
+                        $location.path("/");
+                }/* else {
                     // Either show the login page or use the refresh token to get a new idToken
                     $location.path('/');
-                }
+                }*/
             }
         });
     });

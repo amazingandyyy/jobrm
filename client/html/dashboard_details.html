@@ -3,147 +3,91 @@
 </div> -->
 <form ng-submit="applicationDetailUpdated()" class="addingApplicationForm">
     <h3><i class="fa fa-info-circle" aria-hidden="true"></i> General Information</h3>
-    <div class="row">
-        <div class="col-sm-12">
             <fieldset class="form-group">
                 <label>Company Name</label>
                 <input ng-class="applicationDetail.company.length<1? 'empty': '' " type="text" class="form-control" id="Company" placeholder="The company you applied to" ng-model="applicationDetail.company" required>
                 <!-- <small class="text-muted">We'll never share your email with anyone else.</small> -->
             </fieldset>
-        </div>
-        <div class="col-sm-12">
             <fieldset class="form-group">
                 <label>Position</label>
                 <input ng-class="" type="text" class="form-control" placeholder="The position you applied for" ng-model="applicationDetail.position" required>
             </fieldset>
-        </div>
-        <div class="col-sm-12">
             <fieldset class="form-group">
                 <label>Job location</label>
                 <input ng-class="" type="text" class="form-control" placeholder="The location the position is based in" ng-model="applicationDetail.jobLocation">
             </fieldset>
-        </div>
-        <div class="col-sm-12">
             <fieldset class="form-group">
                 <label>Application Submission Date</label>
                 <input ng-class="" type="date" class="form-control form-control-sm" style="line-height: 1.5rem" id="applicationDate" placeholder="yyyy-MM-dd" ng-model="applicationDetail.applicationDate"/>
             </fieldset>
-        </div>
-        <div class="col-sm-12">
-            <fieldset class="form-group">
-                <label>Anticipated Response</label>
-                <input ng-class="" type="date" class="form-control form-control-sm" id="expectedInitialResponse" placeholder="yyyy-MM-dd" ng-model="applicationDetail.expectedInitialResponse"/>
-            </fieldset>
-        </div>
-    </div>
     <div>
         <h3><i class="fa fa-info-circle" aria-hidden="true"></i> Application Details</h3>
-        <div class="row">
-            <div class="col-sm-12">
                 <fieldset class="form-group">
                     <label>Where did you submit the application?</label>
                     <input ng-class="" type="text" class="form-control" placeholder="For example, Craigslist, Indeed, via Email" ng-model="applicationDetail.info.resource">
                 </fieldset>
-            </div>
-            <div class="col-sm-12">
                 <fieldset class="form-group">
                     <label>Online Reference to Job Posting</label>
                     <input ng-class="" type="url" class="form-control" placeholder="http://www.indeed.com/someJobPosting" ng-model="applicationDetail.info.resourceURL">
                 </fieldset>
-            </div>
-            <div class="col-sm-12">
                 <label>Additional Notes for the Application</label>
                 <textarea class="form-control" rows="3"></textarea>
-            </div>
-        </div>
     </div>
     <hr>
     <div class="childField">
         <h3><i class="fa fa-university" aria-hidden="true"></i> Hiring Agency</h3>
-        <div class="row">
-            <div class="col-sm-12">
                 <fieldset class="form-group">
                     <label>Name</label>
                     <input ng-class="" type="text" class="form-control form-control-sm" placeholder="" ng-model="applicationDetail.hiringAgency.name">
                 </fieldset>
-            </div>
-            <div class="col-sm-12">
                 <fieldset class="form-group">
                     <label>Phone Number</label>
                     <input ng-class="" type="tel" class="form-control form-control-sm" placeholder="" ng-model="applicationDetail.hiringAgency.phone">
                 </fieldset>
-            </div>
-            <div class="col-sm-12">
                 <fieldset class="form-group">
                     <label>Email</label>
                     <input ng-class="" type="text" class="form-control form-control-sm" placeholder="" ng-model="applicationDetail.hiringAgency.email">
                 </fieldset>
-            </div>
-            <div class="col-sm-12">
                 <fieldset class="form-group">
                     <label>Address</label>
                     <input ng-class="" type="text" class="form-control form-control-sm" placeholder="" ng-model="applicationDetail.hiringAgency.address">
                 </fieldset>
-            </div>
-            <div class="col-sm-12">
                 <label>Notes</label>
                 <textarea class="form-control" rows="3" ng-model="applicationDetail.hiringAgency.notes"></textarea>
-            </div>
-        </div>
     </div>
     <div class="childField">
         <h3><i class="fa fa-user" aria-hidden="true"></i> Hiring Manager or Recruiter </h3>
-        <div class="row">
-            <div class="col-sm-12">
                 <fieldset class="form-group">
                     <label>Name</label>
                     <input ng-class="" type="text" class="form-control form-control-sm" placeholder="" ng-model="applicationDetail.recruiter.name">
                 </fieldset>
-            </div>
-            <div class="col-sm-12">
                 <fieldset class="form-group">
                     <label>Phone Number</label>
                     <input ng-class="" type="tel" class="form-control form-control-sm" placeholder="" ng-model="applicationDetail.recruiter.phone">
                 </fieldset>
-            </div>
-            <div class="col-sm-12">
                 <fieldset class="form-group">
                     <label>Email</label>
                     <input ng-class="" type="text" class="form-control form-control-sm" placeholder="" ng-model="applicationDetail.recruiter.email">
                 </fieldset>
-            </div>
-            <div class="col-sm-12">
                 <label>Notes</label>
                 <textarea class="form-control" rows="3" ng-model="applicationDetail.recruiter.notes"></textarea>
-            </div>
-        </div>
     </div>
     <div class="childField">
         <h3><i class="fa fa-user-plus" aria-hidden="true"></i> Personal Referances <br><small>Do you know anyone who works at the company?</small></h3>
-        <div class="row">
-            <div class="col-sm-12">
                 <fieldset class="form-group">
                     <label>Name</label>
                     <input ng-class="" type="text" class="form-control form-control-sm" placeholder="" ng-model="applicationDetail.friend.name">
                 </fieldset>
-            </div>
-            <div class="col-sm-12">
                 <fieldset class="form-group">
                     <label>Phone Number</label>
                     <input ng-class="" type="tel" class="form-control form-control-sm" placeholder="" ng-model="applicationDetail.friend.phone">
                 </fieldset>
-            </div>
-            <div class="col-sm-12">
                 <fieldset class="form-group">
                     <label>Email</label>
                     <input ng-class="" type="text" class="form-control form-control-sm" placeholder="" ng-model="applicationDetail.friend.email">
                 </fieldset>
-            </div>
-            <div class="col-sm-12">
                 <label>Notes</label>
                 <textarea class="form-control" rows="3" ng-model="applicationDetail.friend.notes"></textarea>
-            </div>
-        </div>
     </div>
     <button type="submit" class="btn btn-success btn-block btn-sm">update</button>
     <h3></h3>
