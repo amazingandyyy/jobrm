@@ -105,13 +105,10 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
                 return d.value;
             },
             showValues: true,
-<<<<<<< HEAD
+
             valueFormat: function(d){
                 return d3.format('d')(d);
-=======
-            valueFormat: function(d) {
-                return d3.format(',.4f')(d);
->>>>>>> master
+
             },
             transitionDuration: 500,
             xAxis: {

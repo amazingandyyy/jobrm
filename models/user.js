@@ -135,14 +135,12 @@ userSchema.statics.edit = (id, updatedUserObj, cb) => {
     });
 };
 
-<<<<<<< HEAD
 userSchema.statics.getUsers = (cb) => {
     User.find( {}, (err, users) => {
         cb(err, users);
     });
 };
 
-=======
 userSchema.methods.generateToken = function() {
     var payload = {
         _id: this._id,
