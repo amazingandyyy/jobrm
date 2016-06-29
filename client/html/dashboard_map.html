@@ -45,27 +45,22 @@
             </div> -->
                 <div>
                     <label>To do?</label>
-                    <form ng-submit="addToDo">
-                        <div class="input-group">
-                            <input ng-model="newToDo.body" type="text" class="form-control" placeholder="Prepare a Resume, Buy a suit...">
-                            <span class="input-group-btn">
-                            <button class="btn btn-secondary" type="submit">Add a new Todo</button>
-                        </span>
-                        </div>
-                    </form>
                     <br>
-                    <ul class="list-group" ng-repeat="todo in todoList">
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="todo in dbStone.todoList">
+                            <input type="checkbox"> {{todo.title}}
+                            <span class="btn btn-secondary btn-sm pull-right">edit</span>
+                            <span class="btn btn-secondary btn-sm pull-right" ng-click="todoDelete($index, todo)">delete</span>
+                        </li>
                         <li class="list-group-item">
-                            <input type="checkbox"> {{todo.body}}
-                            <button class="btn btn-secondary btn-sm pull-right">edit</button>
-                            <button class="btn btn-secondary btn-sm pull-right">delete</button>
+                            <div class="input-group">
+                                <input ng-model="newToDo.title" type="text" class="form-control" placeholder="Prepare a Resume, Buy a suit..." required>
+                                <span class="input-group-btn">
+                                    <span class="btn btn-secondary" ng-click="addToDo(newToDo)">Add a new Todo</span>
+                                </span>
+                            </div>
                         </li>
                     </ul>
-                    <div class="checkbox">
-                        <label>
-
-                        </label>
-                    </div>
                 </div>
                 <hr/>
                 <button type="submit" class="btn btn-primary">Create new Milestone</button>
@@ -106,11 +101,30 @@
                 <textarea class="form-control" rows="3" ng-model="dbStoneUpdate.description"></textarea>
             </fieldset>
             <hr/>
-            <div>
+            <!-- <div>
                 <label>Associate to any email?</label>
                 <select multiple ng-model="dbStoneUpdate.emailrelated" class="form-control" style="min-height: 200px">
                     <option ng-repeat="email in emailsFronGmail">{{email.body.snippet}}</option>
                 </select>
+            </div> -->
+            <div>
+                <label>To do?</label>
+                <br>
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="todo in dbStone.todoList">
+                        <input type="checkbox"> {{todo.title}}
+                        <span class="btn btn-secondary btn-sm pull-right">edit</span>
+                        <span class="btn btn-secondary btn-sm pull-right" ng-click="todoDelete($index, todo)">delete</span>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="input-group">
+                            <input ng-model="newToDo.title" type="text" class="form-control" placeholder="Prepare a Resume, Buy a suit..." required>
+                            <span class="input-group-btn">
+                                <span class="btn btn-secondary" ng-click="addToDoUpdated(newToDo)">Add a new Todo</span>
+                            </span>
+                        </div>
+                    </li>
+                </ul>
             </div>
             <hr/>
             <button type="submit" class="btn btn-success">Update Milestone</button>

@@ -16,7 +16,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
             } else {
                 $scope.applicationDetail = angular.copy(res.data);
                 console.log("Examine this: ", res.data)
-                // let applicationDateDate = moment(res.data.applicationDate).format("YYYY-MM-DD");
+                    // let applicationDateDate = moment(res.data.applicationDate).format("YYYY-MM-DD");
                 let applicationDateDate = res.data.applicationDate.split("T")[0];
                 console.log("And this: ", applicationDateDate)
                 $scope.applicationDetail.applicationDate = new Date(applicationDateDate);
@@ -44,6 +44,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
             $state.go('dashboard');
         })
     }
+
 
     $scope.stoneTypeTemplate = [{
         state: {
@@ -84,6 +85,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         titleSaved: "In-person"
     }];
     $scope.dbStone = {};
+    $scope.dbStone.todoList = [];
     $scope.chooseStoneType = (stone) => {
         if ($scope.dbStone.state == stone.state) {
             return $scope.dbStone.stonetype = '';
@@ -112,7 +114,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
 
     $scope.stoneTypeActivated = (data) => {
         if ($scope.dbStone.state) {
-            if($scope.dbStone.state.title == data){
+            if ($scope.dbStone.state.title == data) {
                 return true
             }
         }
@@ -123,6 +125,17 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
             return true
         }
         return false
+    }
+    $scope.addToDo = (newToDo) => {
+        if(newToDo){
+            $scope.dbStone.todoList
+            console.log('newToDo: ' ,newToDo);
+            $scope.dbStone.todoList.push(newToDo);
+            $scope.newToDo = null;
+        }
+    }
+    $scope.todoDelete = (i, todo) => {
+        $scope.dbStone.todoList.splice(i,1);
     }
 
     $scope.dbStoneSubmitted = () => {
@@ -205,7 +218,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
             $scope.dbStoneUpdate._id = res.data._id;
             let accurateDate = moment(res.data.date);
             let accurateTime = moment(res.data.time).add(8, 'hours');
-            console.log('accurateDate: ' ,accurateDate);
+            console.log('accurateDate: ', accurateDate);
             $scope.dbStoneUpdate.date = new Date(accurateDate);
             $scope.dbStoneUpdate.time = new Date(accurateTime);
 
@@ -228,7 +241,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         console.log('stoneId: ', stoneId);
         console.log('dbStoneUpdate triggerred');
         dbStoneUpdate.time = moment(dbStoneUpdate.time).subtract(8, 'hours');
-        $timeout(function(){
+        $timeout(function() {
             Milestone.updateMilestone(dbStoneUpdate, stoneId).then(res => {
                 console.log('stone updated, res: ', res.data);
                 // $window.location.reload();
@@ -238,7 +251,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
             }, err => {
                 console.log('err when updating one stone: ', err);
             })
-        },0)
+        }, 0)
     }
     $scope.deleteMilestoneClicked = (milestoneId) => {
         let applicationId = $stateParams.applicationId;

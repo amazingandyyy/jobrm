@@ -35,7 +35,8 @@ let milestoneSchema = new mongoose.Schema({
     },
     tasks: [{
         title: String,
-        summary: String,
+        // summary: String,
+        // completed: { type: Boolen, default: False},
         createAt: { type: Date, default: Date.now },
         finishBy: String
     }],
