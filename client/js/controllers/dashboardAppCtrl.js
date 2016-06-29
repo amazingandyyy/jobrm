@@ -85,7 +85,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         titleSaved: "In-person"
     }];
     $scope.dbStone = {};
-    $scope.dbStone.todoList = [];
+    $scope.dbStone.taskList = [];
     $scope.chooseStoneType = (stone) => {
         if ($scope.dbStone.state == stone.state) {
             return $scope.dbStone.stonetype = '';
@@ -126,17 +126,34 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         }
         return false
     }
-    $scope.addToDo = (newToDo) => {
-        if(newToDo){
-            $scope.dbStone.todoList
-            console.log('newToDo: ' ,newToDo);
-            $scope.dbStone.todoList.push(newToDo);
-            $scope.newToDo = null;
+    $scope.addTask = (newTask) => {
+        if (newTask) {
+            console.log('newTask: ', newTask);
+            $scope.dbStone.taskList.unshift({
+                title: newTask.title,
+                done: false
+            });
+            $scope.newTask = null;
         }
     }
-    $scope.todoDelete = (i, todo) => {
-        $scope.dbStone.todoList.splice(i,1);
+    $scope.addTaskUpdate = (newTask) => {
+        if (newTask) {
+            console.log('newTask: ', newTask);
+            $scope.dbStoneUpdate.taskList.unshift({
+                title: newTask.title,
+                done: false
+            });
+            $scope.newTask = null;
+        }
     }
+    $scope.taskDelete = (i, task) => {
+        console.log('i: ', i);
+        $scope.dbStone.taskList.splice(i, 1);
+    }
+    $scope.taskDeleteUpdate = (i, task) => {
+        console.log('i: ', i);
+        $scope.dbStoneUpdate.taskList.splice(i, 1);
+}
 
     $scope.dbStoneSubmitted = () => {
         console.log('dbStone: ', $scope.dbStone);
@@ -145,9 +162,9 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         console.log('toSend: ', toSend);
         console.log('toSend.date: ', toSend.date);
         toSend.date2 = moment(toSend.date).format("YYYY MM DD").replace(/\s/gi, "-");
-        // console.log("To Send: ", toSend)
-        // console.log("To Send time: ", toSend.time.toISOString().split("T")[1].split(':'))
-        // console.log("To Send time: ", toSend.time)
+        console.log("To Send: ", toSend)
+        console.log("To Send time: ", toSend.time.toISOString().split("T")[1].split(':'))
+        console.log("To Send time: ", toSend.time)
         Milestone.createOneMilestone(toSend, applicationId, store.get("googleAPIAccess"))
             .then(res => {
                 $scope.mileStones = res.data.dbSavedApplication.milestones;
@@ -185,7 +202,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         GmailServices.retrieveInboxList(googleAPIAccess)
             .then(function(res) {
                 console.log('email lists: ', res);
-                $scope.emailsFronGmail = res.data;
+                $scope.emailsFromGmail = res.data;
             })
     }
 
