@@ -3,52 +3,78 @@
 <div class="mileStoneDiv">
     <div class="milestone addStone">
         <p class="title" ng-init="openAddStoneForm = false" ng-click="openAddStoneForm=!openAddStoneForm">Create a new Milestone in this Job Search Narrative <i class="fa fa-caret-up" ng-show="!openAddStoneForm"></i><i class="fa fa-caret-down" ng-show="openAddStoneForm"></i></p>
-        <form ng-show="openAddStoneForm" ng-submit="dbStoneSubmitted()">
-            <hr/>
-            <div>
-                <label>Milestone type</label>
-                <div class="addingContainer">
-                    <div class="insideContainer">
-                        <div ng-class="stoneTypeActivated(stone.state.title)? 'active' : '' " ng-click="chooseStoneType(stone)" class="addingChoice" ng-repeat="stone in stoneTypeTemplate" required>{{stone.state.title}}</div>
+        <div ng-show="openAddStoneForm">
+            <form ng-submit="dbStoneSubmitted()">
+                <hr/>
+                <div>
+                    <label>Milestone type</label>
+                    <div class="addingContainer">
+                        <div class="insideContainer">
+                            <div ng-class="stoneTypeActivated(stone.state.title)? 'active' : '' " ng-click="chooseStoneType(stone)" class="addingChoice" ng-repeat="stone in stoneTypeTemplate" required>{{stone.state.title}}</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div ng-if="dbStone.state.title=='Interview arrangement'">
-                <label>In what context will this milestone occur in?</label>
-                <div class="addingContainer">
-                    <div class="insideContainer">
-                        <div ng-class="stoneWhereActivated(stone.state)? 'active' : '' " ng-click="chooseStoneWhere(stone)" class="addingChoice" ng-repeat="stone in stoneWhereTemplate" required>{{stone.state}}</div>
+                <div ng-if="dbStone.state.title=='Interview arrangement'">
+                    <label>In what context will this milestone occur in?</label>
+                    <div class="addingContainer">
+                        <div class="insideContainer">
+                            <div ng-class="stoneWhereActivated(stone.state)? 'active' : '' " ng-click="chooseStoneWhere(stone)" class="addingChoice" ng-repeat="stone in stoneWhereTemplate" required>{{stone.state}}</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <fieldset class="form-group">
-                <label>How would you like to title this Milestone?*</label>
-                <input type="text" class="text-capitalize form-control" placeholder="For example, First Telephonic Interview with Mr. Dave, or Culture-Fit Interview with Mr. Tsinat" ng-model="dbStone.title" required>
-            </fieldset>
-            <fieldset class="form-group">
-                <label>On what date will this milestone occur, or on what date did it occur?</label>
-                <input type="date" class="form-control form-control-sm" placeholder="yyyy-MM-dd" ng-model="dbStone.date" required>
-                <label>At what time on {{dbStone.date | date:"MM/dd/yyyy" }} will this Milestone occur, or what time did it occur?</label>
-                <input type="time" class="form-control form-control-sm" ng-model="dbStone.time">
-            </fieldset>
-            <fieldset class="form-group">
-                <label>Milestone Details*</label>
-                <textarea class="form-control" rows="3" ng-model="dbStone.description"></textarea>
-            </fieldset>
-            <hr/>
-            <div>
+                <fieldset class="form-group">
+                    <label>How would you like to title this Milestone?*</label>
+                    <input type="text" class="text-capitalize form-control" placeholder="For example, First Telephonic Interview with Mr. Dave, or Culture-Fit Interview with Mr. Tsinat" ng-model="dbStone.title" required>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>On what date will this milestone occur, or on what date did it occur?</label>
+                    <input type="date" class="form-control form-control-sm" placeholder="yyyy-MM-dd" ng-model="dbStone.date" required>
+                    <label>At what time on {{dbStone.date | date:"MM/dd/yyyy" }} will this Milestone occur, or what time did it occur?</label>
+                    <input type="time" class="form-control form-control-sm" ng-model="dbStone.time">
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Milestone Details*</label>
+                    <textarea class="form-control" rows="3" ng-model="dbStone.description"></textarea>
+                </fieldset>
+                <hr/>
+                <!-- <div>
                 <label>Associate with any of these emails?</label>
                 <select multiple ng-model="dbStone.emailrelated" class="form-control" style="min-height: 200px">
                     <option ng-repeat="email in emailsFronGmail">{{email.body.snippet}}</option>
                 </select>
-            </div>
-            <hr/>
-            <button type="submit" class="btn btn-primary">Create new Milestone</button>
-        </form>
+            </div> -->
+                <div>
+                    <label>To do?</label>
+                    <form ng-submit="addToDo">
+                        <div class="input-group">
+                            <input ng-model="newToDo.body" type="text" class="form-control" placeholder="Prepare a Resume, Buy a suit...">
+                            <span class="input-group-btn">
+                            <button class="btn btn-secondary" type="submit">Add a new Todo</button>
+                        </span>
+                        </div>
+                    </form>
+                    <br>
+                    <ul class="list-group" ng-repeat="todo in todoList">
+                        <li class="list-group-item">
+                            <input type="checkbox"> {{todo.body}}
+                            <button class="btn btn-secondary btn-sm pull-right">edit</button>
+                            <button class="btn btn-secondary btn-sm pull-right">delete</button>
+                        </li>
+                    </ul>
+                    <div class="checkbox">
+                        <label>
+
+                        </label>
+                    </div>
+                </div>
+                <hr/>
+                <button type="submit" class="btn btn-primary">Create new Milestone</button>
+            </form>
+        </div>
     </div>
 </div>
 <div class="mileStoneDiv" ng-repeat="stone in mileStones">
-    <div class="milestone clickable" ng-class=" '{{stone.state.className}}' " >
+    <div class="milestone clickable" ng-class=" '{{stone.state.className}}' ">
         <!-- <div class="milestone" ng-class="stone.className" ng-style="{'background': '#{{stone.state.color}}', 'color': '{{(stone.state.color!=='F6F6F6') ? 'white' : 'black' }}'}"> -->
         <div class="row" ng-click="dbStoneUpdatedSetting(stone._id)">
             <div class="col-sm-2">
