@@ -4,8 +4,8 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("express-jwt");
 
-// const CronJob = require("../lib/cronjob");
-// CronJob.dailyBaseCronJobNotification();
+const summaryCronJob = require("../lib/summaryCronjob");
+summaryCronJob.dailyBaseCronJobNotification();
 //
 // const SendGrid = require('../lib/sendgrid');
 // SendGrid.sendGridNotification();
