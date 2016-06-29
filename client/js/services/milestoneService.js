@@ -36,4 +36,24 @@ angular
                 url: `/api/milestones/${applicationId}/delete/${milestoneId}`
             });
         };
+        this.addTask = (milestoneId, newTaskObj) => {
+            return $http({
+                method: 'POST',
+                url: `/api/milestones/${milestoneId}`,
+                data: newTaskObj
+            });
+        };
+        this.updateTask = (milestoneId, taskId, updateTaskObj) => {
+            return $http({
+                method: 'PUT',
+                url: `/api/milestones/${milestoneId}/update/${taskId}`,
+                data: updateTaskObj
+            });
+        };
+        this.deleteTask = (milestoneId, taskId) => {
+            return $http({
+                method: 'DELETE',
+                url: `/api/milestones/${milestoneId}/remove/${taskId}`
+            });
+        };
     });

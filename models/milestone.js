@@ -131,14 +131,13 @@ milestoneSchema.statics.updateTask = (milestoneId, taskId, newTaskObj, cb) => {
                 milestone.tasks[i].title = newTaskObj.title;
                 milestone.tasks[i].summary = newTaskObj.summary;
                 milestone.tasks[i].finishBy = newTaskObj.finishBy;
-
             }
         }
         milestone.save((err, updatedMilestone) => {
             cb(err, updatedMilestone);
         });
     });
-}
+};
 
 milestoneSchema.statics.removeTask = (milestoneId, taskId, cb) => {
     Milestone.findById(milestoneId, (err, milestone) => {
@@ -151,7 +150,7 @@ milestoneSchema.statics.removeTask = (milestoneId, taskId, cb) => {
             cb(err, updatedMilestone);
         });
     });
-}
+};
 
 let Milestone = mongoose.model('Milestone', milestoneSchema);
 
