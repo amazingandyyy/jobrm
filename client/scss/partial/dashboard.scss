@@ -207,7 +207,7 @@
             border-left: 3px solid #ddd;
             margin-left: 10px;
             .form-control:active,.form-control:focus {
-                border: 1px solid rgba(0,0,0,0);
+                // border: 1px solid rgba(0,0,0,0);
             }
             .milestone {
                 position: relative;
@@ -240,6 +240,13 @@
                     display: inline-block;
                     text-align: center;
                     transform: scale(2.3);
+                }
+                .task-input-group {
+                    margin-top: 5px;
+                    margin-bottom: 5px;
+                    .done {
+                        text-decoration:line-through;
+                    }
                 }
             }
             .milestone:hover {

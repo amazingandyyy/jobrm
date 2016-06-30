@@ -13,8 +13,23 @@ angular
             }
         }
     })
+    .directive('focusMe', function($timeout) {
+        return {
+            link: function(scope, element, attrs) {
+                scope.$watch(attrs.focusMe, function(value) {
+                    if (value === true) {
+                        console.log('value=', value);
+                        //$timeout(function() {
+                        element[0].focus();
+                        scope[attrs.focusMe] = false;
+                        //});
+                    }
+                });
+            }
+        };
+    })
 
-    .config(function($stateProvider, $urlRouterProvider, authProvider, $httpProvider, $locationProvider, jwtInterceptorProvider) {
+.config(function($stateProvider, $urlRouterProvider, authProvider, $httpProvider, $locationProvider, jwtInterceptorProvider) {
         ///Auth0 Shit
         authProvider.init({
             domain: 'durbina.auth0.com',
@@ -79,21 +94,22 @@ angular
             let token = store.get('id_token');
             if (token) {
                 if (jwtHelper.isTokenExpired(token)) {
-                   /* if (!auth.isAuthenticated) {
-                        //Re-authenticate user if token is valid
-                        //auth.authenticate(store.get('profile'), token);
-                        auth.authenticate(store.get('googleAPIAccess'), token);
-                    } else {*/
-                        auth.signout();
-                        store.remove("profile");
-                        store.remove("googleAPIAccess");
-                        store.remove("currentUserMId");
-                        store.remove("id_token");
-                        $location.path("/");
-                }/* else {
-                    // Either show the login page or use the refresh token to get a new idToken
-                    $location.path('/');
-                }*/
+                    /* if (!auth.isAuthenticated) {
+                         //Re-authenticate user if token is valid
+                         //auth.authenticate(store.get('profile'), token);
+                         auth.authenticate(store.get('googleAPIAccess'), token);
+                     } else {*/
+                    auth.signout();
+                    store.remove("profile");
+                    store.remove("googleAPIAccess");
+                    store.remove("currentUserMId");
+                    store.remove("id_token");
+                    $location.path("/");
+                }
+                /* else {
+                                    // Either show the login page or use the refresh token to get a new idToken
+                                    $location.path('/');
+                                }*/
             }
         });
     });
