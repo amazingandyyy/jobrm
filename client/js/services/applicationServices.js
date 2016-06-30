@@ -31,10 +31,11 @@ angular
                 data: updateData
             })
         };
-        this.deleteApplication  = (applicationId, applicantId) => {
+        this.deleteApplication  = (applicationId, applicantId, googleAccess) => {
             return $http({
-                method: 'DELETE',
-                url: `/api/applications/${applicantId}/delete/${applicationId}`
+                method: 'POST',
+                url: `/api/applications/${applicantId}/delete/${applicationId}`,
+                data: {googleAccess: googleAccess}
             })
         }
     });

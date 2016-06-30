@@ -3,6 +3,15 @@ angular
     .service("GoogleCalendarServices", GoogleCalendarServices);
 
 function GoogleCalendarServices($http) {
+    
+    this.verifyToken = (userData) => {
+        let toSend = {userData: userData};
+        return $http({
+           method: "POST",
+            url: "/api/googleCalendar/verifyToken",
+            data: userData
+        });
+    };
 
     this.createNewCalendar = (userData, mongooseId) => {
         let toSend = {

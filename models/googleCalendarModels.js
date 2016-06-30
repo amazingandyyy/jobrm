@@ -3,7 +3,26 @@
 const requestNPM = require("request");
 const User = require("./user");
 
+const Batchelor = require("batchelor");
+
 const googleCalendarOperations = {
+
+    verifyToken: (requestData, callback) => {
+        let accessToken = requestData.identities[0].access_token;
+        console.log("Access token: ", accessToken)
+        let options = {
+            url: `https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=${accessToken}`,
+            method: "GET"
+           /* headers: {
+                Authorization: `Bearer ${accessToken}`
+            },*/
+        };
+        requestNPM(options, (error, httpResponse, body) => {
+            console.log("Error: ", error);
+            console.log("Body: ", body);
+            return callback(error, body);   
+        });
+    },
     //returns the created calendar. REMEMBER:
     // save the calendar ID (will be needed when creating calendar entries)and etag
     createNewCalendar: (requestData, callback) => {
@@ -60,12 +79,28 @@ const googleCalendarOperations = {
 
         });
     },
+    
+    deleteEventsFromNarrative: (mongooseId, narrativeId, userData, callback) => {
+        conosole.log("MongooseID: ", mongooseId);
+        conosole.log("Narrative ID: ", narrativeId);
+        conosole.log("USer Data: ", userData);
+        let batch = new Batchelor({
+            "uri": "https://www.googleapis.com/batch",
+            "method": "POST",
+            "auth": {
+                "bearer": accessToken
+            },
+            "headers": {
+                "Content-Type": "multipart/mixed"
+            }
+        });
+        callback(null);
+    },
 
     deleteCalendaredEvent: (requestData, callback) => {
         let mongooseId = requestData.mongooseId;
         let milestoneId = requestData.milestoneId;
         let accessToken = requestData.userData.identities[0].access_token;
-        console.log("HEre 1")
         User.findById(mongooseId, (error, databaseUser) => {
             if (error || !databaseUser) return callback(error || { error: "There is no such user." });
             let databaseEvents = databaseUser.googleCalendarData.events;

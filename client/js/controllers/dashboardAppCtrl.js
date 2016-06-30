@@ -43,6 +43,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
             $state.go('dashboard');
         })
     }
+    
 
     $scope.stoneTypeTemplate = [{
         state: {
@@ -186,7 +187,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     $scope.deleteApplication = (applicantId) => {
         let applicationId = $stateParams.applicationId;
         console.log('delete: ', applicationId, applicantId);
-        Application.deleteApplication(applicationId, applicantId).then(res => {
+        Application.deleteApplication(applicationId, applicantId, store.get("googleAPIAccess")).then(res => {
             console.log('application delete res: ', res.data);
             $state.go('dashboard');
         }, err => {
