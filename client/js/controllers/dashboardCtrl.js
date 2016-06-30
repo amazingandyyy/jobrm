@@ -134,36 +134,28 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
 
                 var isExist = appDateArr.some( c2 => {
                     if ( c.applicationDate.slice(0, 10) ==  c2 ) {
-                        // count++;
+                        count++;
                         return true;
                     }
                 });
 
                 if (!isExist) {
                     appDateArr.push(c.applicationDate.slice(0, 10));
-                    count++;
-
-                } else {
-                    count++;
                 }
 
-                // count++;
+                count++;
+
                 obj = {
                     "label" : c.applicationDate.slice(0, 10),
                     "value": count
                 }
 
-                console.log('count', count);
-
                 objArr.push(obj);
+                console.log('count', count);
+                count = 0;
             })
 
-            var obj = {
-                // "label": appDateArr,
-                // "value": appCount
-            };
-
-            console.log('objArr', JSON.stringify(objArr));
+            var obj = { };
 
             appChart(objArr);
         })
@@ -171,23 +163,11 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
             console.log("Error from DS3 Calendar: ", error);
         });
 
-    // function appChart(appCount, obj) {
     function appChart(objArr) {
-        // console.log('appCountappCountappCountappCount', appCount);
         $scope.data = [{
             key: "Cumulative Return",
-            // values: [
-            //     { "label" : "2016-06-27" , "value" : appCount },
-            //     { "label" : "2016-06-28" , "value" : appCount }
-            // ]
             values: objArr
         }]
     }
 
 }
-
-/*
-googleCalendarData = {
-    calendarId: "",
-    calendarEvents: []
-};*/

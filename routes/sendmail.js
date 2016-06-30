@@ -1,6 +1,5 @@
 'use strict';
 const router = require('express').Router();
-const nodemailer = require('nodemailer');
 const SendGrid = require('../lib/sendgrid');
 
 router.post('/', (req, res) => {

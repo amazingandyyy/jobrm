@@ -2,7 +2,6 @@
 //amazing andy2!!
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
-var moment = require('moment');
 const bcrypt = require("bcryptjs");
 const nodemailer = require('nodemailer');
 const moment = require('moment');
@@ -135,14 +134,12 @@ userSchema.statics.edit = (id, updatedUserObj, cb) => {
     });
 };
 
-<<<<<<< HEAD
 userSchema.statics.getUsers = (cb) => {
     User.find( {}, (err, users) => {
         cb(err, users);
     });
 };
 
-=======
 userSchema.methods.generateToken = function() {
     var payload = {
         _id: this._id,
@@ -152,8 +149,6 @@ userSchema.methods.generateToken = function() {
     return jwt.sign(payload, JWT_SECRET);
 };
 
-
->>>>>>> master
 const SendGrid = require('../lib/sendgrid');
 userSchema.methods.sendEmail = function(obj) {
 
