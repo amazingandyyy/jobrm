@@ -4,7 +4,7 @@ angular
     .module("jobrmApp")
     .controller("dashboardAppCtrl", dashboardAppCtrl)
 
-function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServices, $timeout, $state, store, $location, GmailServices, Milestone, $window, toaster) {
+function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServices, $timeout, $state, store, $location, Milestone, $window, toaster) {
     console.log("dashboardAppCtrl loaded");
     console.log('This Narrative Id: ', $stateParams.applicationId);
     // angular.element('.section').removeClass('hideRightSide');
@@ -200,7 +200,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
                 console.log('error while saving milestone', err);
             })
     };
-    if (store.get("googleAPIAccess")) {
+/*    if (store.get("googleAPIAccess")) {
         let googleAPIAccess = store.get("googleAPIAccess");
         // console.log('googleAPIAccess: ', googleAPIAccess);
         GmailServices.retrieveInboxList(googleAPIAccess)
@@ -208,7 +208,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
                 console.log('email lists: ', res);
                 $scope.emailsFromGmail = res.data;
             })
-    }
+    }*/
 
     $scope.applicationDetailUpdated = () => {
         console.log('applicationDetailUpdated: ', $scope.applicationDetail);

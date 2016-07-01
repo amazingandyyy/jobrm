@@ -24,7 +24,7 @@ router.use('/milestones', require('./milestones'));
 router.use("/applications", require("./applications"), jwtCheck);
 //Do we want jwtCheck on some of the other routes as well? I say yes.
 
-router.use("/gmailAPI", require("./gmailAPI"), jwtCheck);
+//router.use("/gmailAPI", require("./gmailAPI"), jwtCheck);
 router.use("/googleCalendar", require("./googleCalendarAPI"), jwtCheck);
 
 module.exports = router;
