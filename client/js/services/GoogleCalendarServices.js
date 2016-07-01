@@ -49,7 +49,6 @@ function GoogleCalendarServices($http) {
     //createForecast uses the data and schema in Mongoose
     this.create7DayForecast = (eventsData) => {
         let sevenDayForecast = [];
-        console.log("Events Data: ", eventsData)
         for (let i = 0; i < eventsData.length; i++) {
             let calendaredEvent = eventsData[i].startDate;
             let sevenDaysFromNow = moment().add(7, "day");
@@ -58,7 +57,6 @@ function GoogleCalendarServices($http) {
                 sevenDayForecast.push(eventsData[i]);
             }
         }
-        console.log("Seven Day Forecast: ", sevenDayForecast);
         return sevenDayForecast;
     };
 
@@ -68,7 +66,6 @@ function GoogleCalendarServices($http) {
             milestoneId: milestoneId,
             userData: userData
         };
-        console.log("TO Send: ", toSend)
         return $http.post("/api/googleCalendar/deleteCalendaredEvent", toSend);
     };
 

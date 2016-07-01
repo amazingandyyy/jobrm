@@ -20,11 +20,16 @@ angular
 
 function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $location, GoogleCalendarServices, UserService, toaster) {
     console.log("mainCtrl loaded");
+    $scope.activeUserOn = function () {
+        if (!store.get("id_token") && !store.get("googleAPIAccess") && !store.get("currentUserMId")) {
+            return false;
+        }
+        return true;
+    };
     $scope.pop = () => {
         console.log('rrr');
         toaster.pop('success', `Hi, ${$scope.currentUser.name}`, `you are logged in as ${$scope.currentUser.email}`);
-    }
-    console.log("Auth: ", auth);
+    };
     getCurrentUser();
     $scope.hideLeftSide = true;
     $scope.hideRightSide = true;
@@ -58,7 +63,6 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
             //It gets generated on each login.
             store.set("googleAPIAccess", profile);
             $location.path("/dashboard");
-            console.log("Profile: ", profile)
             toaster.pop('success', `Hi, ${profile.name.split(' ')[0]}`, `you are logged in as ${profile.email}`);
             saveUserToModel(profile);
             //$scope.currentUser = profile;
@@ -82,7 +86,6 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
     function saveUserToModel(profile) {
         UserService.savedUser(profile)
             .then(res => {
-                // console.log('res:', res);
                 store.set('currentUserMId', res.data._id);
                 getCurrentUser();
 
@@ -107,12 +110,8 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
         if (store.get('currentUserMId')) {
             UserService.getOne(userId)
                 .then(res => {
-                    // console.log('respone after login:', res);
                     store.set('currentUserMId', res.data._id);
                     $scope.currentUser = res.data;
-                    if ($scope.currentUser) {
-                        // console.log('CURRENT USER: ', $scope.currentUser);
-                    }
                     //create a new sub-Calendar in Google Calendar if there isn't one (For new users);
                     if (!res.data.googleCalendarData.id) {
                         GoogleCalendarServices.createNewCalendar(store.get("googleAPIAccess"), store.get("currentUserMId"))

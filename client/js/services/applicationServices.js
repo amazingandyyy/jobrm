@@ -10,13 +10,10 @@ angular
             });
         };
         this.createOneApplication = (applicationData, applicantId, googleAccess) => {
-            console.log('applicantIdddddd: ',applicantId);
             var newApplicationRequest = {
                 applicationData: applicationData,
                 applicantId: applicantId
             };
-            console.log('applicationData: ', applicationData);
-
 
            return $http({
                 method: 'POST',
@@ -32,7 +29,6 @@ angular
             })
         };
         this.deleteApplication  = (applicationId, applicantId, googleAccess) => {
-            console.log("THat google Access: ", googleAccess)
             return $http({
                 method: 'POST',
                 url: `/api/applications/${applicantId}/delete/${applicationId}`,
