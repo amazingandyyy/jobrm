@@ -73,12 +73,11 @@
             <!-- <span class="navbar-button-o right" ng-click="toggleRight()">
                 <i class="fa fa-bars" aria-hidden="true"></i>
             </span> -->
-            <div ng-init="prifileDropdown = false" ng-click="prifileDropdown=!prifileDropdown" ng-class="currentUser ? 'flipInX' :'' " class="profileBtn animated btn btn-secondary pull-xs-rigth" style="background-image:url('{{currentUser.picture}}')"><i class="fa fa-caret-down"></i></div>
-
+            <div ng-init="prifileDropdown = false" ng-click="prifileDropdown=!prifileDropdown" ng-class="currentUser ? 'flipInX' :'' " class="profileBtn btn btn-secondary pull-xs-rigth" style="background-image:url('{{currentUser.picture}}')"><i class="fa fa-caret-down"></i></div>
 
             <!-- <i class="fa fa-caret-down" ng-show="!more"></i> -->
             <!-- <button ºclass="dropdown-item" type="button" ng-click="logout()">Sign out</button> -->
-            <div ng-class="prifileDropdown?'fadeInDown':''" ng-show="prifileDropdown" class="prifileDropdown animated">
+            <div ng-class="prifileDropdown?'fadeInRight':'fadeOutRight'" ng-show="prifileDropdown" class="prifileDropdown animated">
                 <ul>
                     <li class="info">
                         <b>{{currentUser.name}}</b>
