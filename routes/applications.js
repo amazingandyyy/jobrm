@@ -78,7 +78,7 @@ router.post('/:userId/delete/:appId', User.isLoggedIn, (req, res) => {
         GoogleCalendarOperations.deleteEventsFromNarrative(req.params.userId, req.params.appId, req.body, (error, results) => {
            
             
-            response.send();
+            res.send();
         });
     });
 });

@@ -80,21 +80,46 @@ const googleCalendarOperations = {
         });
     },
     
-    deleteEventsFromNarrative: (mongooseId, narrativeId, userData, callback) => {
-        conosole.log("MongooseID: ", mongooseId);
-        conosole.log("Narrative ID: ", narrativeId);
-        conosole.log("USer Data: ", userData);
-        let batch = new Batchelor({
-            "uri": "https://www.googleapis.com/batch",
-            "method": "POST",
-            "auth": {
-                "bearer": accessToken
-            },
-            "headers": {
-                "Content-Type": "multipart/mixed"
+    deleteEventsFromNarrative: (mongooseId, narrativeId, googleData, callback) => {
+        User.findById(mongooseId, (error, databaseUser) => {
+            if (error) return callback(error || {error: error});
+            let calendaredEvents = databaseUser.googleCalendarData.events;
+            let eventsToDelete = [];
+            for (let i = 0; i < calendaredEvents.length; i++) {
+                if (calendaredEvents[i].parentNarrativeId === narrativeId) {
+                    eventsToDelete.push(calendaredEvents[i].id);
+                }
             }
+            console.log("Access token: ", googleData.googleAccess.access_token);
+            let batch = new Batchelor({
+                "uri": "https://www.googleapis.com/batch",
+                "method": "POST",
+                "auth": {
+                    "bearer": googleData.googleAccess.access_token
+                },
+                'headers': {
+                    'Content-Type': 'multipart/mixed'
+                }
+            });
+            if (eventsToDelete.length) {
+                eventsToDelete.forEach((currentValue) => {
+                    batch.add({
+                        "method": "DELETE",
+                        "parameters": {
+                            "Content-Type": "application/http"
+                        },
+                        "path": `/calendar/v3/calendars/${databaseUser.googleCalendarData.id}/events/${currentValue}?key=${process.env.GoogleKEY}`
+                    });
+                });
+                console.log("Batch: ", batch)
+                batch.run((error, response) => {
+                    console.log("Error: ", error);
+                    console.log("Reponse data: ", response.parts);
+                    return callback(error, response.parts)
+                });
+            }
+            callback(null, {response: "There were no events to delete."});
         });
-        callback(null);
     },
 
     deleteCalendaredEvent: (requestData, callback) => {
@@ -113,7 +138,6 @@ const googleCalendarOperations = {
                     indexInEvents = i;
                 }
             }
-            console.log("HEre 2")
             let options = {
                 url: `https://www.googleapis.com/calendar/v3/calendars/${databaseUser.googleCalendarData.id}/events/${eventId}?key=${process.env.GoogleKEY}`,
                 method: "DELETE",
@@ -121,8 +145,6 @@ const googleCalendarOperations = {
                     Authorization: `Bearer ${accessToken}`
                 }
             };
-            console.log("HEre 3")
-            console.log("Options: ", options)
             requestNPM(options, (error, responseObject, responseData) => {
                 console.log("Error: ", error);
                 console.log("ResponseData: ", responseData)

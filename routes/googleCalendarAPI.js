@@ -37,7 +37,7 @@ router.post("/retrieveEventsFromGoogle", (request, response) => {
 
 router.post("/retrieveEventsFromDatabase", (request, response) => {
     User.findById(request.body.mongooseId, (error, databaseUser) => {
-        if (error || !databaseUser) response.status(400).send(error || { error: "There is no user." });
+        if (error || !databaseUser || !databaseUser.googleCalendarData) response.status(400).send(error || { error: "There is no user." });
         response.send(databaseUser.googleCalendarData);
     }); 
 });
