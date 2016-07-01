@@ -49,6 +49,7 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
     //user sign-in
     $scope.signIn = function() {
         auth.signin({}, function(profile, token) {
+            
             store.set("id_token", token);
             //for use in Google API operations. Will have to likely store somewhere else
             //It gets generated on each login.
