@@ -15,11 +15,7 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
     $scope.newApplication.expectedInitialResponse = new Date(expectedInitialDefaultDate);
     // .toISOString().split("T")[0];
     $scope.newApplicationSubmitted = () => {
-        console.log($scope.newApplication);
-        console.log($scope.newApplication.applicationDate);
         Application.createOneApplication($scope.newApplication, $scope.currentUser._id).then(afterNewAppRes => {
-            console.log("Response after new narrative creation: ", afterNewAppRes);
-            console.log("$scope.expectedInitialResponse: ", moment($scope.newApplication.expectedInitialResponse).format("YYYY-MM-DD"));
             let newCalendarDate = moment($scope.newApplication.expectedInitialResponse).format("YYYY-MM-DD");
             let calendarEntry = {
                 parentNarrativeId: afterNewAppRes.data.newApplication._id,
@@ -28,10 +24,8 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
                 description: `Initial follow up with ${afterNewAppRes.data.newApplication.company} regarding ${afterNewAppRes.data.newApplication.position}`,
                 title: `Initial F/U re: ${afterNewAppRes.data.newApplication.position} at ${afterNewAppRes.data.newApplication.company}`
             };
-            console.log('calendarEntry: ', calendarEntry);
           GoogleCalendarServices.calendarNewEvent(store.get("googleAPIAccess"), store.get("currentUserMId"), calendarEntry)
                 .then((res) => {
-                    console.log("response after calendar: ", res);
                     $state.go('application', {
                         applicationId: afterNewAppRes.data.newApplication._id
                     });
@@ -46,10 +40,8 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
     };
     GoogleCalendarServices.retrieveEventsFromMongoose(store.get("currentUserMId"), store.get("id_token"))
         .then((response) => {
-            console.log("Events data from Mongoose: ", response.data);
             if (response.data.events) {
                 $scope.sevenDayForecast = GoogleCalendarServices.create7DayForecast(response.data.events);
-                console.log("In controller seven day: ", $scope.sevenDayForecast)
             }
         })
         .catch((error) => {
@@ -76,8 +68,6 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
 
 
     $scope.createTime = (time) => {
-        // console.log('checked');
-        // console.log('time: ', time);
         return moment(time).calendar(null, {
             sameDay: 'h:mm a, [Today]',
             nextDay: 'h:mm a, [Tomorrow]',
@@ -147,12 +137,11 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
                 obj = {
                     "label" : c.applicationDate.slice(0, 10),
                     "value": count
-                }
+                };
 
                 objArr.push(obj);
-                console.log('count', count);
                 count = 0;
-            })
+            });
 
             var obj = { };
 

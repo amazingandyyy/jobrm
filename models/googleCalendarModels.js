@@ -9,17 +9,18 @@ const googleCalendarOperations = {
 
     verifyToken: (requestData, callback) => {
         let accessToken = requestData.identities[0].access_token;
-        console.log("Access token: ", accessToken)
         let options = {
             url: `https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=${accessToken}`,
             method: "GET"
-           /* headers: {
-                Authorization: `Bearer ${accessToken}`
-            },*/
         };
         requestNPM(options, (error, httpResponse, body) => {
             console.log("Error: ", error);
             console.log("Body: ", body);
+
+            if (body && !JSON.parse(body).expires_in) {
+                body = {logout: true}
+
+            }
             return callback(error, body);   
         });
     },
@@ -45,8 +46,6 @@ const googleCalendarOperations = {
         };
         requestNPM(options, (error, httpResponse, body) => {
             if (error || !body.id) return callback(error);
-            console.log("Error after POST: ", error);
-            console.log("body after POST: ", body);
             User.findById(requestData.mongooseId, (error, databaseUser) => {
                 if (error || !databaseUser) return callback(error || "There is no user");
                 databaseUser.googleCalendarData.id = body.id;

@@ -10,11 +10,8 @@ function settingCtrl($scope, $state, UserService, store) {
     $scope.profileSetting = angular.copy($scope.currentUser);
     
     $scope.profileSettingUpdated = () => {
-        console.log('profileSetting: ', $scope.profileSetting);
         UserService.savedUser($scope.profileSetting)
             .then(res => {
-
-                console.log('res:', res);
                 store.set('currentUser', res.data);
                 $scope.currentUser = res.data;
                 $state.go("dashboard");

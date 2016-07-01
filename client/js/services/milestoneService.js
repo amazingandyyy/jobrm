@@ -9,7 +9,6 @@ angular
                 applicationId: applicationId,
                 googleAccess: googleAccess
             };
-            console.log('applicationData: ', newMilestone);
 
            return $http({
                 method: 'POST',

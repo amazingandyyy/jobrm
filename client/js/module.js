@@ -63,25 +63,21 @@ angular
 
         $urlRouterProvider.otherwise("/dashboard");
     })
-    .run(function($rootScope, auth, store, jwtHelper, $location, GoogleCalendarServices) {
+    .run(function($rootScope, auth, store, jwtHelper, $location, GoogleCalendarServices, $state) {
 
         auth.hookEvents();
 
         //this should get triggered on refresh or url changes
-        $rootScope.$on('$locationChangeStart', function() {
-
+        $rootScope.$on('$locationChangeStart', function () {
             let googleAccess = store.get("googleAPIAccess");
-
             if (googleAccess) {
                 GoogleCalendarServices.verifyToken(googleAccess)
                     .then((response) => {
-                        if (!response.data.access_type || !response.data.email) {
+                        if (response.data.logout) {
                             store.remove("currentUserMId");
                             store.remove("id_token");
                             store.remove("googleAPIAccess");
-                            $scope.currentUser = null;
                             $state.go('dashboard');
-                            $window.location.reload();
                         }
                     })
                     .catch((error) => {
@@ -92,11 +88,6 @@ angular
             let token = store.get('id_token');
             if (token) {
                 if (jwtHelper.isTokenExpired(token)) {
-                    /* if (!auth.isAuthenticated) {
-                         //Re-authenticate user if token is valid
-                         //auth.authenticate(store.get('profile'), token);
-                         auth.authenticate(store.get('googleAPIAccess'), token);
-                     } else {*/
                     auth.signout();
                     store.remove("profile");
                     store.remove("googleAPIAccess");
@@ -104,14 +95,9 @@ angular
                     store.remove("id_token");
                     $location.path("/");
                 }
-                /* else {
-                                    // Either show the login page or use the refresh token to get a new idToken
-                                    $location.path('/');
-                                }*/
             }
         });
     });
-
 
 let dashboard = {
     name: 'dashboard',
