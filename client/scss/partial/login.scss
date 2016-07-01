@@ -16,7 +16,6 @@
     .firstHero {
         height: 100vh;
         padding-top: 200px;
-
         svg{
             width: 150px;
         }
@@ -25,6 +24,13 @@
             font-size: 1.5rem;
             font-weight: 900;
         }
+    }
+    .copyright {
+        display: block;
+        margin: 3px;
+        color: rgba(0,0,0,0.4);
+        font-size: 0.6em;
+        font-weight: 700;
     }
     .login-hero {
         background: rgba($brand-primary, 1);
