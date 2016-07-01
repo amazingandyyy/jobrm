@@ -33,6 +33,7 @@
     "nvd3": "^1.8.3",
     "angular-nvd3": "^1.0.7",
     "AngularJS-Toaster": "angularjs-toaster#^2.0.0",
-    "ngAnimate": "*"
+    "ngAnimate": "*",
+    "angular-loading-bar": "^0.9.0"
   }
 }
