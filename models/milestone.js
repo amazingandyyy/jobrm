@@ -33,9 +33,18 @@ let milestoneSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    tasks: [{
-
+    taskList: [{
+        title: String,
+        done: { type: Boolean},
+        createAt: { type: Date, default: Date.now }
     }],
+    // tasks: [{
+    //     title: String,
+    //     // summary: String,
+    //     // completed: { type: Boolen, default: False},
+    //     createAt: { type: Date, default: Date.now },
+    //     finishBy: String
+    // }],
     application: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Application'
@@ -58,6 +67,7 @@ milestoneSchema.statics.createMilestone = (milestoneObj, applicationId,  cb) => 
         title: milestoneObj.title,
         date: milestoneObj.date,
         time: milestoneObj.time,
+        taskList: milestoneObj.taskList,
         application: applicationId,
         emailrelated: milestoneObj.emailrelated
     };
@@ -114,6 +124,37 @@ milestoneSchema.statics.addTask = (milestoneId, newTaskObj, cb) => {
         milestone.save((err, savedMilestone) => {
             if(err) return cb(err);
             cb(null, savedMilestone);
+        });
+    });
+};
+
+milestoneSchema.statics.updateTask = (milestoneId, taskId, newTaskObj, cb) => {
+    Milestone.findById(milestoneId, (err, milestone) => {
+        if(err || !milestone) return cb(err);
+
+        for(var i=0, x = milestone.tasks.length; i < x; i++){
+            if(milestone.tasks[i]._id == taskId){
+                console.log('test:', taskId)
+                milestone.tasks[i].title = newTaskObj.title;
+                milestone.tasks[i].summary = newTaskObj.summary;
+                milestone.tasks[i].finishBy = newTaskObj.finishBy;
+            }
+        }
+        milestone.save((err, updatedMilestone) => {
+            cb(err, updatedMilestone);
+        });
+    });
+};
+
+milestoneSchema.statics.removeTask = (milestoneId, taskId, cb) => {
+    Milestone.findById(milestoneId, (err, milestone) => {
+        if(err || !milestone) return cb(err);
+
+        milestone.tasks = milestone.tasks.filter(function(obj) {
+            return obj._id != taskId;
+        });
+        milestone.save((err, updatedMilestone) =>{
+            cb(err, updatedMilestone);
         });
     });
 };

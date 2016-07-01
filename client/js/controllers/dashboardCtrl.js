@@ -4,7 +4,7 @@ angular
     .module("jobrmApp")
     .controller("dashboardCtrl", dashboardCtrl)
 
-function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GoogleCalendarServices, DashboardServices) {
+function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GoogleCalendarServices, DashboardServices, Milestone) {
     console.log("dashboardCtrl loaded");
     $scope.newApplication = {};
     $scope.applications = $scope.currentUser.applications.reverse();
@@ -17,14 +17,14 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
     $scope.newApplicationSubmitted = () => {
         console.log($scope.newApplication);
         console.log($scope.newApplication.applicationDate);
-        console.log($scope.newApplication.expectedInitialResponse);
-
         Application.createOneApplication($scope.newApplication, $scope.currentUser._id).then(afterNewAppRes => {
             console.log("Response after new narrative creation: ", afterNewAppRes);
+            console.log("$scope.expectedInitialResponse: ", moment($scope.newApplication.expectedInitialResponse).format("YYYY-MM-DD"));
+            let newCalendarDate = moment($scope.newApplication.expectedInitialResponse).format("YYYY-MM-DD");
             let calendarEntry = {
                 parentNarrativeId: afterNewAppRes.data.newApplication._id,
-                newEndDate: afterNewAppRes.data.newApplication.expectedInitialResponse.slice(0, 10),
-                newStartDate: afterNewAppRes.data.newApplication.expectedInitialResponse.slice(0, 10),
+                newEndDate: newCalendarDate,
+                newStartDate: newCalendarDate,
                 description: `Initial follow up with ${afterNewAppRes.data.newApplication.company} regarding ${afterNewAppRes.data.newApplication.position}`,
                 title: `Initial F/U re: ${afterNewAppRes.data.newApplication.position} at ${afterNewAppRes.data.newApplication.company}`
             };
@@ -108,7 +108,6 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, stor
 
             valueFormat: function(d){
                 return d3.format('d')(d);
-
             },
             transitionDuration: 500,
             xAxis: {
