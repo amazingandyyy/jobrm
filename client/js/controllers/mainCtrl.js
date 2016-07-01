@@ -18,7 +18,7 @@ angular
 // })
 
 
-function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $location, GmailServices, GoogleCalendarServices, UserService, toaster) {
+function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $location, GoogleCalendarServices, UserService, toaster) {
     console.log("mainCtrl loaded");
     $scope.pop = () => {
         console.log('rrr');
