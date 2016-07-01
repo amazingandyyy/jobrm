@@ -136,7 +136,7 @@
     <!-- <div ng-if="currentUser && !currentUser.applications">
         <h3>list</h3>
     </div> -->
-    <div ng-if="!currentUser" class="introSection">
+    <div ng-if="!currentUser || !activeUserOn()" class="introSection">
         <div class="row">
             <div class="col-sm-12 firstHero">
                 <svg viewBox="9 44 112 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
