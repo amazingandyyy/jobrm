@@ -16,7 +16,7 @@
     <!-- source: http://rhythm.nikadevs.com/content/icons-et-line -->
     <link href="/bower_components/animate.css/animate.min.css" rel='stylesheet' type='text/css' />
     <link href="/bower_components/font-awesome/css/font-awesome.min.css" rel='stylesheet' type='text/css' />
-
+    <link href="/bower_components/AngularJS-Toaster/toaster.min.css" rel="stylesheet">
     <!--Personal CSS-->
     <!-- <link rel="stylesheet" href="/css/style.css"> -->
     <!--  link to style.css -->
@@ -30,7 +30,8 @@
     <script src="/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
     <script src="/assets/sticky/jquery.sticky.js"></script>
     <!--  Import Angular ui router js -->
-
+    <script src="/bower_components/AngularJS-Toaster/toaster.min.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
     <!--Auth0 Shit-->
     <!-- Auth0's lock widget library -->
     <script type="text/javascript" src="https://cdn.auth0.com/js/lock-7.12.min.js"></script>
@@ -59,12 +60,12 @@
 </head>
 
 <body ng-app="jobrmApp" ng-controller="mainCtrl">
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'limit': 5, 'time-out': 1600}"></toaster-container>
     <div ng-if="currentUser">
         <nav class="navbar navbar-light navbar-fixed-top">
             <span class="navbar-button-o left" ng-click="hideLeftSideFunc()">
                 <i class="fa fa-bars" aria-hidden="true"></i>
             </span>
-
 
             <span class="navbar-button" ui-sref="addApplication">
                 <i class="fa fa-plus" aria-hidden="true"></i>

@@ -4,9 +4,11 @@ angular
     .module("jobrmApp")
     .controller("dashboardAppCtrl", dashboardAppCtrl)
 
-function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServices, $timeout, $state, store, $location, GmailServices, Milestone, $window) {
+function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServices, $timeout, $state, store, $location, GmailServices, Milestone, $window, toaster) {
     console.log("dashboardAppCtrl loaded");
     console.log('This Narrative Id: ', $stateParams.applicationId);
+    // angular.element('.section').removeClass('hideRightSide');
+    
     if ($stateParams.applicationId) {
         Application.getOneApplication($stateParams.applicationId).then(res => {
             console.log('Narrative: ', res.data);
@@ -154,7 +156,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     $scope.taskDeleteUpdate = (i, task) => {
         console.log('i: ', i);
         $scope.dbStoneUpdate.taskList.splice(i, 1);
-}
+    }
 
     $scope.dbStoneSubmitted = () => {
         console.log('dbStone: ', $scope.dbStone);
@@ -183,6 +185,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
                     description: toSend.description,
                     title: toSend.title
                 };
+                toaster.pop('success', `One new Milestone created.`, `${newMilestone.title}.`);
                 GoogleCalendarServices.calendarNewEvent(store.get("googleAPIAccess"), store.get("currentUserMId"), newCalendarData)
                     .then((response) => {
                         console.log("Response after event creation: ", response.data);
@@ -211,6 +214,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         console.log('applicationDetailUpdated: ', $scope.applicationDetail);
         Application.updateApplication($scope.applicationDetail, $stateParams.applicationId).then(res => {
             console.log('applicationDetailUpdated res: ', res.data);
+            toaster.pop('success', `Application successfully updated!`, `Applied for ${res.data.position} of ${res.data.company}.`);
         }, err => {
             console.log('err when applicationDetailUpdated: ', err);
         })
@@ -221,8 +225,14 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         Application.deleteApplication(applicationId, applicantId, store.get("googleAPIAccess")).then(res => {
 
             console.log('application delete res: ', res.data);
-            $window.location.reload();
-            $state.go('dashboard');
+            toaster.pop({
+                type: 'error',
+                title: 'Application removed!',
+                body: `You have ${res.data.applications.length} applications left.`,
+                onHideCallback: function() {
+                    $window.location.reload();
+                }
+            });
         }, err => {
             console.log('err when application delete: ', err);
         })

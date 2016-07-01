@@ -13,13 +13,17 @@ angular
     //                 })
     //             });
 
-    //         }
-    //     }
-    // })
+//         }
+//     }
+// })
 
 
-function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $location, GmailServices, GoogleCalendarServices, UserService) {
-    // console.log("mainCtrl loaded");
+function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $location, GmailServices, GoogleCalendarServices, UserService, toaster) {
+    console.log("mainCtrl loaded");
+    $scope.pop = () => {
+        console.log('rrr');
+        toaster.pop('success', `Hi, ${$scope.currentUser.name}`, `you are logged in as ${$scope.currentUser.email}`);
+    }
     console.log("Auth: ", auth);
     getCurrentUser();
     $scope.hideLeftSide = true;
@@ -38,7 +42,7 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
     };
     if (store.get("currentUser")) {
         $scope.currentUser = store.get("currentUser")
-        // console.log("Profile info: ", $scope.currentUser)
+            // console.log("Profile info: ", $scope.currentUser)
     }
     $scope.$watch(function() {
         return store.get("currentUser");
@@ -49,13 +53,13 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
     //user sign-in
     $scope.signIn = function() {
         auth.signin({}, function(profile, token) {
-            
             store.set("id_token", token);
             //for use in Google API operations. Will have to likely store somewhere else
             //It gets generated on each login.
             store.set("googleAPIAccess", profile);
             $location.path("/dashboard");
             console.log("Profile: ", profile)
+            toaster.pop('success', `Hi, ${profile.name.split(' ')[0]}`, `you are logged in as ${profile.email}`);
             saveUserToModel(profile);
             //$scope.currentUser = profile;
         }, function(error) {
@@ -72,6 +76,7 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
         $scope.currentUser = null;
         $state.go('dashboard')
         $window.location.reload();
+        toaster.pop('success', `Logout successfully.`, `You are now logged out, keep in touch.`);
     };
     //save user to local Schema.
     function saveUserToModel(profile) {
@@ -80,9 +85,7 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
                 // console.log('res:', res);
                 store.set('currentUserMId', res.data._id);
                 getCurrentUser();
-                if ($scope.currentUser) {
-                    // console.log('$scope.currentUser: ', $scope.currentUser);
-                }
+
             })
             .catch(error => {
                 // console.log('error:', error);
@@ -114,10 +117,10 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
                     if (!res.data.googleCalendarData.id) {
                         GoogleCalendarServices.createNewCalendar(store.get("googleAPIAccess"), store.get("currentUserMId"))
                             .then((response) => {
-                                 console.log("Response after creation: ", response);
+                                console.log("Response after creation: ", response);
                             })
                             .catch((error) => {
-                                 console.log("Error: ", error);
+                                console.log("Error: ", error);
                             });
                     }
                 })
