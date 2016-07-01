@@ -31,10 +31,12 @@ angular
                 data: updateData
             })
         };
-        this.deleteApplication  = (applicationId, applicantId) => {
+        this.deleteApplication  = (applicationId, applicantId, googleAccess) => {
+            console.log("THat google Access: ", googleAccess)
             return $http({
-                method: 'DELETE',
-                url: `/api/applications/${applicantId}/delete/${applicationId}`
+                method: 'POST',
+                url: `/api/applications/${applicantId}/delete/${applicationId}`,
+                data: {googleAccess: {access_token: googleAccess.identities[0].access_token}}
             })
         }
     });

@@ -49,7 +49,7 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
     }, function(newVal, oldVal) {
         $scope.currentUser = newVal;
     });
-
+    
     //user sign-in
     $scope.signIn = function() {
         auth.signin({}, function(profile, token) {

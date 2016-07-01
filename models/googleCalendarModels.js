@@ -3,7 +3,26 @@
 const requestNPM = require("request");
 const User = require("./user");
 
+const Batchelor = require("batchelor");
+
 const googleCalendarOperations = {
+
+    verifyToken: (requestData, callback) => {
+        let accessToken = requestData.identities[0].access_token;
+        console.log("Access token: ", accessToken)
+        let options = {
+            url: `https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=${accessToken}`,
+            method: "GET"
+           /* headers: {
+                Authorization: `Bearer ${accessToken}`
+            },*/
+        };
+        requestNPM(options, (error, httpResponse, body) => {
+            console.log("Error: ", error);
+            console.log("Body: ", body);
+            return callback(error, body);   
+        });
+    },
     //returns the created calendar. REMEMBER:
     // save the calendar ID (will be needed when creating calendar entries)and etag
     createNewCalendar: (requestData, callback) => {
@@ -60,12 +79,53 @@ const googleCalendarOperations = {
 
         });
     },
+    
+    deleteEventsFromNarrative: (mongooseId, narrativeId, googleData, callback) => {
+        User.findById(mongooseId, (error, databaseUser) => {
+            if (error) return callback(error || {error: error});
+            let calendaredEvents = databaseUser.googleCalendarData.events;
+            let eventsToDelete = [];
+            for (let i = 0; i < calendaredEvents.length; i++) {
+                if (calendaredEvents[i].parentNarrativeId === narrativeId) {
+                    eventsToDelete.push(calendaredEvents[i].id);
+                }
+            }
+            console.log("Access token: ", googleData.googleAccess.access_token);
+            let batch = new Batchelor({
+                "uri": "https://www.googleapis.com/batch",
+                "method": "POST",
+                "auth": {
+                    "bearer": googleData.googleAccess.access_token
+                },
+                'headers': {
+                    'Content-Type': 'multipart/mixed'
+                }
+            });
+            if (eventsToDelete.length) {
+                eventsToDelete.forEach((currentValue) => {
+                    batch.add({
+                        "method": "DELETE",
+                        "parameters": {
+                            "Content-Type": "application/http"
+                        },
+                        "path": `/calendar/v3/calendars/${databaseUser.googleCalendarData.id}/events/${currentValue}?key=${process.env.GoogleKEY}`
+                    });
+                });
+                console.log("Batch: ", batch)
+                batch.run((error, response) => {
+                    console.log("Error: ", error);
+                    console.log("Reponse data: ", response.parts);
+                    return callback(error, response.parts)
+                });
+            }
+            callback(null, {response: "There were no events to delete."});
+        });
+    },
 
     deleteCalendaredEvent: (requestData, callback) => {
         let mongooseId = requestData.mongooseId;
         let milestoneId = requestData.milestoneId;
         let accessToken = requestData.userData.identities[0].access_token;
-        console.log("HEre 1")
         User.findById(mongooseId, (error, databaseUser) => {
             if (error || !databaseUser) return callback(error || { error: "There is no such user." });
             let databaseEvents = databaseUser.googleCalendarData.events;
@@ -78,7 +138,6 @@ const googleCalendarOperations = {
                     indexInEvents = i;
                 }
             }
-            console.log("HEre 2")
             let options = {
                 url: `https://www.googleapis.com/calendar/v3/calendars/${databaseUser.googleCalendarData.id}/events/${eventId}?key=${process.env.GoogleKEY}`,
                 method: "DELETE",
@@ -86,8 +145,6 @@ const googleCalendarOperations = {
                     Authorization: `Bearer ${accessToken}`
                 }
             };
-            console.log("HEre 3")
-            console.log("Options: ", options)
             requestNPM(options, (error, responseObject, responseData) => {
                 console.log("Error: ", error);
                 console.log("ResponseData: ", responseData)

@@ -18,11 +18,9 @@ angular
             link: function(scope, element, attrs) {
                 scope.$watch(attrs.focusMe, function(value) {
                     if (value === true) {
-                        console.log('value=', value);
-                        //$timeout(function() {
                         element[0].focus();
+                        $(element[0]).val('');
                         scope[attrs.focusMe] = false;
-                        //});
                     }
                 });
             }
@@ -65,14 +63,33 @@ angular
 
         $urlRouterProvider.otherwise("/dashboard");
     })
-    .run(function($rootScope, auth, store, jwtHelper, $location) {
+    .run(function($rootScope, auth, store, jwtHelper, $location, GoogleCalendarServices) {
 
         auth.hookEvents();
 
         //this should get triggered on refresh or url changes
         $rootScope.$on('$locationChangeStart', function() {
-            var token = store.get('id_token');
-            console.log("TOken: ", token);
+
+            let googleAccess = store.get("googleAPIAccess");
+
+            if (googleAccess) {
+                GoogleCalendarServices.verifyToken(googleAccess)
+                    .then((response) => {
+                        if (!response.data.access_type || !response.data.email) {
+                            store.remove("currentUserMId");
+                            store.remove("id_token");
+                            store.remove("googleAPIAccess");
+                            $scope.currentUser = null;
+                            $state.go('dashboard');
+                            $window.location.reload();
+                        }
+                    })
+                    .catch((error) => {
+                        console.log("Error: ", error);
+                    });
+            }
+
+            let token = store.get('id_token');
             if (token) {
                 if (jwtHelper.isTokenExpired(token)) {
                     /* if (!auth.isAuthenticated) {

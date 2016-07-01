@@ -2,7 +2,7 @@
 <hr>
 <div class="mileStoneDiv">
     <div class="milestone addStone">
-        <p class="title" ng-init="openAddStoneForm = false" ng-click="openAddStoneForm=!openAddStoneForm">Create a new Milestone in this Job Search Narrative <i class="fa fa-caret-up" ng-show="!openAddStoneForm"></i><i class="fa fa-caret-down" ng-show="openAddStoneForm"></i></p>
+        <p class="title" ng-init="openAddStoneForm = false" ng-click="openAddStoneForm=!openAddStoneForm"><i class="fa fa-caret-up" ng-show="!openAddStoneForm"></i><i class="fa fa-caret-down" ng-show="openAddStoneForm"></i> Create a Milestone in this Job Search Narrative <i class="fa fa-caret-up" ng-show="!openAddStoneForm"></i><i class="fa fa-caret-down" ng-show="openAddStoneForm"></i></p>
         <div ng-show="openAddStoneForm">
             <form ng-submit="dbStoneSubmitted()">
                 <hr/>
@@ -68,6 +68,7 @@
                 </div>
                 <hr/>
                 <button type="submit" class="btn btn-primary">Create new Milestone</button>
+                <br><br>
             </form>
         </div>
     </div>
@@ -107,6 +108,7 @@
             <hr/>
             <div>
                 <label>Associate to any email?</label>
+                <i class="fa fa-spinner fa-spin" style="font-size:1em" ng-hide="emailsFromGmail"></i>
                 <select multiple ng-model="dbStoneUpdate.emailrelated" class="form-control" style="min-height: 200px">
                     <option ng-repeat="email in emailsFromGmail">{{email.body.snippet}}</option>
                 </select>
@@ -117,9 +119,9 @@
                 <br>
                 <div>
                     <div class="input-group">
-                        <input ng-model="newTask.title" type="text" class="form-control" focus-me="focusInput" placeholder="new task to this milestone">
+                        <input id="updateNewTaskInput" ng-model="updateNewTask.title" class="form-control" focus-me="focusInput" placeholder="new task to this milestone">
                         <span class="input-group-btn">
-                                <span class="btn btn-secondary" ng-click="addTaskUpdate(newTask); focusInput=true">Add a new Todo</span>
+                                <span class="btn btn-secondary" ng-click="addTaskUpdate(updateNewTask); focusInput=true">Add a new Todo</span>
                         </span>
                     </div>
                     <div class="input-group task-input-group" ng-repeat="task in dbStoneUpdate.taskList">
@@ -134,8 +136,8 @@
                 </div>
             </div>
             <hr/>
-            <button type="submit" class="btn btn-success">Update Milestone</button>
-            <button type="button" class="btn btn-danger" ng-click="deleteMilestoneClicked(dbStoneUpdate._id)">Delete Milestone</button>
+            <button type="button" class="btn btn-danger pull-left" ng-click="deleteMilestoneClicked(dbStoneUpdate._id)">Delete Milestone</button>
+            <button type="submit" class="btn btn-success pull-right">Save Milestone</button>
             <br>
             <br>
 

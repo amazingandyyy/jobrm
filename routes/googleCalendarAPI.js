@@ -14,8 +14,14 @@ router.post("/createNewCalendar", (request,response) => {
     });
 });
 
+router.post("/verifyToken", (request, response) => {
+    GoogleCalendarOperations.verifyToken(request.body, (error, returnData) => {
+        if (error) response.status(400).send(error);
+        response.send(returnData);
+    });
+});
+
 router.post("/deleteCalendaredEvent", (request, response) => {
-    console.log("HEReeeee")
     GoogleCalendarOperations.deleteCalendaredEvent(request.body, (error, outcome) => {
         if (error) response.status(400).send(error);
         response.send(outcome);
@@ -31,7 +37,7 @@ router.post("/retrieveEventsFromGoogle", (request, response) => {
 
 router.post("/retrieveEventsFromDatabase", (request, response) => {
     User.findById(request.body.mongooseId, (error, databaseUser) => {
-        if (error || !databaseUser) response.status(400).send(error || { error: "There is no user." });
+        if (error || !databaseUser || !databaseUser.googleCalendarData) response.status(400).send(error || { error: "There is no user." });
         response.send(databaseUser.googleCalendarData);
     }); 
 });

@@ -8,7 +8,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     console.log("dashboardAppCtrl loaded");
     console.log('This Narrative Id: ', $stateParams.applicationId);
     // angular.element('.section').removeClass('hideRightSide');
-    
+
     if ($stateParams.applicationId) {
         Application.getOneApplication($stateParams.applicationId).then(res => {
             console.log('Narrative: ', res.data);
@@ -46,7 +46,6 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
             $state.go('dashboard');
         })
     }
-
 
     $scope.stoneTypeTemplate = [{
         state: {
@@ -113,7 +112,6 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         console.log('$scope.dbStone: ', $scope.dbStone.title);
 
     }
-
     $scope.stoneTypeActivated = (data) => {
         if ($scope.dbStone.state) {
             if ($scope.dbStone.state.title == data) {
@@ -139,15 +137,17 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         }
     }
     $scope.addTaskUpdate = (newTask) => {
-        if (newTask) {
-            console.log('newTask: ', newTask);
+        var isEmpty = angular.element('#updateNewTaskInput').val() == '';
+        console.log('isEmpty: ', isEmpty);
+        if (newTask && !isEmpty) {
             $scope.dbStoneUpdate.taskList.unshift({
                 title: newTask.title,
                 done: false
-            });
-            $scope.newTask = null;
+            })
+            toaster.pop('warning', `Click Save Milstone to save new tasks.`, ``);
         }
     }
+
     $scope.taskDelete = (i, task) => {
         console.log('i: ', i);
         $scope.dbStone.taskList.splice(i, 1);
@@ -155,6 +155,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     $scope.taskDeleteUpdate = (i, task) => {
         console.log('i: ', i);
         $scope.dbStoneUpdate.taskList.splice(i, 1);
+        toaster.pop('warning', `Click Save Milstone to save updated task list.`, ``);
     }
 
     $scope.dbStoneSubmitted = () => {
@@ -174,6 +175,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
                 // console.log("New Milestone: ", newMilestone);
                 $scope.dbStone = null;
                 $scope.openAddStoneForm = null;
+                toaster.pop('success', `New Milestone created`, `You have ${$scope.mileStones.length} milstones in this narrative.`);
                 // console.log("Return Data:", res.data);
                 // console.log("To send data prior to milestone creation: ", toSend);
                 let newCalendarData = {
@@ -184,7 +186,6 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
                     description: toSend.description,
                     title: toSend.title
                 };
-                toaster.pop('success', `One new Milestone created.`, `${newMilestone.title}.`);
                 GoogleCalendarServices.calendarNewEvent(store.get("googleAPIAccess"), store.get("currentUserMId"), newCalendarData)
                     .then((response) => {
                         console.log("Response after event creation: ", response.data);
@@ -221,13 +222,12 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     $scope.deleteApplication = (applicantId) => {
         let applicationId = $stateParams.applicationId;
         console.log('delete: ', applicationId, applicantId);
+        Application.deleteApplication(applicationId, applicantId, store.get("googleAPIAccess")).then(res => {
 
-        Application.deleteApplication(applicationId, applicantId).then(res => {
             console.log('application delete res: ', res.data);
             toaster.pop({
                 type: 'error',
                 title: 'Application removed!',
-                body: `You have ${res.data.applications.length} applications left.`,
                 onHideCallback: function() {
                     $window.location.reload();
                 }
@@ -275,6 +275,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
                 $state.go($state.current, {}, {
                     reload: true
                 });
+                toaster.pop('success', `Milstone successfully updated!`, ``);
             }, err => {
                 console.log('err when updating one stone: ', err);
             })
@@ -284,6 +285,10 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
         let applicationId = $stateParams.applicationId;
         console.log('delete: ', applicationId, milestoneId);
         console.log('deleteMilestoneClicked triggerred');
+        toaster.pop({
+            type: 'error',
+            title: 'Milestone removed!'
+        });
         Milestone.deleteMilestone(applicationId, milestoneId).then(res => {
             console.log('stone delete, res: ', res.data);
             // $window.location.reload();
@@ -297,6 +302,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
                 .catch((error) => {
                     console.log("Error: ", error);
                 });
+
 
         }, err => {
             console.log('err when deleting one stone: ', err);

@@ -2,6 +2,8 @@
 
 const express = require("express");
 const router = express.Router();
+
+const GoogleCalendarOperations = require("../models/googleCalendarModels");
 const Application = require('../models/application');
 const User = require('../models/user');
 const Milestone = require('../models/milestone');
@@ -70,9 +72,14 @@ router.put('/:id', User.isLoggedIn, (req, res) => {
     });
 });
 
-router.delete('/:userId/delete/:appId', User.isLoggedIn, (req, res) => {
+router.post('/:userId/delete/:appId', User.isLoggedIn, (req, res) => {
     Application.deleteApp(req.params.userId, req.params.appId, (err, deletedApplication) => {
-        res.status(err ? 400 : 200).send(err || deletedApplication);
+        if (err) res.status(400).send(err);
+        GoogleCalendarOperations.deleteEventsFromNarrative(req.params.userId, req.params.appId, req.body, (error, results) => {
+           
+            
+            res.send();
+        });
     });
 });
 
