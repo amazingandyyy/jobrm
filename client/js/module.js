@@ -1,7 +1,7 @@
 "use strict";
 
 angular
-    .module("jobrmApp", ["ui.router", "auth0", "angular-storage", "angular-jwt", 'nvd3'])
+    .module("jobrmApp", ["ui.router", "auth0", "angular-storage", "angular-jwt", 'nvd3', 'toaster', 'ngAnimate'])
     .directive('dateInput', function() {
         return {
             restrict: 'A',
@@ -118,7 +118,7 @@ let application = {
             templateUrl: '/html/dashboard_details.html',
             controller: 'dashboardAppCtrl'
         }
-    }
+    },
 };
 let addApplication = {
     name: 'addApplication',
