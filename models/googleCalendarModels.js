@@ -164,20 +164,59 @@ const googleCalendarOperations = {
         let mongooseId = requestData.mongooseId;
         let accessToken = userData.identities[0].access_token;
 
+        console.log("THe calendar data: ", calendarData)
         User.findById(mongooseId, (error, databaseUser) => {
             if (error || !databaseUser) return callback(error || { error: "There is no such user." });
-            let requestBody = {
-                "end": {
-                    //in YYYY-MM-DD format
-                    //Can use other formats
-                    "date": calendarData.newEndDate
-                },
-                "start": {
-                    "date": calendarData.newStartDate
-                },
-                "description": calendarData.description,
-                "summary": calendarData.title
-            };
+            let requestBody;
+            if (calendarData.newStartDate) {
+                requestBody = {
+                    "end": {
+                        "date": calendarData.newEndDate
+                    },
+                    "start": {
+                        "date": calendarData.newStartDate
+                    },
+                    "description": calendarData.description,
+                    "summary": calendarData.title,
+                    "reminders": {
+                        "useDefault": false,
+                        "overrides": [
+                            {
+                                "method": "email",
+                                "minutes": 1440
+                            },
+                            {
+                                "method": "popup",
+                                "minutes": 120
+                            }
+                        ]
+                    }
+                };
+            } else {
+                requestBody = {
+                    "end": {
+                        "dateTime": calendarData.newEndDateTime
+                    },
+                    "start": {
+                        "dateTime": calendarData.newStartDateTime
+                    },
+                    "description": calendarData.description,
+                    "summary": calendarData.title,
+                    "reminders": {
+                        "useDefault": false,
+                        "overrides": [
+                            {
+                                "method": "email",
+                                "minutes": 1440
+                            },
+                            {
+                                "method": "popup",
+                                "minutes": 120
+                            }
+                        ]
+                    }
+                };
+            }
             let options = {
                 url: `https://www.googleapis.com/calendar/v3/calendars/${databaseUser.googleCalendarData.id}/events?key=${process.env.GoogleKEY}`,
                 method: "POST",
