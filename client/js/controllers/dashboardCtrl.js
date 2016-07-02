@@ -4,8 +4,17 @@ angular
     .module("jobrmApp")
     .controller("dashboardCtrl", dashboardCtrl)
 
-function dashboardCtrl($stateParams, $scope, Application, $timeout, $state, store, $location, GoogleCalendarServices, DashboardServices, Milestone) {
+function dashboardCtrl($stateParams, $scope, Application, $timeout, $window, $state, store, $location, GoogleCalendarServices, DashboardServices, Milestone) {
     console.log("dashboardCtrl loaded");
+    (function() {
+        console.log("Current user to check: ", $scope.currentUser);
+        if ($scope.currentUser && !store.get("id_token") && !store.get("googleAPIAccess") && !store.get("currentUserMId")) {
+            $scope.currentUser = null;
+            $state.go('dashboard');
+            $window.location.reload();
+            console.log("Current User after null: ", $scope.currentUser);
+        }
+    }());
     $scope.newApplication = {};
     $scope.applications = $scope.currentUser.applications.reverse();
     let todayDate = moment(Date.now());

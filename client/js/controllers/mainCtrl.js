@@ -20,12 +20,20 @@ angular
 
 function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $state, store, $location, GoogleCalendarServices, UserService, toaster) {
     console.log("mainCtrl loaded");
-    $scope.activeUserOn = function() {
-        if (!store.get("id_token") && !store.get("googleAPIAccess") && !store.get("currentUserMId")) {
-            return false;
+
+
+    (function() {
+        console.log("Current user to check: ", $scope.currentUser);
+        if ($scope.currentUser && !store.get("id_token") && !store.get("googleAPIAccess") && !store.get("currentUserMId")) {
+            logoutUserFromLocalDB();
+            $scope.currentUser = null;
+            $state.go('dashboard');
+            $window.location.reload();
+            console.log("Current User after null: ", $scope.currentUser);
         }
-        return true;
-    };
+    }());
+    
+    
     $scope.scrollTo = function(id) {
         console.log(id);
         $location.hash(id);
