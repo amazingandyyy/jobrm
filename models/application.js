@@ -19,7 +19,8 @@ let applicationSchema = new mongoose.Schema({
     },
     info: {
         resource: String,
-        resourceUrl: String
+        resourceUrl: String,
+        notes: String
     },
     friend: {
         email: String,
