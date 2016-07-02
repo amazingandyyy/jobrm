@@ -32,8 +32,8 @@ function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $
             console.log("Current User after null: ", $scope.currentUser);
         }
     }());
-    
-    
+
+
     $scope.scrollTo = function(id) {
         console.log(id);
         $location.hash(id);
@@ -171,7 +171,7 @@ function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $
         },
         {
             name: "Dave Lee",
-            work: "API, !!!",
+            work: "D3, Email&SMS API",
             bio: "",
             image: "https://avatars0.githubusercontent.com/u/7968378?v=3&s=460",
             ghUrl: "https://github.com/march-dave",
@@ -181,23 +181,23 @@ function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $
         },
         {
             name: "David Urbina",
-            work: "API, !!!",
+            work: "Google API, Auth0",
             bio: "",
             image: "https://avatars2.githubusercontent.com/u/16375138?v=3&s=460",
             ghUrl: "https://github.com/WindUpDurb",
             lkUrl: "https://www.linkedin.com/in/david-urbina-589327b9",
             fbUrl: "",
-            personalSite: ""
+            personalSite: "http://www.windupdurb.com/"
         },
         {
             name: "Tsinat Zeree",
-            work: "Database, !!!",
+            work: "Database, MongoDB",
             bio: "",
             image: "https://avatars2.githubusercontent.com/u/11866441?v=3&s=460",
             ghUrl: "https://github.com/tsinat",
             lkUrl: "https://www.linkedin.com/in/tsinat",
             fbUrl: "",
-            personalSite: ""
+            personalSite: "http://tsinatzeree.com/"
         }
     ]
 }
