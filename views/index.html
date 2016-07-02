@@ -136,24 +136,66 @@
     <!-- <div ng-if="currentUser && !currentUser.applications">
         <h3>list</h3>
     </div> -->
-    <div ng-if="!currentUser" class="introSection">
+    <div ng-if="!currentUser || !activeUserOn()" class="introSection">
+        <!-- <div class="betaTag">beta 0.6.2</div> -->
         <div class="row">
             <div class="col-sm-12 firstHero">
                 <svg viewBox="9 44 112 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <g id="Group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(9.000000, 44.000000)">
                         <path d="M25.7531053,23.9206656 C25.4973314,25.4368929 25.1216692,26.9772922 24.6261072,28.5419097 C24.1305453,30.1065272 23.3952064,31.5340176 22.4200684,32.8244238 C21.4449305,34.11483 20.1341089,35.1713343 18.4875644,35.9939682 C16.84102,36.8166021 14.7389098,37.227913 12.1811709,37.227913 C9.01596891,37.227913 6.39432581,36.4698107 4.31616291,34.9535834 C2.23800001,33.4373561 0.799293424,31.3082178 0,28.5661047 L10.1669615,24.9368554 C10.2628767,25.485278 10.4866755,25.9691731 10.8383646,26.3885551 C11.1900537,26.8079371 11.6856082,27.017625 12.325043,27.017625 C13.0603929,27.017625 13.5879187,26.7434178 13.907636,26.1949952 C14.2273534,25.6465725 14.4671378,24.9529896 14.6269965,24.1142256 L18.1668155,3.96249 C18.3572033,2.8786367 19.4032317,2 20.5135184,2 L27.6356767,2 C28.7413371,2 29.480562,2.88646569 29.2895058,3.96460419 L25.7531053,23.9206656 Z M96.240528,36.2601131 C95.1335812,36.2601131 94.4039047,35.3820181 94.6098606,34.3034905 L97.6512182,18.3768398 C97.8575723,17.2962269 97.7371111,16.4202171 97.7371111,16.4202171 L98.0248553,16.4202171 C97.8659386,16.4202171 97.3317802,17.2225371 96.838808,18.1983357 L88.6123249,34.4819946 C88.1162058,35.4640223 86.8173066,36.2601131 85.7212238,36.2601131 L81.8897691,36.2601131 C80.7891772,36.2601131 79.7632506,35.3820181 79.5962303,34.2852547 L77.176398,18.3950755 C77.0103034,17.3043913 76.6358703,16.4202171 76.6358703,16.4202171 L76.8756571,16.4202171 C76.7432265,16.4202171 76.5063949,17.2983122 76.3446767,18.3950755 L74.0016645,34.2852547 C73.8408428,35.3759389 72.8093173,36.2601131 71.7131919,36.2601131 L65.3489591,36.2601131 C64.2458923,36.2601131 63.5058878,35.3788006 63.6955105,34.2950889 L69.0025202,3.96502426 C69.1924125,2.87977133 70.2420681,2 71.343325,2 L81.4967993,2 C82.5996977,2 83.6331967,2.88038979 83.806355,3.97380147 L86.1545488,18.8015148 C86.3271827,19.8916152 86.7069171,20.7753162 86.7069171,20.7753162 L86.4671302,20.7753162 C86.5995608,20.7753162 87.08608,19.9685644 87.5610319,18.9580004 L94.6769574,3.81731586 C95.1486721,2.81364002 96.4308469,2 97.5244373,2 L109.027936,2 C110.128842,2 110.867094,2.88131255 110.677471,3.96502426 L105.370461,34.2950889 C105.180569,35.3803418 104.125206,36.2601131 103.022326,36.2601131 L96.240528,36.2601131 Z"
-                            id="JRM" fill="#FF5252"></path>
+                            id="JRM" fill="white"></path>
                         <path d="M54.0573529,16.2595455 C55.2133373,16.8696483 56.1926983,17.5760726 56.9954652,18.3788396 C57.7982322,19.1816065 58.4163534,20.0967471 58.8498476,21.1242888 C59.2833417,22.1518304 59.5000856,23.3077975 59.5000856,24.5922246 C59.5000856,26.7757507 59.0184326,28.638142 58.0551123,30.1794545 C57.091792,31.7207671 55.863577,32.9730647 54.3704305,33.936385 C52.877284,34.8997054 51.2316364,35.6061297 49.4334385,36.0556791 C47.6352406,36.5052286 45.8852349,36.73 44.183369,36.73 C42.8347205,36.73 41.4860923,36.6176143 40.1374439,36.3928396 C38.7887954,36.1680648 37.49636,35.8469629 36.2600989,35.4295241 C35.0238378,35.0120853 33.8598432,34.4983221 32.7680802,33.8882193 C31.6763172,33.2781164 30.7290664,32.5877472 29.9262995,31.8170909 L37.6087405,24.5922246 C38.8839911,23.3724429 40.6347312,21.5229696 40.1374437,21.1242885 C39.6401562,20.7256073 38.3954522,20.0887282 37.6087406,19.366238 C36.822029,18.6437477 36.2039078,17.7767724 35.7543583,16.7652861 C35.3048088,15.7537998 35.0800374,14.5255848 35.0800374,13.0806043 C35.0800374,11.314517 35.4412771,9.67689703 36.1637674,8.16769519 C36.8862576,6.65849335 37.9137839,5.35000287 39.246377,4.24218449 C40.5789701,3.13436612 42.1684248,2.26739083 44.0147888,1.64123262 C45.8611527,1.01507441 47.8921226,0.702 50.1077594,0.702 C51.3279651,0.702 52.5320974,0.806358136 53.7201925,1.01507754 C54.9082876,1.22379694 56.0321444,1.51278871 57.0917968,1.8820615 C58.1514491,2.25133429 59.1308101,2.69284948 60.0299091,3.20662032 C60.9290081,3.72039116 61.6835977,4.29837469 62.2937005,4.94058824 C62.2937005,4.94058824 52.9013686,15.6494426 54.0573529,16.2595455 Z"
-                            id="S" fill="#FF5252"></path>
+                            id="S" fill="white"></path>
                     </g>
                 </svg>
-                <h1 class="">Job Searching Magnagement System</h1>
+                <h1>Job Searching Management System</h1>
+                <br>
+                <button ng-click="signIn()" type="button" class="btn btn-primary btn-login-reverse">Try it with <i class="fa fa-google"></i></button>
+                <span class="knowmore">
+                    Learn more <br>
+                    <i class="fa fa-long-arrow-right"></i>
+                </span>
             </div>
+        </div>
+        <div class="row intro-section center">
+            <div class="col-sm-12">
+                <h1><i style="transform: rotate(270deg)" class="fa fa-space-shuttle" aria-hidden="true"></i></h1>
+                <h1>Power up your job applying.</h1>
+                <h3>Record and managment everything you need and help you find a brilliant job.
+                    <br>
+                    You can save every detials that you have in the process of your job application.
+                    For example, the information of hiring agency, the reference person's contact, interview's time and more.
+                    <br>
+                    JSM system will automatically generate a calendar and todolist for you. Everything are synced to your personal google account.</h3>
+            </div>
+        </div>
+        <div class="row intro-section" ng-repeat="intro in introData">
+            <div class="col-sm-1"></div>
             <div class="col-sm-4">
-                <img src="/assets/gificon/rocket/animat-rocket-color.gif">
+                <img class="{{intro.className}}">
             </div>
-            <div class="col-sm-8">
-
+            <div class="col-sm-6">
+                <br>
+                <h1>{{intro.title}}</h1>
+                <h3>{{intro.discription | json}}</h3>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+        <div class="row authorHero">
+            <div class="col-sm-12">
+                <h1>We built this!</h1>
+                <h3>We are passionate and confident full-stack developers. <br>
+                Built this project for 21 days.</h3>
+                <br>
+                <div class="col-sm-3 authorContainer" ng-repeat="author in authors">
+                    <img class="img-rounded authorImage" src="{{author.image}}">
+                    <h3 class="name">{{author.name}}</h3>
+                    <span class="work">{{author.work}}</span>
+                    <br>
+                    <a ng-if="author.ghUrl" target="_blank" href="{{author.ghUrl}}"><i class="fa fa-github"></i></a>
+                    <a ng-if="author.lkUrl" target="_blank" href="{{author.lkUrl}}"><i class="fa fa-linkedin-square"></i></a>
+                    <a ng-if="author.fbUrl" target="_blank" href="{{author.fbUrl}}"><i class="fa fa-facebook-square"></i></a>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -163,11 +205,13 @@
                         id="JRM" stroke="none" fill-rule="evenodd"></path>
                 </svg>
                 <p style="font-weight: 300"></p>
+                <h3 class="hidden-xs-down">It's in beta, why not try it and tell us what you think.</h3>
+                <h3 class="hidden-sm-up">Try beta for free.</h3>
                 <br/>
                 <button ng-click="signIn()" type="button" class="btn btn-primary btn-login">Connect with <i class="fa fa-google"></i></button>
             </div>
         </div>
-        <p class="copyright">Copyright © 2016 Copyright JRM team All Rights Reserved.</p>
+        <p class="copyright">JSM beta 0.9.1. Copyright © 2016 Copyright JSM team. All Rights Reserved. <a href="mailto:thejsmapp@gmail.com">Welcome to Contact us</a></p>
         <!-- <div ng-if="!currentUser" class="introSection">
             <div class="container">
                 <div ng-if="!trackingCandidateList">
@@ -178,7 +222,7 @@
                     <p style="font-weight: 300">Job Relationship Management System</p>
                     <br/>
                     <button ng-click="syncWithGamil()" type="button" class="btn btn-primary btn-login">
-                        <span ng-if="!loginLoading">Synce with <i class="fa fa-google"></i></span>
+                        <s dpan ng-if="!loginLoading">Synce with <i class="fa fa-google"></i></span>
                         <span ng-if="loginLoading"><i class="fa fa-refresh fa-spin"></i></span>
                     </button>
                     <br>
