@@ -18,13 +18,18 @@ angular
 // })
 
 
-function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $location, GoogleCalendarServices, UserService, toaster) {
+function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $state, store, $location, GoogleCalendarServices, UserService, toaster) {
     console.log("mainCtrl loaded");
-    $scope.activeUserOn = function () {
+    $scope.activeUserOn = function() {
         if (!store.get("id_token") && !store.get("googleAPIAccess") && !store.get("currentUserMId")) {
             return false;
         }
         return true;
+    };
+    $scope.scrollTo = function(id) {
+        console.log(id);
+        $location.hash(id);
+        $anchorScroll();
     };
     $scope.pop = () => {
         console.log('rrr');
@@ -54,7 +59,7 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
     }, function(newVal, oldVal) {
         $scope.currentUser = newVal;
     });
-    
+
     //user sign-in
     $scope.signIn = function() {
         auth.signin({}, function(profile, token) {
@@ -128,6 +133,24 @@ function mainCtrl($timeout, Application, $scope, $window, auth, $state, store, $
                 });
         }
     }
+    var breakMark = '&#13;&#10;';
+    $scope.introData = [
+        {
+            className: "first",
+            title: "It's more than just applying.",
+            discription: "Applying for a job is more than just a process. It's a narrative."
+        },
+        {
+            className: "second",
+            title: "Keep every milestone on track.",
+            discription: "You can save every detials that you have in the process of your job application. For example, the information of hiring agency, the reference person's contact, interview's time and more."
+        },
+        {
+            className: "third",
+            title: "We will help you organize todolist and calendar",
+            discription: "JSM system will automatically generate a calendar and todolist for you. Everything are synced to your personal google account."
+        }
+    ]
 }
 
 //uncomment to have an automatic call to retrieve a list of the User's messages

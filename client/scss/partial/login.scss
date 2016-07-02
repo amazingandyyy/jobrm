@@ -9,20 +9,87 @@
     width: 100%;
     z-index: 999;
     overflow-y: scroll;
+    overflow-x: hidden;
     background: rgba(white, 1);
-    overflow-y: scroll;
     top: 0;
     left: 0;
+    // transform: rotate(90 deg);
+    .intro-section.center {
+        text-align: center;
+        padding: 150px 10px;
+        background: #fafafa;
+        .col-sm-12 {
+            text-align: center;
+            margin: auto;
+            max-width: 80%;
+            float: none;
+        }
+        h1 {
+            text-align: center;
+            line-height: 1em;
+            font-size: 4em;
+        }
+        h3 {
+            text-align: center;
+        }
+    }
+    .intro-section {
+        text-align: center;
+        padding: 130px 10px;
+        img.first {
+            content: url("/assets/intro/image1.svg");
+        }
+        img.second {
+            content: url("/assets/intro/image2.svg");
+        }
+        img.third {
+            content: url("/assets/intro/image3.svg");
+        }
+        h1 {
+            line-height: 1em;
+            text-align: left;
+            font-weight: 300;
+            color: black;
+            color: #333;
+            font-size: 2.8em;
+            margin-bottom: 30px;
+        }
+        h3 {
+            text-align: left;
+            color: rgba(51,51,51,0.9);
+            font-weight: 300;
+            font-size: 1.4em;
+            line-height: 1.4em;
+        }
+        img {
+            display: inline-block;
+            margin: auto;
+            width: 80%;
+            max-width: 300px;
+        }
+    }
+    .intro-section.overhidden {
+        overflow: hidden;
+        padding-top: 100px;
+        max-height: 600px;
+    }
     .firstHero {
+        // border-bottom: 1px solid #ddd;
         height: 100vh;
-        padding-top: 200px;
-        svg{
+        padding-top: 25vh;
+        .scrolldownIcon {
+            position: absolute;
+            bottom: 100px;
+            right: 45%;
+            opacity: 0.8;
+        }
+        svg {
             width: 150px;
         }
         h1 {
-            color: rgba(0,0,0,0.7);
+            color: rgba(0,0,0,0.8);
             font-size: 1.5rem;
-            font-weight: 900;
+            font-weight: 700;
         }
     }
     .copyright {
@@ -33,22 +100,42 @@
         font-weight: 700;
     }
     .login-hero {
-        background: rgba($brand-primary, 1);
+        background-color: #ff3a33;
+        background-image: url("http://www.transparenttextures.com/patterns/black-thread.png");
+        // background-image: url("http://www.transparenttextures.com/patterns/black-thread-light.png");
+        // background-image: url("http://www.transparenttextures.com/patterns/escheresque.png");
         padding: 100px;
+        color: white;
+        position: relative;
+        .luxuryBox {
+            background: white;
+            height: 200px;
+            width: 200px;
+            position: absolute;
+            top: -50px;
+        }
         svg {
             width: 100px;
             fill: white;
         }
         .btn-login {
-            background: #ff1f1f;
-            border-color: #ff1515;
+            background: white;
+            color: $brand-primary;
+            border: none;
             transition: 0.3s background ease-in-out, 0.5s border-color ease-in-out;
             margin: 5px;
         }
         .btn-login:hover {
-            background: white;
-            color: $brand-primary;
-            border-color: white;
+            transform: scale(1.1);
+            background: darken(#ff1f1f, 10%);
+            color: white;
+            transition: 0.2s background ease-in-out, 0.2s border-color ease-in-out;
+            box-shadow: 0 0 5px 0 rgba(0,0,0,0.1);
+        }
+        .btn-login:active {
+            transform: scale(1.06);
+            background: darken(#ff1f1f, 20%);
+            color: white;
             transition: 0.2s background ease-in-out, 0.2s border-color ease-in-out;
             box-shadow: 0 0 5px 0 rgba(0,0,0,0.1);
         }
@@ -71,4 +158,21 @@
         }
     }
 }
-@media (max-width: 642px) {}
+@media (max-width: 642px) {
+    .introSection {
+        .intro-section{
+            padding-top: 30px;
+            padding-bottom: 30px;
+            h1 {
+                font-size: 2em;
+                line-height: 1.3em;
+                font-weight: 600;
+                margin-bottom: 10px;
+            }
+            img{
+                max-width: 200px;
+            }
+        }
+
+    }
+}

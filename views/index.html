@@ -147,14 +147,35 @@
                             id="S" fill="#FF5252"></path>
                     </g>
                 </svg>
-                <h1 class="">Job Searching Magnagement System</h1>
+                <h1>Job Searching Management System</h1>
+                <!-- <img height="100px;" src="/assets/scrolldown.gif"> -->
+                <!-- <img class="scrolldownIcon" height="50px;" src="http://www.mental.it/images/scrollhover.gif?1465468612"> -->
+                <!-- <div class="startBtn" ng-click="scrollTo('start')">start</div> -->
             </div>
+        </div>
+        <div class="row intro-section center">
+            <div class="col-sm-12">
+                <h1><i style="transform: rotate(270deg)" class="fa fa-space-shuttle" aria-hidden="true"></i></h1>
+                <h1>Power up your job applying.</h1>
+                <h3>Record and managment everything you need and help you find a brilliant job.
+                    <br>
+                    You can save every detials that you have in the process of your job application.
+                    For example, the information of hiring agency, the reference person's contact, interview's time and more.
+                    <br>
+                    JSM system will automatically generate a calendar and todolist for you. Everything are synced to your personal google account.</h3>
+            </div>
+        </div>
+        <div class="row intro-section" ng-repeat="intro in introData">
+            <div class="col-sm-1"></div>
             <div class="col-sm-4">
-                <img src="/assets/gificon/rocket/animat-rocket-color.gif">
+                <img class="{{intro.className}}">
             </div>
-            <div class="col-sm-8">
-
+            <div class="col-sm-6">
+                <br>
+                <h1>{{intro.title}}</h1>
+                <h3>{{intro.discription | json}}</h3>
             </div>
+            <div class="col-sm-1"></div>
         </div>
         <div class="row">
             <div class="login-hero">
@@ -163,11 +184,13 @@
                         id="JRM" stroke="none" fill-rule="evenodd"></path>
                 </svg>
                 <p style="font-weight: 300"></p>
+                <h3 class="hidden-xs-down">It's in beta, why not try it and tell us what you think.</h3>
+                <h3 class="hidden-sm-up">Try beta for free.</h3>
                 <br/>
                 <button ng-click="signIn()" type="button" class="btn btn-primary btn-login">Connect with <i class="fa fa-google"></i></button>
             </div>
         </div>
-        <p class="copyright">Copyright © 2016 Copyright JRM team All Rights Reserved.</p>
+        <p class="copyright">Copyright © 2016 Copyright JSM team All Rights Reserved.</p>
         <!-- <div ng-if="!currentUser" class="introSection">
             <div class="container">
                 <div ng-if="!trackingCandidateList">
@@ -178,7 +201,7 @@
                     <p style="font-weight: 300">Job Relationship Management System</p>
                     <br/>
                     <button ng-click="syncWithGamil()" type="button" class="btn btn-primary btn-login">
-                        <span ng-if="!loginLoading">Synce with <i class="fa fa-google"></i></span>
+                        <s dpan ng-if="!loginLoading">Synce with <i class="fa fa-google"></i></span>
                         <span ng-if="loginLoading"><i class="fa fa-refresh fa-spin"></i></span>
                     </button>
                     <br>
