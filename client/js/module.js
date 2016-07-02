@@ -1,7 +1,7 @@
 "use strict";
 
 angular
-    .module("jobrmApp", ["ui.router", "auth0", "angular-storage", "angular-jwt", 'nvd3', 'toaster', 'ngAnimate', "angular-loading-bar"])
+    .module("jobrmApp", ["ui.router", "auth0", "angular-storage", "angular-jwt", 'nvd3', 'toaster', 'ngAnimate', "angular-loading-bar", "ui.bootstrap"])
     .directive('dateInput', function() {
         return {
             restrict: 'A',
