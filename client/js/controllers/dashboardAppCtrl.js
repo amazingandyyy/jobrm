@@ -8,6 +8,17 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     console.log("dashboardAppCtrl loaded");
     // angular.element('.section').removeClass('hideRightSide');
 
+    (function() {
+        console.log("Current user to check: ", $scope.currentUser);
+        if ($scope.currentUser && !store.get("id_token") && !store.get("googleAPIAccess") && !store.get("currentUserMId")) {
+            $scope.currentUser = null;
+            $state.go('dashboard');
+            $window.location.reload();
+            console.log("Current User after null: ", $scope.currentUser);
+        }
+    }());
+    
+
     if ($stateParams.applicationId) {
         Application.getOneApplication($stateParams.applicationId).then(res => {
             $scope.application = res.data;

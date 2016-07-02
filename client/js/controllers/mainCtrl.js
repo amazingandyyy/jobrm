@@ -20,12 +20,20 @@ angular
 
 function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $state, store, $location, GoogleCalendarServices, UserService, toaster) {
     console.log("mainCtrl loaded");
-    $scope.activeUserOn = function() {
-        if (!store.get("id_token") && !store.get("googleAPIAccess") && !store.get("currentUserMId")) {
-            return false;
+
+
+    (function() {
+        console.log("Current user to check: ", $scope.currentUser);
+        if ($scope.currentUser && !store.get("id_token") && !store.get("googleAPIAccess") && !store.get("currentUserMId")) {
+            logoutUserFromLocalDB();
+            $scope.currentUser = null;
+            $state.go('dashboard');
+            $window.location.reload();
+            console.log("Current User after null: ", $scope.currentUser);
         }
-        return true;
-    };
+    }());
+    
+    
     $scope.scrollTo = function(id) {
         console.log(id);
         $location.hash(id);
@@ -158,7 +166,8 @@ function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $
             image: "https://avatars1.githubusercontent.com/u/7886068?v=3&s=460",
             ghUrl: "https://github.com/amazingandyyy",
             lkUrl: "https://www.linkedin.com/in/amazingandyyy",
-            fbUrl: "https://www.facebook.com/amazingandyyy"
+            fbUrl: "https://www.facebook.com/amazingandyyy",
+            personalSite: "http://amazingandyyy.github.io/"
         },
         {
             name: "Dave Lee",
@@ -167,7 +176,8 @@ function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $
             image: "https://avatars0.githubusercontent.com/u/7968378?v=3&s=460",
             ghUrl: "https://github.com/march-dave",
             lkUrl: "https://www.linkedin.com/in/dave-lee-a171845",
-            fbUrl: ""
+            fbUrl: "",
+            personalSite: ""
         },
         {
             name: "David Urbina",
@@ -176,7 +186,8 @@ function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $
             image: "https://avatars2.githubusercontent.com/u/16375138?v=3&s=460",
             ghUrl: "https://github.com/WindUpDurb",
             lkUrl: "https://www.linkedin.com/in/david-urbina-589327b9",
-            fbUrl: ""
+            fbUrl: "",
+            personalSite: ""
         },
         {
             name: "Tsinat Zeree",
@@ -185,7 +196,8 @@ function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $
             image: "https://avatars2.githubusercontent.com/u/11866441?v=3&s=460",
             ghUrl: "https://github.com/tsinat",
             lkUrl: "https://www.linkedin.com/in/tsinat",
-            fbUrl: ""
+            fbUrl: "",
+            personalSite: ""
         }
     ]
 }
