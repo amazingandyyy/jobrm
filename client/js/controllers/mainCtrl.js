@@ -154,6 +154,7 @@ function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $
         {
             name: "Andy Chen",
             work: "Front-End, Angular",
+            bio: "",
             image: "https://avatars1.githubusercontent.com/u/7886068?v=3&s=460",
             ghUrl: "https://github.com/amazingandyyy",
             lkUrl: "https://www.linkedin.com/in/amazingandyyy",
@@ -162,6 +163,7 @@ function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $
         {
             name: "Dave Lee",
             work: "API, !!!",
+            bio: "",
             image: "https://avatars0.githubusercontent.com/u/7968378?v=3&s=460",
             ghUrl: "https://github.com/march-dave",
             lkUrl: "https://www.linkedin.com/in/dave-lee-a171845",
@@ -170,6 +172,7 @@ function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $
         {
             name: "David Urbina",
             work: "API, !!!",
+            bio: "",
             image: "https://avatars2.githubusercontent.com/u/16375138?v=3&s=460",
             ghUrl: "https://github.com/WindUpDurb",
             lkUrl: "https://www.linkedin.com/in/david-urbina-589327b9",
@@ -178,6 +181,7 @@ function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $
         {
             name: "Tsinat Zeree",
             work: "Database, !!!",
+            bio: "",
             image: "https://avatars2.githubusercontent.com/u/11866441?v=3&s=460",
             ghUrl: "https://github.com/tsinat",
             lkUrl: "https://www.linkedin.com/in/tsinat",
