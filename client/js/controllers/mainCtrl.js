@@ -161,7 +161,7 @@ function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $
     $scope.authors = [
         {
             name: "Andy Chen",
-            work: "Front-End, Angular",
+            work: "Frontend, Angular",
             bio: "",
             image: "https://avatars1.githubusercontent.com/u/7886068?v=3&s=460",
             ghUrl: "https://github.com/amazingandyyy",
@@ -191,7 +191,7 @@ function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $
         },
         {
             name: "Tsinat Zeree",
-            work: "Database, MongoDB",
+            work: "Backend, MongoDB",
             bio: "",
             image: "https://avatars2.githubusercontent.com/u/11866441?v=3&s=460",
             ghUrl: "https://github.com/tsinat",
