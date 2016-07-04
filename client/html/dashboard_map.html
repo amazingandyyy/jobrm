@@ -83,6 +83,7 @@
             <div class="col-sm-10">
                 <p class="title">{{stone.title}}</p>
                 <p class="time"><small><i class="fa fa-clock-o" aria-hidden="true"></i> {{stoneDateTime(stone.date, stone.time)}}</small></p>
+                <!--<p class="time"><small><i class="fa fa-clock-o" aria-hidden="true"></i> {{stoneDateTime(stone.date, stone.time)}}</small></p>-->
                 <p class="description">{{stone.description}}</p>
             </div>
         </div>
@@ -106,20 +107,13 @@
                 <textarea class="form-control" rows="3" ng-model="dbStoneUpdate.description"></textarea>
             </fieldset>
             <hr/>
-            <div>
-                <label>Associate to any email?</label>
-                <i class="fa fa-spinner fa-spin" style="font-size:1em" ng-hide="emailsFromGmail"></i>
-                <select multiple ng-model="dbStoneUpdate.emailrelated" class="form-control" style="min-height: 200px">
-                    <option ng-repeat="email in emailsFromGmail">{{email.body.snippet}}</option>
-                </select>
-            </div>
             <hr>
             <div>
                 <label>To do?</label>
                 <br>
                 <div>
                     <div class="input-group">
-                        <input id="updateNewTaskInput" ng-model="updateNewTask.title" class="form-control" focus-me="focusInput" placeholder="new task to this milestone">
+                        <input id="updateNewTaskInput" ng-model="updateNewTask.title" class="form-control" focus-me="focusInput" placeholder="Create tasks, to-do's, and reminders for this milestone. More can be add later.">
                         <span class="input-group-btn">
                                 <span class="btn btn-secondary" ng-click="addTaskUpdate(updateNewTask); focusInput=true">Add a new Todo</span>
                         </span>

@@ -2,6 +2,7 @@
 
 const requestNPM = require("request");
 const User = require("./user");
+const moment = require('moment');
 
 const Batchelor = require("batchelor");
 
@@ -163,21 +164,73 @@ const googleCalendarOperations = {
         let calendarData = requestData.calendarData;
         let mongooseId = requestData.mongooseId;
         let accessToken = userData.identities[0].access_token;
-
+        let timeToGoogleStart;
+        let timeToGoogleEnd;
+        let timeToSaveLocally;
+        if (calendarData.newStartDate) {
+            timeToGoogleStart = calendarData.newStartDate;
+            timeToGoogleEnd = calendarData.newEndDate;
+        } else {
+            timeToGoogleStart = calendarData.newStartDateTime;
+            timeToGoogleEnd = calendarData.newEndDateTime;
+        }
+        console.log("THe calendar data: ", calendarData);
         User.findById(mongooseId, (error, databaseUser) => {
             if (error || !databaseUser) return callback(error || { error: "There is no such user." });
-            let requestBody = {
-                "end": {
-                    //in YYYY-MM-DD format
-                    //Can use other formats
-                    "date": calendarData.newEndDate
-                },
-                "start": {
-                    "date": calendarData.newStartDate
-                },
-                "description": calendarData.description,
-                "summary": calendarData.title
-            };
+            let requestBody;
+            if (calendarData.newStartDate) {
+                timeToSaveLocally = moment(timeToGoogleStart).format("MM-DD-YYYY");
+                requestBody = {
+                    "end": {
+                        "date": timeToGoogleEnd
+                    },
+                    "start": {
+                        //date versus dateTime property
+                        //In the following object
+                        "date": timeToGoogleStart
+                    },
+                    "description": calendarData.description,
+                    "summary": calendarData.title,
+                    "reminders": {
+                        "useDefault": false,
+                        "overrides": [
+                            {
+                                "method": "email",
+                                "minutes": 1440
+                            },
+                            {
+                                "method": "popup",
+                                "minutes": 120
+                            }
+                        ]
+                    }
+                };
+            } else {
+                timeToSaveLocally = moment(timeToGoogleStart).format("MM-DD-YYYY") + moment(timeToGoogleStart).format("MMM Do YYYY, h:mm:ss a").split(",")[1];
+                requestBody = {
+                    "end": {
+                        "dateTime": timeToGoogleEnd
+                    },
+                    "start": {
+                        "dateTime": timeToGoogleStart
+                    },
+                    "description": calendarData.description,
+                    "summary": calendarData.title,
+                    "reminders": {
+                        "useDefault": false,
+                        "overrides": [
+                            {
+                                "method": "email",
+                                "minutes": 1440
+                            },
+                            {
+                                "method": "popup",
+                                "minutes": 120
+                            }
+                        ]
+                    }
+                };
+            }
             let options = {
                 url: `https://www.googleapis.com/calendar/v3/calendars/${databaseUser.googleCalendarData.id}/events?key=${process.env.GoogleKEY}`,
                 method: "POST",
@@ -193,16 +246,17 @@ const googleCalendarOperations = {
             requestNPM(options, (error, httpResponse, body) => {
                 if (error) return callback(error);
                 console.log("Error after POST: ", error);
-                console.log("body after POST: ", body);
+                console.log("body after successful POST: ", body);
                 let newEntry = {
                     parentNarrativeId: calendarData.parentNarrativeId,
                     milestoneId: calendarData. milestoneId,
                     id: body.id,
                     summary: body.summary,
-                    startDate: body.start.date,
+                    startDate: timeToSaveLocally,
                     htmlLink: body.htmlLink,
                     description: body.description
                 };
+                console.log("CHeck this entry: ", newEntry)
                 databaseUser.googleCalendarData.events.push(newEntry);
                 databaseUser.save((error, savedUser) => {
                     console.log("Saved User: ", savedUser);

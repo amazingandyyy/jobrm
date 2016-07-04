@@ -25,6 +25,7 @@ function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $
     (function() {
         console.log("Current user to check: ", $scope.currentUser);
         if ($scope.currentUser && !store.get("id_token") && !store.get("googleAPIAccess") && !store.get("currentUserMId")) {
+            toaster.pop('warning', `Your session has ended`, `Please login again.`);
             logoutUserFromLocalDB();
             $scope.currentUser = null;
             $state.go('dashboard');
@@ -144,18 +145,18 @@ function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $
     $scope.introData = [
         {
             className: "first",
-            title: "It's more than just applying.",
-            discription: "Applying for a job is more than just a process. It's a narrative."
+            title: "Each job application is more than just a process.",
+            discription: "They each are their own narratives."
         },
         {
             className: "second",
-            title: "Keep every milestone on track.",
-            discription: "You can save every detials that you have in the process of your job application. For example, the information of hiring agency, the reference person's contact, interview's time and more."
+            title: "Keep track of every milestone.",
+            discription: "JSM will add to the timeline of each job narrative as you advance past milestones, such as your first telephonic screen interview or your first culture-fit interview."
         },
         {
             className: "third",
-            title: "We will help you organize todolist and calendar",
-            discription: "JSM system will automatically generate a calendar and todolist for you. Everything are synced to your personal google account."
+            title: "Your upcoming milestones are with you everywhere you go.",
+            discription: "JSM calendars and updates each milestone and event in your personal Google calendar."
         }
     ]
     $scope.authors = [
@@ -181,7 +182,7 @@ function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $
         },
         {
             name: "David Urbina",
-            work: "Google API, Auth0",
+            work: "Front-end and Back-end API, Google API, Authentication",
             bio: "",
             image: "https://avatars2.githubusercontent.com/u/16375138?v=3&s=460",
             ghUrl: "https://github.com/WindUpDurb",

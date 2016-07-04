@@ -9,6 +9,7 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $window, $st
     (function() {
         console.log("Current user to check: ", $scope.currentUser);
         if ($scope.currentUser && !store.get("id_token") && !store.get("googleAPIAccess") && !store.get("currentUserMId")) {
+            toaster.pop('warning', `Your session has ended`, `Please login again.`);
             $scope.currentUser = null;
             $state.go('dashboard');
             $window.location.reload();
@@ -50,6 +51,7 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $window, $st
     GoogleCalendarServices.retrieveEventsFromMongoose(store.get("currentUserMId"), store.get("id_token"))
         .then((response) => {
             if (response.data.events) {
+                console.log("Events: ", response.data.events);
                 $scope.sevenDayForecast = GoogleCalendarServices.create7DayForecast(response.data.events);
             }
         })
