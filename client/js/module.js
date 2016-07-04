@@ -121,7 +121,7 @@ let application = {
             templateUrl: '/html/dashboard_details.html',
             controller: 'dashboardAppCtrl'
         }
-    },
+    }
 };
 let addApplication = {
     name: 'addApplication',

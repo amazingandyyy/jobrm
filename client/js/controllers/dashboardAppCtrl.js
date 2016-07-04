@@ -11,6 +11,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     (function() {
         console.log("Current user to check: ", $scope.currentUser);
         if ($scope.currentUser && !store.get("id_token") && !store.get("googleAPIAccess") && !store.get("currentUserMId")) {
+            toaster.pop('warning', `Your session has ended`, `Please login again.`);
             $scope.currentUser = null;
             $state.go('dashboard');
             $window.location.reload();
@@ -30,6 +31,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
                 let applicationDateDate = res.data.applicationDate.split("T")[0];
                 $scope.applicationDetail.applicationDate = new Date(applicationDateDate);
                 $scope.mileStones = res.data.milestones;
+                console.log("Milestones: ", $scope.mileStones)
                 $scope.stoneDateTime = (date, time) => {
                     // console.log("Time: ", time);
                     let timeDisplay = time.split("T")[1].split(':').slice(0, 2).join(':');
@@ -42,7 +44,8 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
                         sameElse: 'MM/DD/YY'
                     });
                     // console.log('timeDisplay: ', timeDisplay);
-                    return `${timeDisplay}, ${dateDisplay}`;
+                    //return `${timeDisplay}, ${dateDisplay}`;
+                    return `${dateDisplay}`;
                     // console.log();
 
                 }
@@ -160,6 +163,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     $scope.dbStoneSubmitted = () => {
         let applicationId = $stateParams.applicationId;
         let toSend = angular.copy($scope.dbStone);
+        let timeToCalendar = moment(toSend.date).format().split("T")[0] + "T" + moment(toSend.time).subtract(1, "hours").format().split("T")[1];
         toSend.date2 = moment(toSend.date).format("YYYY MM DD").replace(/\s/gi, "-");
         Milestone.createOneMilestone(toSend, applicationId, store.get("googleAPIAccess"))
             .then(res => {
@@ -171,11 +175,25 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
                 let newCalendarData = {
                     parentNarrativeId: res.data.dbSavedApplication._id,
                     milestoneId: newMilestone._id,
-                    newEndDate: toSend.date2,
-                    newStartDate: toSend.date2,
+                    newEndDateTime: timeToCalendar,
+                    newStartDateTime: timeToCalendar,
                     description: toSend.description,
                     title: toSend.title
+                    /*reminders: {
+                        useDefaults: false,
+                        overrides: [
+                            {
+                                method: "email",
+                                minutes: 1440
+                            },
+                            {
+                                method: "popup",
+                                minutes: 120
+                            }
+                        ]
+                    }*/
                 };
+
                 GoogleCalendarServices.calendarNewEvent(store.get("googleAPIAccess"), store.get("currentUserMId"), newCalendarData)
                     .then((response) => {
                         console.log("Response after event creation: ", response.data);
