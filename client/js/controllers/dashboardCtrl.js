@@ -4,7 +4,7 @@ angular
     .module("jobrmApp")
     .controller("dashboardCtrl", dashboardCtrl)
 
-function dashboardCtrl($stateParams, $scope, Application, $timeout, $window, $state, store, $location, GoogleCalendarServices, DashboardServices, Milestone) {
+function dashboardCtrl($stateParams, $scope, Application, $timeout, $window, $state, store, $location, GoogleCalendarServices, Milestone) {
     console.log("dashboardCtrl loaded");
     (function() {
         console.log("Current user to check: ", $scope.currentUser);
@@ -119,52 +119,52 @@ function dashboardCtrl($stateParams, $scope, Application, $timeout, $window, $st
         }
     };
 
-    let appCount = 0, appDateArr = [], appDate;
-
-    DashboardServices.getDS3ChartUser($scope.currentUser._id)
-        .then(res => {
-            appCount = res.data.applications.length;
-            appDate = res.data.applications;
-
-            var count = 0;
-            var objArr = [];
-            appDate.map( c => {
-
-                var isExist = appDateArr.some( c2 => {
-                    if ( c.applicationDate.slice(0, 10) ==  c2 ) {
-                        count++;
-                        return true;
-                    }
-                });
-
-                if (!isExist) {
-                    appDateArr.push(c.applicationDate.slice(0, 10));
-                }
-
-                count++;
-
-                obj = {
-                    "label" : c.applicationDate.slice(0, 10),
-                    "value": count
-                };
-
-                objArr.push(obj);
-                count = 0;
-            });
-
-            var obj = { };
-
-            appChart(objArr);
-        })
-        .catch((error) => {
-            console.log("Error from DS3 Calendar: ", error);
-        });
-
-    function appChart(objArr) {
-        $scope.data = [{
-            key: "Cumulative Return",
-            values: objArr
-        }]
-    }
+    // let appCount = 0, appDateArr = [], appDate;
+    //
+    // DashboardServices.getDS3ChartUser($scope.currentUser._id)
+    //     .then(res => {
+    //         appCount = res.data.applications.length;
+    //         appDate = res.data.applications;
+    //
+    //         var count = 0;
+    //         var objArr = [];
+    //         appDate.map( c => {
+    //
+    //             var isExist = appDateArr.some( c2 => {
+    //                 if ( c.applicationDate.slice(0, 10) ==  c2 ) {
+    //                     count++;
+    //                     return true;
+    //                 }
+    //             });
+    //
+    //             if (!isExist) {
+    //                 appDateArr.push(c.applicationDate.slice(0, 10));
+    //             }
+    //
+    //             count++;
+    //
+    //             obj = {
+    //                 "label" : c.applicationDate.slice(0, 10),
+    //                 "value": count
+    //             };
+    //
+    //             objArr.push(obj);
+    //             count = 0;
+    //         });
+    //
+    //         var obj = { };
+    //
+    //         appChart(objArr);
+    //     })
+    //     .catch((error) => {
+    //         console.log("Error from DS3 Calendar: ", error);
+    //     });
+    //
+    // function appChart(objArr) {
+    //     $scope.data = [{
+    //         key: "Cumulative Return",
+    //         values: objArr
+    //     }]
+    // }
 
 }
