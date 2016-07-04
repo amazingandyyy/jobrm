@@ -49,14 +49,21 @@ function GoogleCalendarServices($http) {
     //createForecast uses the data and schema in Mongoose
     this.create7DayForecast = (eventsData) => {
         let sevenDayForecast = [];
+        console.log("Events Data to do stuff with: ", eventsData)
         for (let i = 0; i < eventsData.length; i++) {
-            let calendaredEvent = eventsData[i].startDate;
+            let calendaredEventDate = eventsData[i].startDate.split(",")[0];
+            let calendaredEventTime = eventsData[i].startDate.split(",")[1];
+            console.log("The event: ", calendaredEventTime);
             let sevenDaysFromNow = moment().add(7, "day");
+            console.log("Seven days from now: ", sevenDaysFromNow)
+
+            console.log("Difference: ", sevenDaysFromNow.diff(calendaredEventDate, "days", true))
             //third argument is true so that the difference isn't rounded
-            if (sevenDaysFromNow.diff(calendaredEvent, "days", true) < 7 && sevenDaysFromNow.diff(calendaredEvent, "days", true) >= 0) {
+            if (sevenDaysFromNow.diff(calendaredEventDate, "days", true) < 7 && sevenDaysFromNow.diff(calendaredEventDate, "days", true) >= 0) {
                 sevenDayForecast.push(eventsData[i]);
             }
         }
+
         return sevenDayForecast;
     };
 

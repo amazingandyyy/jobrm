@@ -11,6 +11,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
     (function() {
         console.log("Current user to check: ", $scope.currentUser);
         if ($scope.currentUser && !store.get("id_token") && !store.get("googleAPIAccess") && !store.get("currentUserMId")) {
+            toaster.pop('warning', `Your session has ended`, `Please login again.`);
             $scope.currentUser = null;
             $state.go('dashboard');
             $window.location.reload();
@@ -30,6 +31,7 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
                 let applicationDateDate = res.data.applicationDate.split("T")[0];
                 $scope.applicationDetail.applicationDate = new Date(applicationDateDate);
                 $scope.mileStones = res.data.milestones;
+                console.log("Milestones: ", $scope.mileStones)
                 $scope.stoneDateTime = (date, time) => {
                     // console.log("Time: ", time);
                     let timeDisplay = time.split("T")[1].split(':').slice(0, 2).join(':');
@@ -42,7 +44,8 @@ function dashboardAppCtrl($stateParams, $scope, Application, GoogleCalendarServi
                         sameElse: 'MM/DD/YY'
                     });
                     // console.log('timeDisplay: ', timeDisplay);
-                    return `${timeDisplay}, ${dateDisplay}`;
+                    //return `${timeDisplay}, ${dateDisplay}`;
+                    return `${dateDisplay}`;
                     // console.log();
 
                 }
