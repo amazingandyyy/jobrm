@@ -18,7 +18,7 @@ angular
 // })
 
 
-function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $state, store, $location, GoogleCalendarServices, UserService, toaster) {
+function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $state, store, GoogleCalendarServices, UserService, toaster) {
     console.log("mainCtrl loaded");
 
 
@@ -35,11 +35,12 @@ function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $
     }());
 
 
-    $scope.scrollTo = function(id) {
-        console.log(id);
-        $location.hash(id);
-        $anchorScroll();
-    };
+    // $scope.scrollTo = function(id) {
+    //     console.log(id);
+    //     $location.hash(id);
+    //     $anchorScroll();
+    // };
+
     $scope.pop = () => {
         console.log('rrr');
         toaster.pop('success', `Hi, ${$scope.currentUser.name}`, `you are logged in as ${$scope.currentUser.email}`);
@@ -76,7 +77,7 @@ function mainCtrl($anchorScroll, $timeout, Application, $scope, $window, auth, $
             //for use in Google API operations. Will have to likely store somewhere else
             //It gets generated on each login.
             store.set("googleAPIAccess", profile);
-            $location.path("/dashboard");
+            $state.go("/dashboard");
             toaster.pop('success', `Hi, ${profile.name.split(' ')[0]}`, `you are logged in as ${profile.email}`);
             saveUserToModel(profile);
             //$scope.currentUser = profile;
